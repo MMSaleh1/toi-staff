@@ -1,0 +1,7 @@
+{
+  "name": "Toi-Staff",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

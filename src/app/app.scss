@@ -1,0 +1,303 @@
+//auto complete style
+//menu
+.menu-container{
+    background-color: color($colors,dark);
+}
+.logo-container{
+    width: 50%;
+    margin: auto;
+    .logo{
+        width: 100%;
+    }
+}
+.menu-list{
+    background-color: transparent;
+
+}
+.menu-item{
+    text-align: center;
+    background-color: transparent;
+    color: color($colors,primary);
+}
+.img-container{
+    width: 30%;
+    margin: auto;
+    border-radius: 50%;
+}
+.user-img{
+
+    border-radius: 50%;
+    width: 100%;
+}
+
+
+//Text Color
+.text-white {
+    color: #fff !important;
+}
+
+.text-theme {
+    color: #ec008c !important;
+}
+
+.bg-img {
+    background: url(../assets/imgs/bg.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.bg-color{
+    background-color: #050505;
+}
+
+   
+
+.bg-theme {
+    background: #ec008c;
+}
+
+.btn {
+    border-radius: 5px;
+    height: 45px;
+    text-transform: unset;
+}
+
+.header {
+    &::after {
+        display: none !important;
+    }
+    .toolbar-background {
+        border: none;
+    }
+    .toolbar-content {
+        .toolbar-title {
+            color: #fff !important;
+            text-align: left !important;
+            display: flex;
+            align-items: center;
+            padding-right: 5px;
+            span {
+                margin-left: auto;
+                ion-icon {
+                    font-size: 1.1em;
+                }
+            }
+            span.text_thin {
+                margin: 0;
+                font-weight: 300;
+            }
+        }
+    }
+    .toolbar-ios ion-title {
+        padding-right: 0;
+    }
+    .bar-button {
+        color: #fff !important;
+    }
+}
+
+.logo {
+    height: 13vh;
+    position: relative;
+    /* margin-bottom: 30px; */
+    figure {
+        margin: 0;
+        img {
+            width: 170px;
+            height: 170px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+.difault-form {
+    position: relative;
+    .item {
+        padding: 0;
+        background: none;
+        .text-input {
+            font-weight: 300;
+            font-size: 1.3rem;
+            border: none;
+        }
+    }
+    .list {
+        border: none !important;
+        .item-input {
+            border: none !important;
+            min-height: 4rem;
+        }
+        .item-block {
+            .item-inner {
+                box-shadow: none !important;
+                border: none !important;
+                background: #fff;
+                border-radius: 5px;
+                margin: 10px 0 0;
+                padding-left: 10px;
+            }
+        }
+        .text-input-wp {
+            margin: 5px 8px;
+        }
+    }
+    .password {
+        position: absolute;
+        z-index: 99;
+        color: #ffae00;
+        right: 18px;
+        margin-top: -3rem;
+        font-size: 1.3rem;
+    }
+}
+
+.animated {
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.delay-1 {
+    animation-delay: 100ms;
+}
+
+.delay-2 {
+    animation-delay: 200ms;
+}
+
+.delay-3 {
+    animation-delay: 300ms;
+}
+
+.delay-4 {
+    animation-delay: 400ms;
+}
+
+.delay-5 {
+    animation-delay: 500ms;
+}
+
+.delay-6 {
+    animation-delay: 600ms;
+}
+
+.delay-7 {
+    animation-delay: 700ms;
+}
+
+.delay-8 {
+    animation-delay: 800ms;
+}
+
+.delay-9 {
+    animation-delay: 900ms;
+}
+
+.delay-10 {
+    animation-delay: 1000ms;
+}
+
+.delay-11 {
+    animation-delay: 1100ms;
+}
+
+.delay-12 {
+    animation-delay: 1200ms;
+}
+
+.delay-13 {
+    animation-delay: 1300ms;
+}
+
+.delay-14 {
+    animation-delay: 1400ms;
+}
+
+.delay-15 {
+    animation-delay: 1500ms;
+}
+
+.delay-16 {
+    animation-delay: 1600ms;
+}
+
+.delay-17 {
+    animation-delay: 1700ms;
+}
+
+.delay-18 {
+    animation-delay: 1800ms;
+}
+
+.delay-19 {
+    animation-delay: 1900ms;
+}
+
+.delay-20 {
+    animation-delay: 2000ms;
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.fadeInUp {
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+}
+
+@-webkit-keyframes zoomIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.zoomIn {
+    -webkit-animation-name: zoomIn;
+    animation-name: zoomIn;
+}

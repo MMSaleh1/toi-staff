@@ -1,0 +1,29 @@
+
+    <ion-header>
+        <ion-navbar>
+                <button ion-button menuToggle><ion-icon name="ios-menu-outline"></ion-icon></button>
+    
+                <div class="logo-container">
+                    <img  src="/assets/imgs/logo.png">
+                </div>
+    
+        </ion-navbar>
+    </ion-header>
+
+
+<ion-content class="bg-color" padding>
+    <div class="content-wrapper">
+    <div class="category-info-container">
+        <img class="category-info-img" [src]="category.images[0]">
+        <div class="category-info-text">{{category.name}}</div>
+    </div>
+    <div class="items-container">
+        <ion-list class="item-list">
+            <ion-item *ngFor="let item of products " class="item">
+                <div class="item-name">{{item.name}}</div>
+                <button ionbutton class="book-button" (tap)="addtoCart(item)">Book Now</button>
+            </ion-item>
+        </ion-list>
+    </div>
+    </div>
+</ion-content>

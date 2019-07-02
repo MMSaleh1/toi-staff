@@ -1,0 +1,70 @@
+page-appointment {
+   
+
+
+    .bg-color{
+        background-color: color($colors,secondary);
+    }
+
+    .content-wrapper{
+        margin: 14vh 0vw 0vh 10vw;
+        border-bottom-left-radius: 20px;
+        width:100%;
+        .category-info-container {
+            width: 100vw;
+            background-color: black;
+            padding: 0vw 0 1vh 2vw;
+
+
+            .category-info-img {
+                right: 12vw;
+                background: color($colors,primary);
+                border-radius: 50%;
+                width: 20vw;
+                bottom: 4vh;
+                position: relative;
+            }
+
+            .category-info-text {
+                font-size: 3rem;
+                font-weight: 800;
+                font-family: sans-serif;
+                display: inline-block;
+                color: color($colors,secondary);
+                padding: 0px 0rem 0vh 0;
+                margin-bottom: 0rem;
+                bottom: 2vh;
+                right: 13vw;
+                position: relative;
+            }
+        }
+
+        .items-container{
+            .item-list{
+                height: 45vh;
+            }
+            .item{
+                padding-left: 9vw;
+                padding-bottom: 3vh;
+                border-bottom-left-radius: 30px;
+            }
+                .item-name{
+                       
+                    font-size: 3rem;
+                    font-weight: 600;
+                    font-family: sans-serif;
+                    padding: 0 0 2vh 0;
+                }
+            
+                
+                .book-button {
+                    width: 40%;
+                    font-size: 1.6rem;
+                    color: color($colors,secondary);
+                    background-color: color($colors,primary);
+                    height: 3.2rem;
+                    border-radius: 20px;
+                }
+            }
+        }
+}

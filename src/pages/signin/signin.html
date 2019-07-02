@@ -1,0 +1,27 @@
+
+<ion-content class="bg-color" padding>
+    <div padding>
+        <div class="logo bg-white fadeInUp animated delay-1" text-center>
+             <figure  class="Header-Name"> <img src="assets/imgs/logo.png"></figure>
+        </div>
+        <div class="form-container"> 
+        <form [formGroup]="loginForm" (ngSubmit)="onSignin()"  >
+        <div class="difault-form">
+              
+            <ion-list>
+                <ion-item class="fadeInUp animated delay-3">
+                    <ion-input formControlName="userName" type="text" placeholder="User Name"></ion-input>
+                </ion-item>
+                <ion-item class="fadeInUp animated delay-4">
+                    <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+                    <!-- <small class="password">Forgot?</small> -->
+                </ion-item>
+                <!-- <small class="password fadeInUp animated delay-5" (click)="password()">Forgot?</small> -->
+                <br>
+                <button ion-button full class="btn bg-theme fadeInUp animated delay-6 login-button"  >Sign in</button>
+            </ion-list>
+        </div>
+        </form>
+    </div>
+    </div>
+</ion-content>
