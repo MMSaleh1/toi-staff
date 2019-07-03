@@ -3,6 +3,7 @@ import { NavController, IonicPage } from 'ionic-angular';
 import { ItemsApiProvider, Category } from './../../providers/items-api/items-api';
 import { Database } from '../../providers/database/database';
 import { order, UserProvider, User } from '../../providers/user/user';
+import { DetailsPage } from '../details/details';
 
 
 @IonicPage()
@@ -22,12 +23,28 @@ export class HomePage {
   }
    async getItems(){
      this.user = this.userProv.getUser();
-    this.orders = await this.userProv.getAllOrders(this.user.gender);
-    console.log(this.orders[0].orderDate.toTimeString());
+    let allOrders = new Array();
+    allOrders = await this.userProv.getAllOrders(this.user.gender);
+    console.log(allOrders);
+    for(let i = 0 ; i<allOrders.length;i++){
+      console.log(this.user.areaId + "" + allOrders[i].areaId);
+      if(this.user.areaId == allOrders[i].areaId){
+        this.orders.push(allOrders[i]);
+      }
+    }
+    console.log(this.orders);
     this.db = Database.getInstance();
-    this.db.orders = this.orders;
-    this.ready = true;
-    return true;
+    
+    if(this.orders.length == 0){
+      this.ready = false;
+    }else{
+      this.db.orders = this.orders;
+      this.ready = true;
+    }
+  }
+
+  toDetails(item : order){
+    this.navCtrl.push(DetailsPage,{'item' : item});
   }
 
   ionViewDidLoad(){

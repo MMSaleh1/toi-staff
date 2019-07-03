@@ -1,3 +1,4 @@
+import { Product } from './../items-api/items-api';
 import { CartProvider } from './../cart/cart';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,9 +18,11 @@ export class UserProvider extends RootProvider {
   
   private logInActionString = "stuff_login?";
   private getAllOrdersActionString = "get_orders_for_stuff_mob?";
+  private getOrderItemActionString = "get_order_items?";
+  private changeStatusActionString = "stuff_response_order?";
 
 
-  public user: User; 
+  public user: User;
 
 
 
@@ -30,12 +33,12 @@ export class UserProvider extends RootProvider {
   public async loginNop(username:string,password:string): Promise<any>{
     return new Promise((resolve)=>{
       let temp = `${RootProvider.APIURL}${this.userApiController}${this.logInActionString}user_name=${username}&password=${password}`;
-      console.log(temp);
+      
       this.http.get(temp).subscribe((data:any)=>{
         console.log(data[0]);
-        if(data != null && data != undefined && data.length>0){
-          console.log(data[0].id+ "  : "+data[0].name+"  :  "+data[0].password+"  :  "+data[0].mail)
-          this.user = User.getInstance(data[0].id,data[0].name,data[0].password,data[0].mail,data[0].gender,data[0].phone);
+        if(data != null && data != undefined && data.length>0 && data[0].error_name !="wrong_password"){
+        
+          this.user = User.getInstance(data[0].id,data[0].name,data[0].password,data[0].mail,data[0].gender,data[0].phone,data[0].area_id);
           this.event.publish('logedin');
           console.log(this.user);
           resolve(true);
@@ -45,6 +48,7 @@ export class UserProvider extends RootProvider {
       })
     })
   }
+
   public async getAllOrders(gender:any) : Promise<any>{
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getAllOrdersActionString}emp_gender=${gender}`;
     console.log(temp);
@@ -66,6 +70,43 @@ export class UserProvider extends RootProvider {
     })
   }
 
+  public async getorderItems(orderId: string):Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.getOrderItemActionString}order_id=${orderId}`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        if(data == undefined || data.length == 0){
+          resolve([])
+        }else{
+          console.log(data);
+          let items = new Array<orderItem>();
+          for(let i = 0 ; i < data.length;i++){
+            items.push(new orderItem(data[i].product_name,data[i].cost,data[i].img1));
+          }
+          resolve(items);
+
+        }
+      })
+    })
+  }
+
+  public async changeStatus(stuff_id,order_id): Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        console.log(data);
+        if(data == undefined || data.length == 0 ){
+          resolve(false)
+        }else{
+          resolve(data);
+        }
+      })
+    })
+   
+
+  }
+
 
 
 
@@ -73,7 +114,17 @@ export class UserProvider extends RootProvider {
   
 
   public getUser(){
+    this.storage.get('user').then(data=>{
+      if(data == undefined){
+        return User.getInstance();
+      }else{
+        let user = <User>data;
+        return User.getInstance(user.id,user.name,user.password,user.email,user.gender,user.image,user.areaId);
+         
+      }
+    });
     return User.getInstance();
+   
   }
 
 
@@ -92,29 +143,29 @@ export class UserProvider extends RootProvider {
 export class User {
   id: string;
   name: string;
-  fName:string;
-  lName:string;
   gender: string;
   password: string;
   email: string;
   phone: string;
   image : string; 
+  areaId: string;
 
   
   private static instance: User = null;
   static isCreating: boolean = false;
+  
 
-  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "") {
+  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "",area_id="") {
    
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
     } else {
-      this.setData(id, name, password, email,gender, phone);
+      this.setData(id, name, password, email,gender, phone,area_id);
       User.isCreating = true;
     }
   }
 
-  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "") {
+  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "",area_id="") {
     
     this.id = id;
     this.name = name;
@@ -122,16 +173,17 @@ export class User {
     this.password = password;
     this.email = email;
     this.phone = phone;
+    this.areaId = area_id;
   }
 
-  static getInstance(id: string = "-1", name: string = "",  password: string = "", email: string = "",gender: string = "Male", phone: string = "",fName:string="",lName:string="") {
+  static getInstance(id: string = "-1", name: string = "",  password: string = "", email: string = "",gender: string = "Male", phone: string = "",area_id="") {
     if (User.isCreating === false && id !="-1") {
       //User.isCreating = false;
-      User.instance = new User(id, name, gender, password, email, phone,lName,fName);
+      User.instance = new User(id, name, gender, password, email, phone,area_id);
       console.log(console.log(User.instance));
     }
     if (id != "-1") {
-      User.instance.setData(id, name,password, email,gender, phone);
+      User.instance.setData(id, name,password, email,gender, phone,area_id);
     }
     return User.instance;
   }
@@ -168,6 +220,41 @@ export class order{
       this.areaId=areaId;
     }
 }
+export class orderItem{
+  productName: string;
+  cost: number;
+  imagUrl: string;
+
+  constructor(ProductName,cost,imageUrl){ 
+    this.productName = ProductName;
+    this.cost = cost;
+    this.imagUrl =  ImageProcess.getImageUrl(imageUrl);
+  }
+
+
+}
+
+
+export class ImageProcess{
+
+  constructor(){
+
+  }
+
+  static getImagesUrl(images : Array<string>){
+    for(let i = 0 ; i < images.length ; i++){
+      images[i] = this.getImageUrl(images[i]);
+    }
+    return images;
+  }
+
+  static getImageUrl(image:string){
+    let baseString = RootProvider.ImagesUrl;
+    image =image.slice(1,image.length);
+    return baseString+image;
+  }
+}
+
 
 
 

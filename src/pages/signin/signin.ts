@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { NavController ,LoadingController, IonicPage } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Storage } from '@ionic/storage';
-import { PasswordPage } from '../password/password';
 import { HomePage } from '../home/home';
 import {User , UserProvider} from '../../providers/user/user';
 
@@ -19,7 +18,13 @@ export class SigninPage {
   constructor(public navCtrl: NavController, public formBuilder : FormBuilder , public loadCtrl : LoadingController , public userProvider : UserProvider , public storage : Storage) {
     this.buildForm();
 
-  } 
+  }
+  async checkUser(){
+    let user = await this.userProvider.getUser();
+    if( user.id != '-1'){
+      this.navCtrl.setRoot(HomePage);
+    }
+  }
 
   buildForm() {
     this.loginForm = this.formBuilder.group({
@@ -27,9 +32,6 @@ export class SigninPage {
       userName: ['', [Validators.required]],
     })
   }
-    password(){
-    this.navCtrl.push(PasswordPage);
-    }
     
     
 
@@ -43,7 +45,7 @@ export class SigninPage {
         loading.present();
         let bool=false;
           bool = await this.userProvider.loginNop(this.loginForm.value.userName,this.loginForm.value.password);
-        
+          console.log(bool);
         if(bool == true){
           loading.dismiss(); 
            this.user = User.getInstance();

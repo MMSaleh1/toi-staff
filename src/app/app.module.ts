@@ -6,11 +6,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { AutoCompleteModule} from 'ionic2-auto-complete';
+import { CallNumber } from '@ionic-native/call-number';
 
 
 import { MyApp } from './app.component';
 
-import { AppointmentPage } from '../pages/appointment/appointment';
 import { RootProvider } from '../providers/root/root';
 import { ItemsApiProvider } from '../providers/items-api/items-api';
 import { UserProvider } from '../providers/user/user';
@@ -19,21 +19,23 @@ import { SigninPageModule } from '../pages/signin/signin.module';
 
 
 
+
 import { Database } from '../providers/database/database';
 import { CartProvider } from '../providers/cart/cart';
+import { DetailsPageModule } from '../pages/details/details.module';
 
 
 
 @NgModule({
   declarations: [
-    MyApp,
-    AppointmentPage
+    MyApp
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HomePageModule,
     SigninPageModule,
+    DetailsPageModule,
 
 
     IonicStorageModule.forRoot(),
@@ -42,7 +44,6 @@ import { CartProvider } from '../providers/cart/cart';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AppointmentPage,
 
   ],
   providers: [
@@ -53,7 +54,9 @@ import { CartProvider } from '../providers/cart/cart';
     ItemsApiProvider,
     UserProvider,
     Database,
-    CartProvider
+    CartProvider,
+    CallNumber
+
   ]
 })
 export class AppModule {}
