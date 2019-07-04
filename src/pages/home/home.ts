@@ -13,41 +13,60 @@ import { DetailsPage } from '../details/details';
 })
 export class HomePage {
   public ready : boolean= false;
+
   public orders : Array<order>;
   public user : User;
   public db :Database;
 
   constructor(public navCtrl: NavController,public userProv:UserProvider) {
-   this.orders = new Array();
-   this.getItems();
   }
    async getItems(){
-     this.user = this.userProv.getUser();
+     this.orders = new Array();
+     this.user = await this.userProv.getUser();
     let allOrders = new Array();
-    allOrders = await this.userProv.getAllOrders(this.user.gender);
-    console.log(allOrders);
-    for(let i = 0 ; i<allOrders.length;i++){
-      console.log(this.user.areaId + "" + allOrders[i].areaId);
-      if(this.user.areaId == allOrders[i].areaId){
-        this.orders.push(allOrders[i]);
+    allOrders = await this.checkCurrentOrders();
+    if(allOrders.length>0){
+      this.orders = allOrders;
+      this.ready = true;
+
+    }else{
+      allOrders = await this.userProv.getAllOrders(this.user.gender);
+      for(let i = 0 ; i<allOrders.length;i++){
+        if(this.user.areaId == allOrders[i].areaId){
+          this.orders.push(allOrders[i]);
+        }
+      }
+      this.db = Database.getInstance();
+      
+      if(this.orders.length == 0){
+        this.ready = false;
+      }else{
+        this.db.orders = this.orders;
+        this.ready = true;
+      }
+    
+    }
+   
+  }
+  async checkCurrentOrders(){
+    let orders = await this.userProv.getApprovedOrders(this.user.id);
+    let current = new Array();
+    console.log(orders);
+    for(let i = 0 ;i<orders.length ;i++){
+      if(orders[i].orderStatusId == "3" || orders[i].orderStatusId == "5"){
+        current.push(orders[i]);
       }
     }
-    console.log(this.orders);
-    this.db = Database.getInstance();
-    
-    if(this.orders.length == 0){
-      this.ready = false;
-    }else{
-      this.db.orders = this.orders;
-      this.ready = true;
-    }
+    console.log(current);
+    return current;
   }
 
   toDetails(item : order){
     this.navCtrl.push(DetailsPage,{'item' : item});
   }
 
-  ionViewDidLoad(){
+  ionViewDidEnter(){
+    this.getItems();
    
  
    

@@ -11,7 +11,7 @@
 
 <ion-content padding scrollY="false" >
     <ion-list *ngIf="ready" class="orders-list">
-        <ion-item *ngFor="let item of orders" (tap)="toDetails(item)">
+        <ion-item *ngFor="let item of  orders" (tap)="toDetails(item)">
             <div class="order-address">Address : {{item.address}}</div>
             <div class="order-date-time">Order Time :  {{item.orderDate  | date :'shortTime' }}</div>
             <div class="order-date-day">Order Day :  {{item.orderDate  | date :'shortDate' }}</div>

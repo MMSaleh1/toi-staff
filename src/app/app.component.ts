@@ -1,3 +1,4 @@
+import { LandingPage } from './../pages/landing/landing';
 import { Component } from '@angular/core';
 import { Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -13,14 +14,17 @@ import { UserProvider, User } from './../providers/user/user';
 })
 export class MyApp {
   public user : User;
-  rootPage:any = SigninPage;
+  rootPage:any = LandingPage;
   isLogedin : boolean = false;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen ,public userProv: UserProvider , public event :Events) {
     platform.ready().then(() => {
       this.event.subscribe('logedin',()=>{
-        this.user = this.userProv.getUser();
-        this.isLogedin = true;
+        this.userProv.getUser().then(data=>{
+          this.user = data;
+          this.isLogedin = true;
+        });
+        
       })
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

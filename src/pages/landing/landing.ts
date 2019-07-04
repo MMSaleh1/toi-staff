@@ -1,5 +1,10 @@
+import { HomePage } from './../home/home';
+import { Storage } from '@ionic/storage';
+import { UserProvider, User } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Database } from '../../providers/database/database';
+import { SigninPage } from '../signin/signin';
 
 /**
  * Generated class for the LandingPage page.
@@ -14,8 +19,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'landing.html',
 })
 export class LandingPage {
+  db :Database;
+  user :User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public userProv:UserProvider) {
+    this.getData();
+ 
+  }
+
+  async getData(){
+    this.db=Database.getInstance();
+    this.db.status = await this.userProv.getAllStatus();
+    this.user = await this.userProv.getUser();
+    
+    if(this.user == undefined){
+      this.navCtrl.setRoot(SigninPage);
+    }else{
+      this.navCtrl.setRoot(HomePage,{'change' : true});
+    }
+   
   }
 
   ionViewDidLoad() {

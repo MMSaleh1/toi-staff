@@ -1,3 +1,4 @@
+import { LandingPageModule } from './../pages/landing/landing.module';
 import {  HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -36,6 +37,8 @@ import { DetailsPageModule } from '../pages/details/details.module';
     HomePageModule,
     SigninPageModule,
     DetailsPageModule,
+    LandingPageModule,
+
 
 
     IonicStorageModule.forRoot(),
@@ -44,6 +47,7 @@ import { DetailsPageModule } from '../pages/details/details.module';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+  
 
   ],
   providers: [

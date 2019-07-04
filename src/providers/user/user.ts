@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { RootProvider} from '../root/root';
 import { Events } from 'ionic-angular';
+import { e } from '@angular/core/src/render3';
 /*
   Generated class for the UserProvider provider.
 
@@ -20,6 +21,8 @@ export class UserProvider extends RootProvider {
   private getAllOrdersActionString = "get_orders_for_stuff_mob?";
   private getOrderItemActionString = "get_order_items?";
   private changeStatusActionString = "stuff_response_order?";
+  private getStatusActionString = "get_all_order_states?";
+  private getStuffOrderActionString = "get_stuff_orders?";
 
 
   public user: User;
@@ -90,8 +93,26 @@ export class UserProvider extends RootProvider {
     })
   }
 
-  public async changeStatus(stuff_id,order_id): Promise<any>{
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}`;
+  public async getApprovedOrders(stuff_id:string): Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.getStuffOrderActionString}stuff_id=${stuff_id}`;
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        if(data == undefined || data.length == 0){
+          resolve([])
+        }else{
+          let orders = new Array();
+          for(let i =0;i<data.length; i++){
+            orders.push( new order(data[i].order_id,data[i].user_name,data[i].phone,data[i].order_date,data[i].order_total,data[i].address,data[i].area_id,data[i].order_states_id));
+
+          }
+          resolve(orders);
+        }
+      })
+    })
+  }
+
+  public async changeStatus(stuff_id,order_id,statusId): Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}`;
     console.log(temp);
     return new Promise((resolve)=>{
       this.http.get(temp).subscribe((data:any)=>{
@@ -107,37 +128,46 @@ export class UserProvider extends RootProvider {
 
   }
 
+  public async getAllStatus() :Promise<any>{
+    let temp =`${RootProvider.APIURL}${this.userApiController}${this.getStatusActionString}`;
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        if(data == undefined || data.length == 0 ){
+          resolve([])
+        }else{
+          let statuses = new Array<orderStatus>();
+          for(let i =0 ;i <data.length ; i++){
+            statuses.push(new orderStatus(data[i].id,data[i].states_name));
+          }
+          resolve(statuses);
+        }
+      })
+    })
 
-
-
-
-  
-
-  public getUser(){
-    this.storage.get('user').then(data=>{
-      if(data == undefined){
-        return User.getInstance();
-      }else{
-        let user = <User>data;
-        return User.getInstance(user.id,user.name,user.password,user.email,user.gender,user.image,user.areaId);
-         
-      }
-    });
-    return User.getInstance();
-   
   }
 
 
 
 
 
+  
 
-  // public removeAddress(address : Address){
-  //   this.user.removeSavedAddress(address);
-  //   this.storage.set('user',this.user);
-  // }
-
-
+  public async getUser():Promise<any>{
+    return new Promise((resolve)=>{
+      this.storage.get('user').then(data=>{
+        if(data == undefined){
+           resolve(User.getInstance());
+        }else{
+          let user = <User>data;
+          resolve(User.getInstance(user.id,user.name,user.password,user.email,user.gender,user.image,user.areaId));
+           
+        }
+      });
+    })
+   
+   
+   
+  }
 }
 
 export class User {
@@ -203,14 +233,18 @@ export class order{
   orderDate: Date;
   totalPrice: number;
   address: string;
+  orderStatusId:string;
   areaId : string;
+  
   constructor(id: string,
     customerName:string,
     customerPhone: string,
     orderDate: string,
     totalPrice: number,
     address: string,
-    areaId : string){
+    areaId : string,
+    order_states_id ="1"
+    ){
       this.id=id;
       this.customerName=customerName;
       this.customerPhone=customerPhone;
@@ -218,6 +252,7 @@ export class order{
       this.totalPrice=totalPrice;
       this.address=address;
       this.areaId=areaId;
+      this.orderStatusId = order_states_id;
     }
 }
 export class orderItem{
@@ -252,6 +287,16 @@ export class ImageProcess{
     let baseString = RootProvider.ImagesUrl;
     image =image.slice(1,image.length);
     return baseString+image;
+  }
+}
+
+
+export class orderStatus{
+  id : string ; 
+  name : string;
+  constructor(id , name){
+    this.id = id;
+    this.name = name;
   }
 }
 

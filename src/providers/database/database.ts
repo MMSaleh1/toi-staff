@@ -1,3 +1,4 @@
+import { orderStatus } from './../user/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../items-api/items-api';
@@ -13,7 +14,9 @@ import { order } from '../user/user';
 export class Database {
 
   orders : Array<order>;
+  status : Array<orderStatus>;
   http:HttpClient;
+
   private static instance: Database = null;
   static isCreating: boolean = false;
   constructor() {
@@ -21,7 +24,7 @@ export class Database {
       throw new Error(`You can't call new in Singleton instance!`)
     } else {
       this.orders =new Array();
-      this.initialize();
+      this.status =new Array();
     }
   }
 
@@ -36,13 +39,7 @@ export class Database {
   }
 
 
-  private initialize() {
-    //console.log('Initialize Database');
-    //this.countries.push('مصر');
-    let now = new Date();
-    let day = 24 * 60 * 60 * 1000;
-    
-  }
+ 
 
 
 }
