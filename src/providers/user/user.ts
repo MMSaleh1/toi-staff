@@ -154,7 +154,7 @@ export class UserProvider extends RootProvider {
 
   public async getUser():Promise<any>{
     return new Promise((resolve)=>{
-      this.storage.get('user').then(data=>{
+      this.storage.get('toi-staff-user').then(data=>{
         if(data == undefined){
            resolve(User.getInstance());
         }else{
