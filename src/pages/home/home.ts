@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, NavParams } from 'ionic-angular';
 import { ItemsApiProvider, Category } from './../../providers/items-api/items-api';
 import { Database } from '../../providers/database/database';
 import { order, UserProvider, User } from '../../providers/user/user';
@@ -18,7 +18,7 @@ export class HomePage {
   public user : User;
   public db :Database;
 
-  constructor(public navCtrl: NavController,public userProv:UserProvider) {
+  constructor(public navCtrl: NavController,public userProv:UserProvider,public navParms : NavParams) {
   }
    async getItems(){
      this.orders = new Array();
@@ -62,11 +62,16 @@ export class HomePage {
   }
 
   toDetails(item : order){
+ 
     this.navCtrl.push(DetailsPage,{'item' : item});
   }
 
   ionViewDidEnter(){
-    this.getItems();
+    let change = this.navParms.get('change');
+    if(change == true){
+      this.getItems();
+    }
+    
    
  
    

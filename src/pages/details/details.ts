@@ -58,6 +58,7 @@ export class DetailsPage {
     }
     let bool =await this.userProv.changeStatus(this.user.id,this.order.id,newStatus);
     this.order.orderStatusId = newStatus;
+    this.navCtrl.pop();
     console.log(bool);
   }
 

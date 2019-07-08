@@ -50,7 +50,7 @@ export class SigninPage {
           loading.dismiss(); 
            this.user = User.getInstance();
            this.storage.set('toi-staff-user',this.user);
-           this.navCtrl.setRoot(HomePage);
+           this.navCtrl.setRoot(HomePage,{'change' : true});
 
         }else{
           loading.dismiss();
