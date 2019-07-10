@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { RootProvider} from '../root/root';
 import { Events } from 'ionic-angular';
-import { e } from '@angular/core/src/render3';
+import { e, P } from '@angular/core/src/render3';
 /*
   Generated class for the UserProvider provider.
 
@@ -164,10 +164,15 @@ export class UserProvider extends RootProvider {
         }
       });
     })
-   
+    
    
    
   }
+
+  public async logout(){
+      this.storage.remove('toi-staff-user');
+  }
+ 
 }
 
 export class User {

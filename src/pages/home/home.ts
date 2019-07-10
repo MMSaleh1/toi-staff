@@ -4,6 +4,7 @@ import { ItemsApiProvider, Category } from './../../providers/items-api/items-ap
 import { Database } from '../../providers/database/database';
 import { order, UserProvider, User } from '../../providers/user/user';
 import { DetailsPage } from '../details/details';
+import { SigninPage } from '../signin/signin';
 
 
 @IonicPage()
@@ -71,9 +72,11 @@ export class HomePage {
     if(change == true){
       this.getItems();
     }
-    
-   
- 
    
   }
+logOut(){
+   this.userProv.logout();
+   this.navCtrl.setRoot(SigninPage);
+}
+
   }

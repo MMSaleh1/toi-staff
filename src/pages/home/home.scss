@@ -23,6 +23,7 @@ page-home {
                 
         .logo-container{
             width: 30%;
+            display: inline-block;
             margin: auto;
         }
         
@@ -74,4 +75,9 @@ page-home {
     .order-list{
         height: 60vh;
     }
+    .logout-button{
+        display: inline-block;
+        margin: -13vh 22vw 0vh 0vh;
+    }
 }
+
