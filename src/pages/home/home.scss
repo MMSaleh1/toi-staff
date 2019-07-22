@@ -79,5 +79,65 @@ page-home {
         display: inline-block;
         margin: -13vh 22vw 0vh 0vh;
     }
+
+
+    .item-list{
+        height: 50vh;
+    }
+    .item-container{
+        box-shadow: 0px 1px 5px 0.1px grey;
+    }
+    
+        .name {
+            font-size: 3rem;
+            display: inline-block;
+            width: 60vw;
+        }
+        .price {
+            font-size: 2rem;
+            display: inline-block;
+        }
+
+        .total-price {
+            font-size: 3rem;
+            width: 85vw;
+        }
+
+        .address {
+            font-size: 2rem;
+            width: 65vw;
+        }
+
+       .call-button{
+            color: green;
+            background-color: transparent;
+        }
+
+        .customer-container{
+            .info-container{
+                display: inline-block;
+                width: 73vw;
+            
+                .customer-name{
+                    font-size: 2rem;
+
+                }
+                .customer-phone{
+                    font-size: 2rem;
+                }
+            }
+            .call-button-container {
+            
+                display: inline-block;
+                .call-button{
+                    margin-bottom: 5vh;
+                    height: 5vh;
+                
+                }
+            }
+           
+
+        }
+    
 }
 

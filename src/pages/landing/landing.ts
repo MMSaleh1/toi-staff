@@ -2,7 +2,7 @@ import { HomePage } from './../home/home';
 import { Storage } from '@ionic/storage';
 import { UserProvider, User } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Database } from '../../providers/database/database';
 import { SigninPage } from '../signin/signin';
 
@@ -22,7 +22,7 @@ export class LandingPage {
   db :Database;
   user :User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public userProv:UserProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public userProv:UserProvider , public events : Events) {
     this.getData();
  
   }
@@ -35,6 +35,7 @@ export class LandingPage {
     if(this.user == undefined){
       this.navCtrl.setRoot(SigninPage);
     }else{
+      this.events.publish('logedin');
       this.navCtrl.setRoot(HomePage,{'change' : true});
     }
    

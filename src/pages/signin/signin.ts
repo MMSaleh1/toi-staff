@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { NavController ,LoadingController, IonicPage } from 'ionic-angular';
+import { NavController, LoadingController, IonicPage, Events } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
@@ -15,7 +15,13 @@ import {User , UserProvider} from '../../providers/user/user';
 export class SigninPage {
   public loginForm : FormGroup;
   public user : User;
-  constructor(public navCtrl: NavController, public formBuilder : FormBuilder , public loadCtrl : LoadingController , public userProvider : UserProvider , public storage : Storage) {
+  constructor(public navCtrl: NavController
+    , public formBuilder : FormBuilder
+    , public loadCtrl : LoadingController
+    , public userProvider : UserProvider
+    , public storage : Storage
+    , public events : Events
+    ) {
     this.buildForm();
 
   }
@@ -50,7 +56,9 @@ export class SigninPage {
           loading.dismiss(); 
            this.user = User.getInstance();
            this.storage.set('toi-staff-user',this.user);
+           this.events.publish('logedin');
            this.navCtrl.setRoot(HomePage,{'change' : true});
+           
 
         }else{
           loading.dismiss();

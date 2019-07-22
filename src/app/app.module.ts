@@ -8,6 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { AutoCompleteModule} from 'ionic2-auto-complete';
 import { CallNumber } from '@ionic-native/call-number';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { BackgroundMode } from '@ionic-native/background-mode';
+
 
 
 import { MyApp } from './app.component';
@@ -24,6 +27,7 @@ import { SigninPageModule } from '../pages/signin/signin.module';
 import { Database } from '../providers/database/database';
 import { CartProvider } from '../providers/cart/cart';
 import { DetailsPageModule } from '../pages/details/details.module';
+
 
 
 
@@ -59,7 +63,9 @@ import { DetailsPageModule } from '../pages/details/details.module';
     UserProvider,
     Database,
     CartProvider,
-    CallNumber
+    CallNumber,
+    LocalNotifications,
+    BackgroundMode
 
   ]
 })

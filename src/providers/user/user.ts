@@ -23,6 +23,7 @@ export class UserProvider extends RootProvider {
   private changeStatusActionString = "stuff_response_order?";
   private getStatusActionString = "get_all_order_states?";
   private getStuffOrderActionString = "get_stuff_orders?";
+  private getAcceptedOrdersActionString = "get_stuff_accepted_orders?"
 
 
   public user: User;
@@ -110,6 +111,23 @@ export class UserProvider extends RootProvider {
       })
     })
   }
+
+
+  public async getAcceptedOrder(stuff_id:string): Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.getAcceptedOrdersActionString}stuff_id=${stuff_id}`;
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        if(data == undefined || data.length == 0){
+          resolve(undefined)
+        }else{
+          let orders = new order(data[0].order_id,data[0].user_name,data[0].phone,data[0].order_date,data[0].order_total,data[0].address,data[0].area_id,data[0].order_states_id);
+          
+          resolve(orders);
+        }
+      })
+    })
+  }
+
 
   public async changeStatus(stuff_id,order_id,statusId): Promise<any>{
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}`;
