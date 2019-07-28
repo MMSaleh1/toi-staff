@@ -8,8 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { AutoCompleteModule} from 'ionic2-auto-complete';
 import { CallNumber } from '@ionic-native/call-number';
-import { LocalNotifications } from '@ionic-native/local-notifications';
-import { BackgroundMode } from '@ionic-native/background-mode';
+
 
 
 
@@ -64,8 +63,6 @@ import { DetailsPageModule } from '../pages/details/details.module';
     Database,
     CartProvider,
     CallNumber,
-    LocalNotifications,
-    BackgroundMode
 
   ]
 })

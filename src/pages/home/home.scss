@@ -82,41 +82,45 @@ page-home {
 
 
     .item-list{
-        height: 50vh;
+        height: 40vh;
     }
     .item-container{
         box-shadow: 0px 1px 5px 0.1px grey;
     }
     
         .name {
-            font-size: 3rem;
+            font-size: 2rem;
             display: inline-block;
             width: 60vw;
         }
         .price {
             font-size: 2rem;
-            display: inline-block;
         }
 
         .total-price {
-            font-size: 3rem;
+            font-size: 2rem;
             width: 85vw;
+            padding: 0 0 0 3vw;
         }
 
         .address {
             font-size: 2rem;
             width: 65vw;
+            padding: 0 0 0 3vw;
         }
 
        .call-button{
             color: green;
             background-color: transparent;
+            margin: auto;
+            width: 20vw
         }
 
         .customer-container{
             .info-container{
                 display: inline-block;
                 width: 73vw;
+                padding: 2rem;
             
                 .customer-name{
                     font-size: 2rem;
@@ -138,6 +142,14 @@ page-home {
            
 
         }
+        .change-status-container{
+            width: 25vw;
+            margin: auto;
+        }
+       
+
+
+
     
 }
 
