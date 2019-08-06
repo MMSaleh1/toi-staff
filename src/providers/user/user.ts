@@ -18,11 +18,11 @@ export class UserProvider extends RootProvider {
   private userApiController:string = 'stuff/';
   
   private logInActionString = "stuff_login?";
-  private getAllOrdersActionString = "get_orders_for_stuff_mob?";
+
   private getOrderItemActionString = "get_order_items?";
   private changeStatusActionString = "stuff_response_order?";
   private getStatusActionString = "get_all_order_states?";
-  private getStuffOrderActionString = "get_stuff_orders?";
+
   private getAcceptedOrdersActionString = "get_stuff_accepted_orders?"
   private changeUserStatusActionString = "update_stuff_states?";
   private updateDeviceTokenActionString ="update_token_id?";
@@ -73,26 +73,26 @@ export class UserProvider extends RootProvider {
 
   }
 
-  public async getAllOrders(gender:any) : Promise<any>{
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.getAllOrdersActionString}emp_gender=${gender}`;
-    console.log(temp);
-    return new Promise((resolve)=>{
-      this.http.get(temp).subscribe((data:any)=>{
-        console.log(data);
-        if(data == undefined || data.length == 0){
-          resolve([])
-        }else{
-          let orders = new Array<order>();
-          for(let i =0;i<data.length;i++){
-            orders.push(new order(data[i].order_id,data[i].name,data[i].phone,data[i].order_date,data[i].order_total,data[i].address,data[i].area_id));
-          }
-          console.log(orders);
-          resolve(orders);
+  // public async getAllOrders(gender:any) : Promise<any>{
+  //   let temp = `${RootProvider.APIURL}${this.userApiController}${this.getAllOrdersActionString}emp_gender=${gender}`;
+  //   console.log(temp);
+  //   return new Promise((resolve)=>{
+  //     this.http.get(temp).subscribe((data:any)=>{
+  //       console.log(data);
+  //       if(data == undefined || data.length == 0){
+  //         resolve([])
+  //       }else{
+  //         let orders = new Array<order>();
+  //         for(let i =0;i<data.length;i++){
+  //           orders.push(new order(data[i].order_id,data[i].name,data[i].phone,data[i].order_date,data[i].order_total,data[i].address,data[i].area_id));
+  //         }
+  //         console.log(orders);
+  //         resolve(orders);
 
-        }
-      })
-    })
-  }
+  //       }
+  //     })
+  //   })
+  // }
 
   public async getorderItems(orderId: string):Promise<any>{
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getOrderItemActionString}order_id=${orderId}`;
@@ -138,23 +138,23 @@ export class UserProvider extends RootProvider {
     })
   }
 
-  public async getApprovedOrders(stuff_id:string): Promise<any>{
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.getStuffOrderActionString}stuff_id=${stuff_id}`;
-    return new Promise((resolve)=>{
-      this.http.get(temp).subscribe((data:any)=>{
-        if(data == undefined || data.length == 0){
-          resolve([])
-        }else{
-          let orders = new Array();
-          for(let i =0;i<data.length; i++){
-            orders.push( new order(data[i].order_id,data[i].user_name,data[i].phone,data[i].order_date,data[i].order_total,data[i].address,data[i].area_id,data[i].order_states_id));
+  // public async getApprovedOrders(stuff_id:string): Promise<any>{
+  //   let temp = `${RootProvider.APIURL}${this.userApiController}${this.getStuffOrderActionString}stuff_id=${stuff_id}`;
+  //   return new Promise((resolve)=>{
+  //     this.http.get(temp).subscribe((data:any)=>{
+  //       if(data == undefined || data.length == 0){
+  //         resolve([])
+  //       }else{
+  //         let orders = new Array();
+  //         for(let i =0;i<data.length; i++){
+  //           orders.push( new order(data[i].order_id,data[i].user_name,data[i].phone,data[i].order_date,data[i].order_total,data[i].address,data[i].area_id,data[i].order_states_id));
 
-          }
-          resolve(orders);
-        }
-      })
-    })
-  }
+  //         }
+  //         resolve(orders);
+  //       }
+  //     })
+  //   })
+  // }
 
 
   public async getAcceptedOrder(stuff_id:string): Promise<any>{
@@ -164,8 +164,7 @@ export class UserProvider extends RootProvider {
         if(data == undefined || data.length == 0){
           resolve(undefined)
         }else{
-          let orders = new order(data[0].order_id,data[0].user_name,data[0].phone,data[0].order_date,data[0].order_total,data[0].address,data[0].area_id,data[0].order_states_id);
-          
+          let orders = new order(data[0].order_id,data[0].user_name,data[0].phone,data[0].order_date,data[0].order_total,data[0].address,data[0].area_id,data[0].order_states_id,data[0].user_tokenid);
           resolve(orders);
         }
       })
@@ -173,8 +172,8 @@ export class UserProvider extends RootProvider {
   }
 
 
-  public async changeStatus(stuff_id,order_id,statusId): Promise<any>{
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}`;
+  public async changeStatus(stuff_id,order_id,statusId,userToken): Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}&user_token=${userToken}`;
     console.log(temp);
     return new Promise((resolve)=>{
       this.http.get(temp).subscribe((data:any)=>{
@@ -304,6 +303,7 @@ export class order{
   address: string;
   orderStatusId:string;
   areaId : string;
+  userToken: string
   
   constructor(id: string,
     customerName:string,
@@ -312,7 +312,8 @@ export class order{
     totalPrice: number,
     address: string,
     areaId : string,
-    order_states_id ="1"
+    order_states_id ="1",
+    userToken,
     ){
       this.id=id;
       this.customerName=customerName;
@@ -322,6 +323,7 @@ export class order{
       this.address=address;
       this.areaId=areaId;
       this.orderStatusId = order_states_id;
+      this.userToken= userToken;
     }
 }
 export class orderItem{

@@ -135,11 +135,12 @@ async changeStatus(){
   }else{
     newStatus = "4"
   }
-  let bool =await this.userProv.changeStatus(this.user.id,this.order.id,newStatus);
+  let bool =await this.userProv.changeStatus(this.user.id,this.order.id,newStatus,this.order.userToken);
   this.order.orderStatusId = newStatus;
   if(this.order.orderStatusId == "6"){
   this.userProv.changeStaffStatus(this.user.id,'1');
     this.ready = false;
+    this.checkAcceptedOrder();
   }
   // this.navCtrl.pop();
 }
