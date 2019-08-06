@@ -27,6 +27,7 @@ import { CartProvider } from '../providers/cart/cart';
 import { DetailsPageModule } from '../pages/details/details.module';
 import { NotificationsProvider } from '../providers/notifications/notifications';
 import { OneSignal } from '@ionic-native/onesignal';
+import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 
 
 
@@ -65,7 +66,8 @@ import { OneSignal } from '@ionic-native/onesignal';
     CartProvider,
     CallNumber,
     NotificationsProvider,
-    OneSignal
+    OneSignal,
+    HelperToolsProvider
 
   ]
 })

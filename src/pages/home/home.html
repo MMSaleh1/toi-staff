@@ -1,72 +1,87 @@
 <ion-header>
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon color="primary" name="ios-menu"></ion-icon>
-      </button>
+    <button ion-button menuToggle>
+      <ion-icon color="primary" name="ios-menu"></ion-icon>
+    </button>
 
-      <ion-title class="title">
-          <img src="assets/imgs/logo.png">
-      </ion-title>
+    <ion-title class="title">
+      <img src="assets/imgs/logo.png">
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding scrollY="false" >
-    <!-- <ion-list *ngIf="ready" class="orders-list">
+<ion-content padding scrollY="false">
+  <!-- <ion-list *ngIf="ready" class="orders-list">
         <ion-item *ngFor="let item of  orders" (tap)="toDetails(item)">
             <div class="order-address">Address : {{item.address}}</div>
             <div class="order-date-time">Order Time :  {{item.orderDate  | date :'shortTime' }}</div>
             <div class="order-date-day">Order Day :  {{item.orderDate  | date :'shortDate' }}</div>
         </ion-item>
     </ion-list> -->
-    <div *ngIf="!ready">
-      <div class="no-order">No Orders Assigned To You</div>
+  <div *ngIf="!ready" class="no-order">
+    <img src="./assets/imgs/empty_icon.png">
+    <h4>No Orders Assigned To You.</h4>
+  </div>
+
+  <div *ngIf="ready">
+
+    <div class="date-container">
+      <div class="date">Ordered: {{order.orderDate  | date : 'mediumDate' }}</div>
+      <div class="time">At: {{order.orderDate | date : 'shortTime' }} </div>
+    </div>
+    <ion-card>
+      <ion-card-header>Customer Info: </ion-card-header>
+      <ion-card-content>
+        <div class="image-container">
+          <img class="profile-image" src="assets/imgs/signup_male.png">
+        </div>
+        <div class="name">{{order.customerName}}</div>
+        <div class="address">{{order.address}}</div>
+        <div class="button-container">
+          <button ion-button icon-only class="location-button" (click)="navToCustomerPos()">
+            <ion-icon name="ios-pin"></ion-icon>
+          </button>
+          <button ion-button icon-only (tap)="makeCall()" class="call-button">
+            <ion-icon class="call-icon" name="md-call"></ion-icon>
+          </button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>Items: </ion-card-header>
+      <ion-card-content>
+        <!-- <ion-scroll scrollY="true" class="items-container"> -->
+        <!-- <ion-item class="item" *ngFor="let item of orderItems">
+          <img src="./assets/imgs/icon.png">
+          <div class="item-name">Item name: {{item.productName}}</div>
+          <div class="item-quant">Item price: {{item.cost}} LE</div>
+        </ion-item> -->
+        <ion-card *ngFor="let item of orderItems" class="item">
+          <img src="./assets/imgs/icon.png">
+          <div class="item-name">Item name: {{item.productName}}</div>
+          <div class="item-quant">Item price: {{item.cost}} LE</div>
+        </ion-card>
+
+        <!-- </ion-scroll> -->
+      </ion-card-content>
+    </ion-card>
+
+    <div class="total-price">Total Price : {{order.totalPrice}} LE</div>
+
+    <div *ngIf="order.orderStatusId == '1' " class="change-status-container">
+      <button ion-button (tap)="changeStatus()">Accept</button>
     </div>
 
-    <div *ngIf="ready">
+    <div *ngIf="order.orderStatusId == '3' " class="change-status-container">
+      <button ion-button (tap)="changeStatus()">Arrived</button>
+    </div>
 
-      <div class="date-container">
-        <div class="date">Ordered : {{order.orderDate  | date : 'mediumDate' }}</div>
-        <div class="time">At : {{order.orderDate | date : 'shortTime' }} </div>
-      </div>
-      <ion-card>
-        <ion-card-header>Customer Info</ion-card-header>
-        <ion-card-content>
-          <div class="name">{{order.customerName}}</div>
-          <div class="address">{{order.address}}</div>
-          <div class="button-container">
-            <button ion-button icon-only class="location-button"><ion-icon name="ios-pin"></ion-icon></button>
-            <button ion-button icon-only  (tap)="makeCall()" class="call-button"><ion-icon class="call-icon" name="md-call"></ion-icon></button>
-          </div>
-        </ion-card-content>
-      </ion-card>
+    <div *ngIf="order.orderStatusId == '5' " class="change-status-container">
+      <button ion-button class="status-button" (tap)="changeStatus()">Done</button>
+    </div>
 
-      <ion-card>
-        <ion-card-header>Items</ion-card-header>
-        <ion-card-content>
-          <ion-scroll scrollY="true" class="items-container">
-            <ion-item class="item" *ngFor="let item of orderItems">
-              <div class="item-name">{{item.productName}}</div>
-              <div class="item-quant">{{item.cost}}</div>
-            </ion-item>
-          </ion-scroll>
-        </ion-card-content>
-     </ion-card>
-
-     <div class="total-price">Total Price : {{order.totalPrice}} LE</div>
-  
-  <div  *ngIf="order.orderStatusId == '1' "  class="change-status-container">
-    <button ion-button (tap)="changeStatus()">Accept</button>
-  </div>
-
-  <div *ngIf="order.orderStatusId == '3' " class="change-status-container">
-    <button ion-button (tap)="changeStatus()">Arrived</button>
-  </div>
-  
-  <div *ngIf="order.orderStatusId == '5' " class="change-status-container">
-    <button ion-button class="status-button" (tap)="changeStatus()">Done</button>
-  </div>
-
-        <!-- <div class="customer-container">
+    <!-- <div class="customer-container">
       <div class="info-container">
         <div class="customer-name">{{order.customerName}}</div>
         <div class="customer-phone">{{order.customerPhone}}</div>
@@ -103,6 +118,6 @@
 
 
 
-  
-    </div>
+
+  </div>
 </ion-content>
