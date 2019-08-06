@@ -46,20 +46,20 @@ export class DetailsPage {
   .catch(err => console.log(err));
   }
   async changeStatus(){
-    let newStatus ;
-    if(this.order.orderStatusId == '1'){
-      newStatus ="3";
-    }else if(this.order.orderStatusId =='3'){
-      newStatus = "5"
-    }else if(this.order.orderStatusId =='5'){
-      newStatus ="6";
-    }else{
-      newStatus = "4"
-    }
-    let bool =await this.userProv.changeStatus(this.user.id,this.order.id,newStatus);
-    this.order.orderStatusId = newStatus;
-    this.navCtrl.pop();
-    console.log(bool);
+    // let newStatus ;
+    // if(this.order.orderStatusId == '1'){
+    //   newStatus ="3";
+    // }else if(this.order.orderStatusId =='3'){
+    //   newStatus = "5"
+    // }else if(this.order.orderStatusId =='5'){
+    //   newStatus ="6";
+    // }else{
+    //   newStatus = "4"
+    // }
+    // // let bool =await this.userProv.changeStatus(this.user.id,this.order.id,newStatus);
+    // this.order.orderStatusId = newStatus;
+    // this.navCtrl.pop();
+    // console.log(bool);
   }
 
   ionViewDidLoad() {

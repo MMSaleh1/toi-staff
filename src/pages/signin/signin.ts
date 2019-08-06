@@ -59,6 +59,7 @@ export class SigninPage {
           loading.dismiss(); 
            this.user = User.getInstance();
            let token = await this.notifiCtrl.getDeviceId();
+           console.log(token);
            this.userProvider.updateDeviceToken(this.user.id,token);
            this.user.deviceId = token;
            this.storage.set('toi-staff-user',this.user);

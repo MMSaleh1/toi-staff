@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, Platform } from 'ionic-angular';
 import { Database } from '../../providers/database/database';
 import { order, UserProvider, User, orderItem } from '../../providers/user/user';
 import { SigninPage } from '../signin/signin';
@@ -13,115 +13,66 @@ import { CallNumber } from '@ionic-native/call-number';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public ready : boolean= false;
+  public ready: boolean = false;
 
-  public order : order;
-  public user : User;
-  public db :Database;
-  public orderItems : Array<orderItem>;
+  public order: order;
+  public user: User;
+  public db: Database;
+  public orderItems: Array<orderItem>;
 
-  constructor(public navCtrl: NavController,public userProv:UserProvider,public navParms : NavParams , public call :CallNumber) {
+  constructor(public navCtrl: NavController,
+    private platform: Platform,
+    public userProv: UserProvider,
+    public navParms: NavParams,
+    public call: CallNumber) {
     this.getData();
   }
-  
 
-  async getData(){
+
+  async getData() {
     this.user = await this.userProv.getUser();
 
     this.checkAcceptedOrder();
     console.log(this.user)
   }
 
-  public async checkAcceptedOrder(){
+  public async checkAcceptedOrder() {
     let order = await this.userProv.getAcceptedOrder(this.user.id);
     console.log(order);
-    if(order == undefined){
+    if (order == undefined) {
       setTimeout(() => {
         this.checkAcceptedOrder()
-      },1000);
-    }else{
-      this.order =order;
+      }, 1000);
+    } else {
+      this.order = order;
       this.orderItems = await this.userProv.getorderItems(this.order.id);
       this.changeUserStatus();
-      this.ready=true;
+      this.ready = true;
     }
   }
-  private async changeUserStatus(){
-    let status = await this.userProv.changeStaffStatus(this.user.id,'0');
+  private async changeUserStatus() {
+    let status = await this.userProv.changeStaffStatus(this.user.id, '0');
     console.log(status);
-    if(status != true){
+    if (status != true) {
       this.changeUserStatus();
-    }else{
+    } else {
       return;
     }
   }
 
 
 
-  //  async getItems(){
-  //    this.orders = new Array();
-  //    this.user = await this.userProv.getUser();
-  //   let allOrders = new Array();
-  //   allOrders = await this.checkCurrentOrders();
-  //   if(allOrders.length>0){
-  //     this.orders = allOrders;
-  //     this.ready = true;
-
-  //   }else{
-  //     allOrders = await this.userProv.getAllOrders(this.user.gender);
-  //     for(let i = 0 ; i<allOrders.length;i++){
-  //       if(this.user.areaId == allOrders[i].areaId){
-  //         this.orders.push(allOrders[i]);
-  //       }
-  //     }
-  //     this.db = Database.getInstance();
-      
-  //     if(this.orders.length == 0){
-  //       this.ready = false;
-  //     }else{
-  //       this.db.orders = this.orders;
-  //       this.ready = true;
-  //     }
-    
-  //   }
-   
-  // }
-  // async checkCurrentOrders(){
-  //   let orders = await this.userProv.getApprovedOrders(this.user.id);
-  //   let current = new Array();
-  //   console.log(orders);
-  //   for(let i = 0 ;i<orders.length ;i++){
-  //     if(orders[i].orderStatusId == "3" || orders[i].orderStatusId == "5"){
-  //       current.push(orders[i]);
-  //     }
-  //   }
-  //   console.log(current);
-  //   return current;
-  // }
-
-  // toDetails(item : order){
- 
-  //   this.navCtrl.push(DetailsPage,{'item' : item});
-  // }
-
-  // ionViewDidEnter(){
-  //   let change = this.navParms.get('change');
-  //   if(change == true){
-  //     this.getItems();
-  //   }
-   
-  // }
-logOut(){
-   this.userProv.logout();
-   this.navCtrl.setRoot(SigninPage);
-}
+  logOut() {
+    this.userProv.logout();
+    this.navCtrl.setRoot(SigninPage);
+  }
 
 
-async makeCall(){
-  this.call.callNumber(this.order.customerPhone, true)
-.then(res => console.log( res))
-.catch(err => console.log(err));
-}
+  async makeCall() {
+    this.call.callNumber(this.order.customerPhone, true)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
 
 
 async changeStatus(){
@@ -142,7 +93,16 @@ async changeStatus(){
     this.ready = false;
     this.checkAcceptedOrder();
   }
-  // this.navCtrl.pop();
 }
 
+  navToCustomerPos(lat, long) {
+    let destination = lat + "," + long;
+    if (this.platform.is("ios")) {
+      window.open("maps://?q=" + destination, "_system");
+    } else {
+      let label = encodeURI('Customer Location');
+      window.open("geo:0,0?q=" + destination + "(" + label + ")", "_system");
+    }
   }
+
+}

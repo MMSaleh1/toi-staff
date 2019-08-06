@@ -25,7 +25,7 @@ export class UserProvider extends RootProvider {
 
   private getAcceptedOrdersActionString = "get_stuff_accepted_orders?"
   private changeUserStatusActionString = "update_stuff_states?";
-  private updateDeviceTokenActionString ="update_token_id?";
+  private updateDeviceTokenActionString ="update_stuff_token_id?";
 
 
 
@@ -57,7 +57,7 @@ export class UserProvider extends RootProvider {
   }
 
   public async updateDeviceToken(user_id , device_id):Promise<any>{
-    let temp =`${RootProvider.APIURL}${this.userApiController}${this.updateDeviceTokenActionString}user_id=${user_id}&token_id=${device_id}`;
+    let temp =`${RootProvider.APIURL}${this.userApiController}${this.updateDeviceTokenActionString}stuff_id=${user_id}&token_id=${device_id}`;
 
     return new Promise((resolve)=>{
       this.http.get(temp).subscribe(data=>{
@@ -164,7 +164,7 @@ export class UserProvider extends RootProvider {
         if(data == undefined || data.length == 0){
           resolve(undefined)
         }else{
-          let orders = new order(data[0].order_id,data[0].user_name,data[0].phone,data[0].order_date,data[0].order_total,data[0].address,data[0].area_id,data[0].order_states_id,data[0].user_tokenid);
+          let orders = new order(data[0].order_id,data[0].user_name,data[0].phone,data[0].order_date,data[0].order_total,data[0].address,data[0].area_id,data[0].order_states_id,data[0].user_tokenid,data[0].long,data[0].latt);
           resolve(orders);
         }
       })
@@ -304,6 +304,8 @@ export class order{
   orderStatusId:string;
   areaId : string;
   userToken: string
+  long : string;
+  lat : string;
   
   constructor(id: string,
     customerName:string,
@@ -314,6 +316,8 @@ export class order{
     areaId : string,
     order_states_id ="1",
     userToken,
+    long,
+    latt
     ){
       this.id=id;
       this.customerName=customerName;
@@ -324,6 +328,8 @@ export class order{
       this.areaId=areaId;
       this.orderStatusId = order_states_id;
       this.userToken= userToken;
+      this.lat=latt;
+      this.long=long;
     }
 }
 export class orderItem{

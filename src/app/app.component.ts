@@ -35,7 +35,7 @@ export class MyApp {
                    
       if(platform.is('cordova')){
         console.log('this is cordova')
-        //  this.notifyCtrl.init();
+          this.notifyCtrl.init();
        
       }
       // Okay, so the platform is ready and our plugins are available.
