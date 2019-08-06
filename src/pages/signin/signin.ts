@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import {User , UserProvider} from '../../providers/user/user';
+import { NotificationsProvider } from '../../providers/notifications/notifications';
 
 
 @IonicPage()
@@ -21,6 +22,8 @@ export class SigninPage {
     , public userProvider : UserProvider
     , public storage : Storage
     , public events : Events
+    ,public notifiCtrl : NotificationsProvider
+
     ) {
     this.buildForm();
 
@@ -55,6 +58,9 @@ export class SigninPage {
         if(bool == true){
           loading.dismiss(); 
            this.user = User.getInstance();
+           let token = await this.notifiCtrl.getDeviceId();
+           this.userProvider.updateDeviceToken(this.user.id,token);
+           this.user.deviceId = token;
            this.storage.set('toi-staff-user',this.user);
            this.events.publish('logedin');
            this.navCtrl.setRoot(HomePage,{'change' : true});

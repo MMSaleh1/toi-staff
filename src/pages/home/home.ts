@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, NavParams } from 'ionic-angular';
-import { ItemsApiProvider, Category } from './../../providers/items-api/items-api';
 import { Database } from '../../providers/database/database';
 import { order, UserProvider, User, orderItem } from '../../providers/user/user';
-import { DetailsPage } from '../details/details';
 import { SigninPage } from '../signin/signin';
 
 import { CallNumber } from '@ionic-native/call-number';
@@ -44,9 +42,21 @@ export class HomePage {
     }else{
       this.order =order;
       this.orderItems = await this.userProv.getorderItems(this.order.id);
+      this.changeUserStatus();
       this.ready=true;
     }
   }
+  private async changeUserStatus(){
+    let status = await this.userProv.changeStaffStatus(this.user.id,'0');
+    console.log(status);
+    if(status != true){
+      this.changeUserStatus();
+    }else{
+      return;
+    }
+  }
+
+
 
   //  async getItems(){
   //    this.orders = new Array();
@@ -128,6 +138,7 @@ async changeStatus(){
   let bool =await this.userProv.changeStatus(this.user.id,this.order.id,newStatus);
   this.order.orderStatusId = newStatus;
   if(this.order.orderStatusId == "6"){
+  this.userProv.changeStaffStatus(this.user.id,'1');
     this.ready = false;
   }
   // this.navCtrl.pop();

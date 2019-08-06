@@ -42,66 +42,14 @@ $colors: (
 );
 
 //Header 
-.toolbar-ios ion-title {
-  position: relative;
-}
+
 .header {
   .toolbar-background {
       background-color: color($colors,dark);
 
   }
-          
-  .logo-container{
-      width: 30%;
-      margin: 0px 0vw 0 28vw;
-  }
-  &::after {
-      display: none;
-  }
-  .toolbar {
-      padding-left: 0;
-      padding-right: 0;
-      .back-button {
-          color: #fff;
-      }
-      .toolbar-title {
-          color: #fff;
-          padding: 0 16px;
-      }
-  }
-  .title {
-      margin-bottom: 20px;
-  }
 }
-ion-header {
-  .scroll-zoom-wrapper {
-      padding: 0 12px;
-      .menu-items {
-          width: 130px;
-          display: inline-block;
-          position: relative;
-          background: transparent;
-          height: 74px;
-          margin: 0 4px;
-          box-shadow: none;
-          border-radius: 5px;
-          &:last-child {
-              margin-right: 16px;
-          }
-          .card-content {
-              padding-top: 48px;
-              font-size: 1.35rem;
-              img {
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  z-index: -1;
-              }
-          }
-      }
-  }
-}
+
 //Tabs Icon Colors
 $tabs-wp-tab-color: color($colors, primary);
 $tabs-wp-tab-icon-color: color($colors, primary);

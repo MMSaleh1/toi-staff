@@ -6,7 +6,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
-import { AutoCompleteModule} from 'ionic2-auto-complete';
 import { CallNumber } from '@ionic-native/call-number';
 
 
@@ -26,6 +25,8 @@ import { SigninPageModule } from '../pages/signin/signin.module';
 import { Database } from '../providers/database/database';
 import { CartProvider } from '../providers/cart/cart';
 import { DetailsPageModule } from '../pages/details/details.module';
+import { NotificationsProvider } from '../providers/notifications/notifications';
+import { OneSignal } from '@ionic-native/onesignal';
 
 
 
@@ -63,6 +64,8 @@ import { DetailsPageModule } from '../pages/details/details.module';
     Database,
     CartProvider,
     CallNumber,
+    NotificationsProvider,
+    OneSignal
 
   ]
 })

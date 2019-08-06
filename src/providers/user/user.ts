@@ -24,6 +24,9 @@ export class UserProvider extends RootProvider {
   private getStatusActionString = "get_all_order_states?";
   private getStuffOrderActionString = "get_stuff_orders?";
   private getAcceptedOrdersActionString = "get_stuff_accepted_orders?"
+  private changeUserStatusActionString = "update_stuff_states?";
+  private updateDeviceTokenActionString ="update_token_id?";
+
 
 
   public user: User;
@@ -53,6 +56,23 @@ export class UserProvider extends RootProvider {
     })
   }
 
+  public async updateDeviceToken(user_id , device_id):Promise<any>{
+    let temp =`${RootProvider.APIURL}${this.userApiController}${this.updateDeviceTokenActionString}user_id=${user_id}&token_id=${device_id}`;
+
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe(data=>{
+        if(data!= undefined){
+          resolve(true);
+        }else{
+          resolve(false)
+        }
+      
+      })
+    })
+   
+
+  }
+
   public async getAllOrders(gender:any) : Promise<any>{
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getAllOrdersActionString}emp_gender=${gender}`;
     console.log(temp);
@@ -76,6 +96,7 @@ export class UserProvider extends RootProvider {
 
   public async getorderItems(orderId: string):Promise<any>{
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getOrderItemActionString}order_id=${orderId}`;
+    this.user = await this.getUser();
     console.log(temp);
     return new Promise((resolve)=>{
       this.http.get(temp).subscribe((data:any)=>{
@@ -85,12 +106,35 @@ export class UserProvider extends RootProvider {
           console.log(data);
           let items = new Array<orderItem>();
           for(let i = 0 ; i < data.length;i++){
-            items.push(new orderItem(data[i].product_name,data[i].cost,data[i].img1));
+            if(data[i].stuff_id == this.user.id){
+              items.push(new orderItem(data[i].product_name,data[i].cost,data[i].img1));
+            }
+           
           }
           resolve(items);
 
         }
       })
+    })
+  }
+
+// 1 = avilable
+// 0  = unavilable
+  public async changeStaffStatus(stuff_id,value) :Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeUserStatusActionString}stuff_id=${stuff_id}&value=${value}`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        console.log(data);
+        if(data !=undefined && data.length > 0 && data[0].id == stuff_id ){
+          resolve(true)
+          
+        }else{
+          resolve(false);
+        }
+
+      })
+
     })
   }
 
@@ -177,7 +221,7 @@ export class UserProvider extends RootProvider {
            resolve(User.getInstance());
         }else{
           let user = <User>data;
-          resolve(User.getInstance(user.id,user.name,user.password,user.email,user.gender,user.image,user.areaId));
+          resolve(User.getInstance(user.id,user.name,user.password,user.email,user.gender,user.image,user.areaId,user.deviceId));
            
         }
       });
@@ -202,23 +246,24 @@ export class User {
   phone: string;
   image : string; 
   areaId: string;
+  deviceId: string;
 
   
   private static instance: User = null;
   static isCreating: boolean = false;
   
 
-  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "",area_id="") {
+  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "",area_id="",deviceId:string) {
    
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
     } else {
-      this.setData(id, name, password, email,gender, phone,area_id);
+      this.setData(id, name, password, email,gender, phone,area_id,deviceId);
       User.isCreating = true;
     }
   }
 
-  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "",area_id="") {
+  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "",area_id="",deviceId:string) {
     
     this.id = id;
     this.name = name;
@@ -227,16 +272,17 @@ export class User {
     this.email = email;
     this.phone = phone;
     this.areaId = area_id;
+    this.deviceId = deviceId;
   }
 
-  static getInstance(id: string = "-1", name: string = "",  password: string = "", email: string = "",gender: string = "Male", phone: string = "",area_id="") {
+  static getInstance(id: string = "-1", name: string = "",  password: string = "", email: string = "",gender: string = "Male", phone: string = "",area_id="",deviceId:string='0') {
     if (User.isCreating === false && id !="-1") {
       //User.isCreating = false;
-      User.instance = new User(id, name, gender, password, email, phone,area_id);
+      User.instance = new User(id, name, gender, password, email, phone,area_id,deviceId);
       console.log(console.log(User.instance));
     }
     if (id != "-1") {
-      User.instance.setData(id, name,password, email,gender, phone,area_id);
+      User.instance.setData(id, name,password, email,gender, phone,area_id,deviceId);
     }
     return User.instance;
   }
