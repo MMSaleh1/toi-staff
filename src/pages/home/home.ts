@@ -48,6 +48,9 @@ export class HomePage {
       this.orderItems = await this.userProv.getorderItems(this.order.id);
       this.changeUserStatus();
       this.ready = true;
+      setTimeout(() => {
+        this.checkAcceptedOrder()
+      }, 3000);
     }
   }
   private async changeUserStatus() {

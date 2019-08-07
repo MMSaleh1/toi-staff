@@ -10,7 +10,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding scrollY="false">
+<ion-content no-padding scrollY="false">
   <!-- <ion-list *ngIf="ready" class="orders-list">
         <ion-item *ngFor="let item of  orders" (tap)="toDetails(item)">
             <div class="order-address">Address : {{item.address}}</div>
@@ -120,4 +120,11 @@
 
 
   </div>
+  <ion-fab bottom right (click)="logOut()">
+    <button ion-fab>
+      <ion-icon color="third" name="log-out"></ion-icon>
+    </button>
+  </ion-fab>
+
+
 </ion-content>
