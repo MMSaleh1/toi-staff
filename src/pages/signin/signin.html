@@ -11,28 +11,25 @@
                         <ion-item class="fadeInUp animated delay-3">
                             <ion-input formControlName="userName" type="text" placeholder="Username"></ion-input>
                         </ion-item>
-                        <div class="error-box"
-                            *ngIf="loginForm.controls['userName'].hasError('required') && loginForm.controls['userName'].touched">
-                            *
-                            Username is required.</div>
+                        <div class="error-box" *ngIf="loginForm.controls['userName'].hasError('required') && loginForm.controls['userName'].touched">
+                            * Username is required.</div>
                         <ion-item class="fadeInUp animated delay-4">
                             <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
                             <!-- <small class="password">Forgot?</small> -->
                         </ion-item>
-                        <div class="error-box"
-                            *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
-                            *
-                            Password is required. </div>
-                        <div class="error-box"
-                            *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched">
-                            *
-                            Password cannot be less than 6 digits.</div>
+                        <div class="error-box" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+                            * Password is required. </div>
+                        <div class="error-box" *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched">
+                            * Password cannot be less than 6 digits.</div>
 
                         <!-- <small class="password fadeInUp animated delay-5" (click)="password()">Forgot?</small> -->
                         <br>
                         <button ion-button full class="btn bg-theme fadeInUp animated delay-6 login-button">Sign
                             in</button>
                     </ion-list>
+                    <p class="text-white fadeInUp animated delay-7" text-center>New user? <span (click)="signup()">
+                        Register Now!</span></p>
+
                 </div>
             </form>
         </div>

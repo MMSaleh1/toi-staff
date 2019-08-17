@@ -1,0 +1,82 @@
+page-signup {
+    h2.heading {
+        position: relative;
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: .5px;
+        margin-top: 0;
+        margin-bottom: 33px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            display: block;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto 0;
+            background: #ec008c;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            display: block;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto 0;
+            background: #ec008c;
+        }
+    }
+
+    .logo {
+        // height: 23vh;
+    }
+
+    .form-container {
+        margin-top: 36px;
+    }
+
+    .Header-Name {
+        color: white;
+        margin-top: 16vh;
+        font-size: 3rem;
+    }
+
+    .login-button {
+        width: 40%;
+        margin: auto;
+        border-radius: 30px;
+        background-color: color($colors, primary);
+    }
+
+    ion-input {
+        background-color: color($colors, light);
+        border-radius: 20px;
+        color: #fff;
+    }
+
+    .difault-form .item .text-input {
+        padding-left: 3rem;
+    }
+
+    .difault-form .list .item-block .item-inner {
+        background-color: transparent;
+    }
+
+    .error-box {
+        color: color($colors, danger, base);
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 2px;
+    }
+
+}

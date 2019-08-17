@@ -25,15 +25,18 @@ export class HomePage {
     public userProv: UserProvider,
     public navParms: NavParams,
     public call: CallNumber) {
-    this.getData();
+    this.getData(undefined);
   }
 
 
-  async getData() {
+  async getData(ev) {
     this.user = await this.userProv.getUser();
 
     this.checkAcceptedOrder();
     console.log(this.user)
+    if (ev) {
+      ev.complete()
+    }
   }
 
   public async checkAcceptedOrder() {
@@ -78,25 +81,25 @@ export class HomePage {
   }
 
 
-async changeStatus(){
-  let newStatus ;
-  if(this.order.orderStatusId == '1'){
-    newStatus ="3";
-  }else if(this.order.orderStatusId =='3'){
-    newStatus = "5"
-  }else if(this.order.orderStatusId =='5'){
-    newStatus ="6";
-  }else{
-    newStatus = "4"
+  async changeStatus() {
+    let newStatus;
+    if (this.order.orderStatusId == '1') {
+      newStatus = "3";
+    } else if (this.order.orderStatusId == '3') {
+      newStatus = "5"
+    } else if (this.order.orderStatusId == '5') {
+      newStatus = "6";
+    } else {
+      newStatus = "4"
+    }
+    let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
+    this.order.orderStatusId = newStatus;
+    if (this.order.orderStatusId == "6") {
+      this.userProv.changeStaffStatus(this.user.id, '1');
+      this.ready = false;
+      this.checkAcceptedOrder();
+    }
   }
-  let bool =await this.userProv.changeStatus(this.user.id,this.order.id,newStatus,this.order.userToken);
-  this.order.orderStatusId = newStatus;
-  if(this.order.orderStatusId == "6"){
-  this.userProv.changeStaffStatus(this.user.id,'1');
-    this.ready = false;
-    this.checkAcceptedOrder();
-  }
-}
 
   navToCustomerPos(lat, long) {
     let destination = lat + "," + long;
@@ -106,6 +109,10 @@ async changeStatus(){
       let label = encodeURI('Customer Location');
       window.open("geo:0,0?q=" + destination + "(" + label + ")", "_system");
     }
+  }
+
+  doRefresh(event) {
+    this.getData(event);
   }
 
 }

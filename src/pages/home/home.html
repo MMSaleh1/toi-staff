@@ -11,6 +11,9 @@
 </ion-header>
 
 <ion-content no-padding scrollY="false">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <!-- <ion-list *ngIf="ready" class="orders-list">
         <ion-item *ngFor="let item of  orders" (tap)="toDetails(item)">
             <div class="order-address">Address : {{item.address}}</div>
@@ -19,14 +22,14 @@
         </ion-item>
     </ion-list> -->
   <div *ngIf="!ready" class="no-order">
-    <img src="./assets/imgs/empty_icon.png">
+    <img src="./assets/imgs/empty_white.png">
     <h4>No Orders Assigned To You.</h4>
   </div>
 
   <div *ngIf="ready">
 
     <div class="date-container">
-      <div class="date">Ordered: {{order.orderDate  | date : 'mediumDate' }}</div>
+      <div class="date">Ordered: {{order.orderDate | date : 'mediumDate' }}</div>
       <div class="time">At: {{order.orderDate | date : 'shortTime' }} </div>
     </div>
     <ion-card>
