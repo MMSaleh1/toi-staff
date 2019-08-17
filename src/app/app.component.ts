@@ -14,7 +14,7 @@ import { NotificationsProvider } from '../providers/notifications/notifications'
 })
 export class MyApp {
   public user : User;
-  rootPage:any = LandingPage;
+  rootPage:any = SigninPage;
   isLogedin : boolean = false;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen ,public userProv: UserProvider , public event :Events, private notifyCtrl: NotificationsProvider) {

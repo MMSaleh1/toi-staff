@@ -1,5 +1,5 @@
 import { LandingPageModule } from './../pages/landing/landing.module';
-import {  HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -7,6 +7,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { CallNumber } from '@ionic-native/call-number';
+import { SignupPageModule } from '../pages/signup/signup.module';
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 
 
@@ -18,6 +21,7 @@ import { ItemsApiProvider } from '../providers/items-api/items-api';
 import { UserProvider } from '../providers/user/user';
 import { HomePageModule } from '../pages/home/home.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
+import { EnterCodePageModule } from '../pages/enter-code/enter-code.module';
 
 
 
@@ -29,7 +33,9 @@ import { NotificationsProvider } from '../providers/notifications/notifications'
 import { OneSignal } from '@ionic-native/onesignal';
 import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 
-
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
 
 
 @NgModule({
@@ -38,13 +44,20 @@ import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
   ],
   imports: [
     BrowserModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
     HttpClientModule,
     HomePageModule,
     SigninPageModule,
     DetailsPageModule,
     LandingPageModule,
-
-
+    SignupPageModule,
+    EnterCodePageModule,
 
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)

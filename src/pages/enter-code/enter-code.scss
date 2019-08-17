@@ -1,0 +1,51 @@
+page-enter-code {
+    .item-ios{
+        background-color: transparent;
+    }
+    .item-inner{
+        border-bottom:none !important;
+    }
+    h4{
+        color:#ccc2b2;
+        text-align: center;
+        margin-top: 30vh;
+    }
+
+    .formDiv{
+        background-color: transparent;
+        margin-top: 50px;
+    }
+    .login-button {
+        width: 40%;
+        margin: auto;
+        border-radius: 30px;
+        background-color: color($colors, primary);
+    }
+
+    ion-input {
+        background-color: color($colors, light);
+        border-radius: 20px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .item.item-input {
+        ::placeholder {
+            text-align: center;
+        }            
+    }        
+    .difault-form .item .text-input {
+        padding-left: 3rem;
+        ::placeholder{
+            margin-left:25px !important;
+        }
+    }
+
+    .difault-form .list .item-block .item-inner {
+        background-color: transparent;
+    }
+
+    .btn{
+        margin-top: 60px;
+    }
+}
