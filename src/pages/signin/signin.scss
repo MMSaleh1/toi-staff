@@ -60,11 +60,20 @@ page-signin {
         border-radius: 30px;
         background-color: color($colors, primary);
     }
+    .text-input{
+        padding:0px !important;
+        text-align: center;
+    }
 
     ion-input {
         background-color: color($colors, light);
         border-radius: 20px;
         color: #fff;
+
+        ::placeholder {
+
+            text-align: center;
+        }
     }
 
     .difault-form .item .text-input {
@@ -85,5 +94,30 @@ page-signin {
         margin-top: 2px;
     }
 
+    .langDiv {
+        @include ltr {
+            text-align: right;
+
+            .lang {
+                border-radius: 30px;
+                background-color: color($colors, primary);
+                color: color($colors, secondary);
+                width: 70px;
+                height: 30px;
+            }
+        }
+
+        @include rtl {
+            text-align: left;
+
+            .lang {
+                border-radius: 30px;
+                background-color: color($colors, primary);
+                color: color($colors, secondary);
+                width: 70px;
+                height: 30px;
+            }
+        }
+    }
 
 }

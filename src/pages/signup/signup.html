@@ -11,55 +11,54 @@
         <div class="difault-form">
           <ion-list>
             <ion-item class="fadeInUp animated delay-3">
-              <ion-input formControlName="userName" type="text" placeholder="User name"></ion-input>
+              <ion-input formControlName="userName" type="text" placeholder="{{'Username'}}"></ion-input>
             </ion-item>
             <div class="error-box" *ngIf="regesterForm.controls['userName'].hasError('required') && regesterForm.controls['userName'].touched">
-              * User name is required</div>
+              * {{'Usernameisrequired' | translate}}</div>
             <div class="error-box" *ngIf="regesterForm.controls['userName'].hasError('maxlength') && regesterForm.controls['userName'].touched">
-              * User name cannot exceed 20 digits.</div>
+              * {{'Usernamecannotexceed20digits' | translate}}</div>
             <div class="error-box" *ngIf="regesterForm.controls['userName'].hasError('minlength') && regesterForm.controls['userName'].touched">
-              * User name cannot be less than 4 digits.</div>
-            <ion-item class="fadeInUp animated delay-4">
+              * {{'Usernamecannotbelessthan4digits' | translate}}</div>
+            <!-- <ion-item class="fadeInUp animated delay-4">
               <ion-input formControlName="email" type="email" placeholder="Email address"></ion-input>
             </ion-item>
             <div class="error-box" *ngIf="regesterForm.controls['email'].hasError('required') && regesterForm.controls['email'].touched">
-              * Email is required.</div>
+              * {{'Emailisrequired' | translate}}</div>
             <div class="error-box" *ngIf="regesterForm.controls['email'].hasError('pattern') && regesterForm.controls['email'].touched">
-              * Invalid email address format. </div>
+              * {{'Invalidemailaddressformat' | translate}} </div> -->
 
             <ion-item class="fadeInUp animated delay-5">
-              <ion-input formControlName="phone" type="number" placeholder="Phone number"></ion-input>
+              <ion-input formControlName="phone" type="number" placeholder="{{'Phone' | translate}}"></ion-input>
             </ion-item>
             <div class="error-box" *ngIf="regesterForm.controls['phone'].hasError('required') && regesterForm.controls['phone'].touched">
-              * Phone number is required.</div>
+              * {{'Phonenumberisrequired' | translate}}</div>
             <div class="error-box" *ngIf="regesterForm.controls['phone'].hasError('maxlength') && regesterForm.controls['phone'].touched">
-              * Phone number cannot be more than 11 digits.</div>
+              * {{'Phonenumbercannotbemorethan11digits' | translate}}</div>
             <div class="error-box" *ngIf="regesterForm.controls['phone'].hasError('minlength') && regesterForm.controls['phone'].touched">
-              * Phone number cannot be less than 11 digits.</div>
+              * {{'Phonenumbercannotbelessthan11digits' | translate}}.</div>
 
 
             <ion-item class="fadeInUp animated delay-6">
-              <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+              <ion-input formControlName="password" type="password" placeholder="{{'Password' | translate}}"></ion-input>
             </ion-item>
             <div class="error-box" *ngIf="regesterForm.controls['password'].hasError('required') && regesterForm.controls['password'].touched">
-              * Password is required. </div>
+              * {{'Passwordisrequired' | translate}} </div>
             <div class="error-box" *ngIf="regesterForm.controls['password'].hasError('minlength') && regesterForm.controls['password'].touched">
-              * Password cannot be less than 6 digits.</div>
+              * {{'Passwordcannotbelessthan6digits' | translate}}</div>
 
             <ion-item class="fadeInUp animated delay-7">
-              <ion-input formControlName="passwordConfirm" type="password" placeholder="Confirm Password">
+              <ion-input formControlName="passwordConfirm" type="password" placeholder="{{'ConfirmPassword' | translate}}">
               </ion-input>
             </ion-item>
             <div class="error-box" *ngIf="regesterForm.get('passwordConfirm').hasError('required') && regesterForm.get('passwordConfirm').touched">
-              * Password confirmarion is required.
+              * {{'Passwordconfirmarionisrequired' | translate}}
             </div>
             <div class="error-box" *ngIf="regesterForm.get('passwordConfirm').hasError('equalTo') && regesterForm.get('passwordConfirm').touched">
-              * Passowd does not match.
+              * {{'Passowddoesnotmatch' | translate}}
             </div>
             <br>
-            <button [disabled]="!regesterForm.valid" ion-button full class="btn bg-theme fadeInUp animated delay-6 login-button" type="submit">Register
-                          now</button>
-            <p text-center class="text-white fadeInUp animated delay-7">Already have an account? <strong (tap)="signin()">Sign in</strong></p>
+            <button [disabled]="!regesterForm.valid" ion-button full class="btn bg-theme fadeInUp animated delay-6 login-button" type="submit">{{'Registernow' | translate}}</button>
+            <p text-center class="text-white fadeInUp animated delay-7">Already have an account? <strong (tap)="signin()">{{'Signin' | translate}}</strong></p>
           </ion-list>
         </div>
       </form>

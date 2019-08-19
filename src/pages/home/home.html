@@ -1,12 +1,13 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon color="primary" name="ios-menu"></ion-icon>
+      <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
     </button>
 
-    <ion-title class="title">
+    <ion-title>
       <img src="assets/imgs/logo.png">
     </ion-title>
+
   </ion-navbar>
 </ion-header>
 
@@ -14,6 +15,10 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <ion-card>
+    
+  </ion-card>
   <!-- <ion-list *ngIf="ready" class="orders-list">
         <ion-item *ngFor="let item of  orders" (tap)="toDetails(item)">
             <div class="order-address">Address : {{item.address}}</div>
@@ -23,17 +28,17 @@
     </ion-list> -->
   <div *ngIf="!ready" class="no-order">
     <img src="./assets/imgs/empty_white.png">
-    <h4>No Orders Assigned To You.</h4>
+    <h4>{{'NoOrdersAssignedToYou' | translate}}</h4>
   </div>
 
   <div *ngIf="ready">
 
     <div class="date-container">
-      <div class="date">Ordered: {{order.orderDate | date : 'mediumDate' }}</div>
-      <div class="time">At: {{order.orderDate | date : 'shortTime' }} </div>
+      <div class="date">{{'Ordered' | translate}}: {{order.orderDate | date : 'mediumDate' }}</div>
+      <div class="time">{{'At' | translate}}: {{order.orderDate | date : 'shortTime' }} </div>
     </div>
     <ion-card>
-      <ion-card-header>Customer Info: </ion-card-header>
+      <ion-card-header>{{'CustomerInfo' | translate}}: </ion-card-header>
       <ion-card-content>
         <div class="image-container">
           <img class="profile-image" src="assets/imgs/signup_male.png">
@@ -52,7 +57,7 @@
     </ion-card>
 
     <ion-card>
-      <ion-card-header>Items: </ion-card-header>
+      <ion-card-header>{{'Items' | translate}}: </ion-card-header>
       <ion-card-content>
         <!-- <ion-scroll scrollY="true" class="items-container"> -->
         <!-- <ion-item class="item" *ngFor="let item of orderItems">
@@ -62,26 +67,26 @@
         </ion-item> -->
         <ion-card *ngFor="let item of orderItems" class="item">
           <img src="./assets/imgs/icon.png">
-          <div class="item-name">Item name: {{item.productName}}</div>
-          <div class="item-quant">Item price: {{item.cost}} LE</div>
+          <div class="item-name">{{'Itemname' | translate}}: {{item.productName}}</div>
+          <div class="item-quant">{{'Itemprice' | translate}}: {{item.cost}} LE</div>
         </ion-card>
 
         <!-- </ion-scroll> -->
       </ion-card-content>
     </ion-card>
 
-    <div class="total-price">Total Price : {{order.totalPrice}} LE</div>
+    <div class="total-price">{{'TotalPrice' | translate}} : {{order.totalPrice}} LE</div>
 
     <div *ngIf="order.orderStatusId == '1' " class="change-status-container">
-      <button ion-button (tap)="changeStatus()">Accept</button>
+      <button ion-button (tap)="changeStatus()">{{'Accept' | translate}}</button>
     </div>
 
     <div *ngIf="order.orderStatusId == '3' " class="change-status-container">
-      <button ion-button (tap)="changeStatus()">Arrived</button>
+      <button ion-button (tap)="changeStatus()">{{'Arrived' | translate}}</button>
     </div>
 
     <div *ngIf="order.orderStatusId == '5' " class="change-status-container">
-      <button ion-button class="status-button" (tap)="changeStatus()">Done</button>
+      <button ion-button class="status-button" (tap)="changeStatus()">{{'Done' | translate}}</button>
     </div>
 
     <!-- <div class="customer-container">

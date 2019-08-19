@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
+      </button>
+  
+      <ion-title>
+        <img src="assets/imgs/logo.png">
+      </ion-title>
+  
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding class="bg-img">
+    <div class="image-container">
+      <img class="profile-image" src="assets/imgs/signup_male.png">
+      <button color="light" ion-button icon-only class="btn">
+        <ion-icon color="primary" name="create"></ion-icon>
+      </button>
+    </div>
+  
+  
+    <form *ngIf="ready" [formGroup]="updateForm" (ngSubmit)="update()">
+      <ion-list *ngIf="ready">
+        <ion-item class="item">
+          <ion-input type="text" placeholder="{{'Username' | translate}}" formControlName="userName" value="{{user.name}}"></ion-input>
+        </ion-item>
+  
+        <ion-item class="item">
+          <ion-input type="password" placeholder="{{'Password' | translate}}" formControlName="password" value="{{user.password}}"></ion-input>
+        </ion-item>
+  
+        <ion-item class="item">
+          <ion-input type="number" placeholder="{{'Phone' | translate}}" formControlName="phone" value="{{user.phone}}"></ion-input>
+        </ion-item>
+  
+        <button ion-button full class="btn bg-theme update-button" (tap)="update()">{{'Update' | translate}}</button>
+      </ion-list>
+    </form>
+  
+  
+  </ion-content>

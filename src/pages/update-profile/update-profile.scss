@@ -1,0 +1,62 @@
+page-update-profile {
+    .image-container {
+        margin: auto;
+        width: fit-content;
+        margin-bottom: 8vh;
+        position: relative;
+
+        .btn {
+            position: absolute;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            bottom: -5px;
+            right: 3px;
+            font-size: 10px;
+
+            .icon {
+                margin-left: 2px;
+            }
+        }
+
+        .profile-image {
+            border-radius: 30rem;
+            width: 10rem;
+            height: 10rem;
+        }
+    }
+
+    .item {
+        background-color: transparent;
+        border-top: transparent !important;
+        margin: 0 0vh 4vh 0;
+
+        .item-inner {
+            border-bottom: transparent !important;
+            box-shadow: none !important;
+        }
+    }
+
+    ion-input {
+        background-color: color($colors, light);
+        border-radius: 20px;
+        color: #fff;
+        padding: 0 0 0 3vw;
+    }
+
+    .difault-form .item .text-input {
+        padding-left: 3rem;
+    }
+
+    .difault-form .list .item-block .item-inner {
+        background-color: transparent;
+    }
+
+    .update-button {
+        width: 40%;
+        margin: auto;
+        border-radius: 30px;
+        background-color: color($colors, primary);
+    }
+
+}

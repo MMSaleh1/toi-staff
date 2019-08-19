@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { NavController, LoadingController, IonicPage, Events } from 'ionic-angular';
+import { NavController, LoadingController, IonicPage, Events, Platform, MenuController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
@@ -9,6 +9,7 @@ import { NotificationsProvider } from '../../providers/notifications/notificatio
 import { SignupPage } from '../signup/signup';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 import { EnterCodePage } from '../enter-code/enter-code';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @IonicPage()
@@ -19,18 +20,23 @@ import { EnterCodePage } from '../enter-code/enter-code';
 export class SigninPage {
   public loginForm: FormGroup;
   public user: User;
+  lang;
   constructor(public navCtrl: NavController
     , public formBuilder: FormBuilder
     , public loadCtrl: LoadingController
     , public userProvider: UserProvider
     , public storage: Storage
+    , private translate: TranslateService
+    , private platform: Platform
+    , private menuCntrl: MenuController
     , public events: Events
     , private helperTools: HelperToolsProvider
     , public notifiCtrl: NotificationsProvider
 
   ) {
+    this.initLang()
     this.buildForm();
-
+    this.menuCntrl.swipeEnable(false)
   }
   async checkUser() {
     let user = await this.userProvider.getUser();
@@ -50,7 +56,7 @@ export class SigninPage {
 
   async onSignin() {
     let loading = this.loadCtrl.create({
-      content: 'Logging in ,Please Wait'
+      content: 'Logging in, Please Wait'
     });
 
 
@@ -83,5 +89,33 @@ export class SigninPage {
   }
   signup() {
     this.navCtrl.setRoot(EnterCodePage);
+  }
+
+  changeLang(type) {
+    if (type == 'ar') {
+      this.translate.use("ar");
+      this.platform.setDir("rtl", true);
+      this.storage.set('language', 'ar');
+      this.lang  = 'ar';
+    }
+    else {
+      this.translate.use("en");
+      this.platform.setDir("ltr", true);
+      this.storage.set('language', 'en')
+      this.lang  = 'en';
+    }
+  }
+
+  initLang() {
+    this.storage.get("language").then(data => {
+      console.log(data)
+      if (data) {
+        this.lang = data;
+      }
+      else {
+        this.lang = 'en';
+        console.log(this.lang)
+      }
+    })
   }
 }

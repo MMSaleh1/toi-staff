@@ -1,2 +1,48 @@
 <ion-nav [root]="rootPage"></ion-nav>
+
+<ion-menu [content]="mycontent" side="right" *ngIf="platform.dir() === 'rtl'" menuId="first" class="side-menu">
+    <ion-content class="menu-container">
+        <div class="logo-container">
+            <!-- <img class="logo" src="assets/imgs/logo.png"> -->
+        </div>
+        <diV *ngIf="user">
+            <div class="img-container"><img class="user-img" [src]="user?.image"></div>
+            <div class="info-container">
+                <div *ngIf="user.name" class="name-container">{{user?.name}}</div>
+                <div *ngIf="user.phone" class="name-container">{{user?.phone}}</div>
+            </div>
+        </diV>
+        <ion-list class="menu-list">
+            <ion-item class="menu-item" (click)="toPage('1')">{{'Home' | translate}}</ion-item>
+            <ion-item class="menu-item" (click)="toPage('2')">{{'MyOrders' | translate}}</ion-item>
+            <!-- <ion-item class="menu-item" (tap)="toPage('4')">Terms and conditions</ion-item> -->
+            <ion-item class="menu-item" (click)="toPage('3')">{{'UpdateProfile' | translate}}</ion-item>
+            <!-- <ion-item class="menu-item">Rate this app</ion-item> -->
+            <ion-item class="menu-item" (click)="logOut()">{{'Logout' | translate}}</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-menu [content]="mycontent" side="left" *ngIf="platform.dir() === 'ltr'" menuId="first" class="side-menu">
+    <ion-content class="menu-container">
+        <div class="logo-container">
+            <!-- <img class="logo" src="assets/imgs/logo.png"> -->
+        </div>
+        <diV *ngIf="user">
+            <div class="img-container"><img class="user-img" [src]="user?.image"></div>
+            <div class="info-container">
+                <div *ngIf="user.name" class="name-container">{{user?.name}}</div>
+                <div *ngIf="user.phone" class="name-container">{{user?.phone}}</div>
+            </div>
+        </diV>
+        <ion-list class="menu-list">
+            <ion-item class="menu-item" (click)="toPage('1')">{{'Home' | translate}}</ion-item>
+            <ion-item class="menu-item" (click)="toPage('2')">{{'MyOrders' | translate}}</ion-item>
+            <!-- <ion-item class="menu-item" (tap)="toPage('4')">Terms and conditions</ion-item> -->
+            <ion-item class="menu-item" (click)="toPage('3')">{{'UpdateProfile' | translate}}</ion-item>
+            <!-- <ion-item class="menu-item">Rate this app</ion-item> -->
+            <ion-item class="menu-item" (click)="logOut()">{{'Logout' | translate}}</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
 <ion-nav #mycontent [root]="rootPage"></ion-nav>

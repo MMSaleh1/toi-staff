@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { UserProvider, order, User, orderItem } from '../../providers/user/user';
+import { CallNumber } from '@ionic-native/call-number';
 import { Database } from '../../providers/database/database';
-import { order, UserProvider, User, orderItem } from '../../providers/user/user';
 import { SigninPage } from '../signin/signin';
 
-import { CallNumber } from '@ionic-native/call-number';
-
+/**
+ * Generated class for the OrderDetailsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-order-details',
+  templateUrl: 'order-details.html',
 })
-export class HomePage {
+export class OrderDetailsPage {
   public ready: boolean = false;
 
   public order: order;
@@ -28,6 +33,9 @@ export class HomePage {
     this.getData(undefined);
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad OrderDetailsPage');
+  }
 
   async getData(ev) {
     this.user = await this.userProv.getUser();
@@ -49,22 +57,22 @@ export class HomePage {
     } else {
       this.order = order;
       this.orderItems = await this.userProv.getorderItems(this.order.id);
-      // this.changeUserStatus();
+      this.changeUserStatus();
       this.ready = true;
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 3000);
     }
   }
-  // private async changeUserStatus() {
-  //   let status = await this.userProv.changeStaffStatus(this.user.id, '0');
-  //   console.log(status);
-  //   if (status != true) {
-  //     this.changeUserStatus();
-  //   } else {
-  //     return;
-  //   }
-  // }
+  private async changeUserStatus() {
+    let status = await this.userProv.changeStaffStatus(this.user.id, this.userProv.available, this.userProv.queue);
+    console.log(status);
+    if (status != true) {
+      this.changeUserStatus();
+    } else {
+      return;
+    }
+  }
 
 
 
@@ -81,25 +89,25 @@ export class HomePage {
   }
 
 
-  // async changeStatus() {
-  //   let newStatus;
-  //   if (this.order.orderStatusId == '1') {
-  //     newStatus = "3";
-  //   } else if (this.order.orderStatusId == '3') {
-  //     newStatus = "5"
-  //   } else if (this.order.orderStatusId == '5') {
-  //     newStatus = "6";
-  //   } else {
-  //     newStatus = "4"
-  //   }
-  //   let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
-  //   this.order.orderStatusId = newStatus;
-  //   if (this.order.orderStatusId == "6") {
-  //     this.userProv.changeStaffStatus(this.user.id, '1');
-  //     this.ready = false;
-  //     this.checkAcceptedOrder();
-  //   }
-  // }
+  async changeStatus() {
+    let newStatus;
+    if (this.order.orderStatusId == '1') {
+      newStatus = "3";
+    } else if (this.order.orderStatusId == '3') {
+      newStatus = "5"
+    } else if (this.order.orderStatusId == '5') {
+      newStatus = "6";
+    } else {
+      newStatus = "4"
+    }
+    let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
+    this.order.orderStatusId = newStatus;
+    if (this.order.orderStatusId == "6") {
+      this.userProv.changeStaffStatus(this.user.id, this.userProv.available, this.userProv.queue);
+      this.ready = false;
+      this.checkAcceptedOrder();
+    }
+  }
 
   navToCustomerPos(lat, long) {
     let destination = lat + "," + long;

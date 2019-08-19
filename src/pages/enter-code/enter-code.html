@@ -1,14 +1,14 @@
 <ion-content class="bg-color" no-padding>
   <h4>
-    Please enter your code to proceed
+    {{'Pleaseenteryourcodetoproceed' | translate}}
   </h4>
 
   <div class="formDiv">
     <ion-item class="fadeInUp animated delay-3">
-      <ion-input type="text" placeholder="Code"></ion-input>
+      <ion-input type="text" placeholder="{{'Code' | translate}}"></ion-input>
     </ion-item>
   </div>
 
-  <button ion-button full class="btn bg-theme fadeInUp animated delay-4 login-button" (click)="goToSignUp()">Enter</button>
+  <button ion-button full class="btn bg-theme fadeInUp animated delay-4 login-button" (click)="goToSignUp()">{{'Enter' | translate}}</button>
 
 </ion-content>

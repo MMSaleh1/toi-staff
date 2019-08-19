@@ -32,6 +32,8 @@ import { DetailsPageModule } from '../pages/details/details.module';
 import { NotificationsProvider } from '../providers/notifications/notifications';
 import { OneSignal } from '@ionic-native/onesignal';
 import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
+import { UpdateProfilePageModule } from '../pages/update-profile/update-profile.module';
+import { OrderDetailsPageModule } from '../pages/order-details/order-details.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -49,29 +51,30 @@ export function createTranslateLoader(http: HttpClient) {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
         deps: [HttpClient]
-      }
+      },
     }),
+    IonicStorageModule.forRoot({ name: "appname" }),
     HttpClientModule,
     HomePageModule,
     SigninPageModule,
     DetailsPageModule,
     LandingPageModule,
+    OrderDetailsPageModule,
     SignupPageModule,
     EnterCodePageModule,
-
-    IonicStorageModule.forRoot(),
+    UpdateProfilePageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-  
+
 
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     RootProvider,
     ItemsApiProvider,
     UserProvider,
@@ -84,4 +87,4 @@ export function createTranslateLoader(http: HttpClient) {
 
   ]
 })
-export class AppModule {}
+export class AppModule { }
