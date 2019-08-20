@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { HomePage } from '../pages/home/home';
 // import { MyOrdersPage } from '../pages/my-orders/my-orders';
 import { UpdateProfilePage } from '../pages/update-profile/update-profile';
+import { OrderDetailsPage } from '../pages/order-details/order-details';
 @Component({
   templateUrl: 'app.html'
 })
@@ -24,7 +25,7 @@ export class MyApp {
   rootPage: any = SigninPage;
   isLogedin: boolean = false;
 
-  constructor(private platform: Platform,
+  constructor(public platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public userProv: UserProvider,
@@ -33,13 +34,15 @@ export class MyApp {
     private translate: TranslateService,
     public event: Events,
     private notifyCtrl: NotificationsProvider) {
-    this.rememberUser();
+    // this.rememberUser();
     this.initTranslate();
     platform.ready().then(() => {
       this.event.subscribe('logedin', () => {
         this.userProv.getUser().then(data => {
           this.user = data;
           this.isLogedin = true;
+          this.userProv.getAcceptedOrder(this.user.id);
+         
           console.log(this.user)
         });
 
@@ -86,7 +89,7 @@ export class MyApp {
         this.user = data;
         console.log('nav to home')
         this.nav.setRoot(HomePage)
-        this.rootPage = HomePage
+        // this.rootPage = HomePage
       }
       else {
         console.log('nav again')
@@ -95,11 +98,12 @@ export class MyApp {
     })
   }
 
-  toPage(number: string) {
-    if (number == '1') {
+  toPage(number) {
+    console.log(number);
+    if (number == 1) {
       this.nav.setRoot(HomePage);
-    } else if (number == '2') {
-      // this.nav.push(MyOrdersPage);
+    } else if (number == 2) {
+       this.nav.push(OrderDetailsPage);
     } else if (number == '3') {
       this.nav.push(UpdateProfilePage);
     }

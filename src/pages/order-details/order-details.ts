@@ -4,6 +4,8 @@ import { UserProvider, order, User, orderItem } from '../../providers/user/user'
 import { CallNumber } from '@ionic-native/call-number';
 import { Database } from '../../providers/database/database';
 import { SigninPage } from '../signin/signin';
+import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 /**
  * Generated class for the OrderDetailsPage page.
@@ -29,13 +31,20 @@ export class OrderDetailsPage {
     private platform: Platform,
     public userProv: UserProvider,
     public navParms: NavParams,
-    public call: CallNumber) {
+    private launchNavigator: LaunchNavigator,
+    public call: CallNumber,
+    public helperTool: HelperToolsProvider
+
+
+
+  ) {
     this.getData(undefined);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderDetailsPage');
   }
+
 
   async getData(ev) {
     this.user = await this.userProv.getUser();
@@ -49,7 +58,7 @@ export class OrderDetailsPage {
 
   public async checkAcceptedOrder() {
     let order = await this.userProv.getAcceptedOrder(this.user.id);
-    console.log(order);
+    //console.log(order);
     if (order == undefined) {
       setTimeout(() => {
         this.checkAcceptedOrder()
@@ -57,7 +66,6 @@ export class OrderDetailsPage {
     } else {
       this.order = order;
       this.orderItems = await this.userProv.getorderItems(this.order.id);
-      this.changeUserStatus();
       this.ready = true;
       setTimeout(() => {
         this.checkAcceptedOrder()
@@ -65,7 +73,14 @@ export class OrderDetailsPage {
     }
   }
   private async changeUserStatus() {
-    let status = await this.userProv.changeStaffStatus(this.user.id, this.userProv.available, this.userProv.queue);
+    console.log(this.userProv.queue);
+    console.log(this.userProv.available);
+    let available = (this.userProv.queue == '1') ? '0' : '1';
+    console.log(this.userProv.available);
+    let status = await this.userProv.changeStaffStatus(this.user.id, available, '0');
+
+
+
     console.log(status);
     if (status != true) {
       this.changeUserStatus();
@@ -91,6 +106,7 @@ export class OrderDetailsPage {
 
   async changeStatus() {
     let newStatus;
+    this.helperTool.ShowLoadingSpinnerOnly();
     if (this.order.orderStatusId == '1') {
       newStatus = "3";
     } else if (this.order.orderStatusId == '3') {
@@ -102,25 +118,38 @@ export class OrderDetailsPage {
     }
     let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
     this.order.orderStatusId = newStatus;
+
+    this.helperTool.DismissLoading();
     if (this.order.orderStatusId == "6") {
-      this.userProv.changeStaffStatus(this.user.id, this.userProv.available, this.userProv.queue);
+      await this.changeUserStatus();
       this.ready = false;
+
       this.checkAcceptedOrder();
     }
+
   }
 
   navToCustomerPos(lat, long) {
-    let destination = lat + "," + long;
-    if (this.platform.is("ios")) {
-      window.open("maps://?q=" + destination, "_system");
-    } else {
-      let label = encodeURI('Customer Location');
-      window.open("geo:0,0?q=" + destination + "(" + label + ")", "_system");
-    }
+    // let destination = lat + "," + long;
+    // if (this.platform.is("ios")) {
+    //   window.open("maps://?q=" + destination, "_system");
+    // } else {
+    //   let label = encodeURI('Customer Location');
+    //   window.open("geo:0,0?q=" + destination + "(" + label + ")", "_system");
+    let dest = [lat, long]
+    this.launchNavigator.navigate(dest)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
+
+    // }
   }
 
   doRefresh(event) {
     this.getData(event);
   }
+
+
 
 }

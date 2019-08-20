@@ -10,6 +10,7 @@ import { SignupPage } from '../signup/signup';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 import { EnterCodePage } from '../enter-code/enter-code';
 import { TranslateService } from '@ngx-translate/core';
+import { OrderDetailsPage } from '../order-details/order-details';
 
 
 @IonicPage()
@@ -74,7 +75,7 @@ export class SigninPage {
         this.user.deviceId = token;
         this.storage.set('toi-staff-user', this.user);
         this.events.publish('logedin');
-        this.navCtrl.setRoot(HomePage, { 'change': true });
+        this.navCtrl.setRoot(OrderDetailsPage, { 'change': true });
 
 
       } else {

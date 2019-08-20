@@ -5,6 +5,7 @@ import { order, UserProvider, User, orderItem } from '../../providers/user/user'
 import { SigninPage } from '../signin/signin';
 
 import { CallNumber } from '@ionic-native/call-number';
+import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 
 
 @IonicPage()
@@ -24,7 +25,9 @@ export class HomePage {
     private platform: Platform,
     public userProv: UserProvider,
     public navParms: NavParams,
-    public call: CallNumber) {
+    public call: CallNumber,
+    public helperTool : HelperToolsProvider
+    ) {
     this.getData(undefined);
   }
 
@@ -41,7 +44,7 @@ export class HomePage {
 
   public async checkAcceptedOrder() {
     let order = await this.userProv.getAcceptedOrder(this.user.id);
-    console.log(order);
+    //console.log(order);
     if (order == undefined) {
       setTimeout(() => {
         this.checkAcceptedOrder()
@@ -49,22 +52,28 @@ export class HomePage {
     } else {
       this.order = order;
       this.orderItems = await this.userProv.getorderItems(this.order.id);
-      // this.changeUserStatus();
       this.ready = true;
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 3000);
     }
   }
-  // private async changeUserStatus() {
-  //   let status = await this.userProv.changeStaffStatus(this.user.id, '0');
-  //   console.log(status);
-  //   if (status != true) {
-  //     this.changeUserStatus();
-  //   } else {
-  //     return;
-  //   }
-  // }
+  private async changeUserStatus() {
+    console.log(this.userProv.queue);
+    console.log(this.userProv.available);
+    let available = (this.userProv.queue == '1') ? '0' : '1';
+    console.log(this.userProv.available);
+    let status = await this.userProv.changeStaffStatus(this.user.id,available,'0');
+
+
+
+    console.log(status);
+    if (status != true) {
+      this.changeUserStatus();
+    } else {
+      return;
+    }
+  }
 
 
 
@@ -81,25 +90,30 @@ export class HomePage {
   }
 
 
-  // async changeStatus() {
-  //   let newStatus;
-  //   if (this.order.orderStatusId == '1') {
-  //     newStatus = "3";
-  //   } else if (this.order.orderStatusId == '3') {
-  //     newStatus = "5"
-  //   } else if (this.order.orderStatusId == '5') {
-  //     newStatus = "6";
-  //   } else {
-  //     newStatus = "4"
-  //   }
-  //   let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
-  //   this.order.orderStatusId = newStatus;
-  //   if (this.order.orderStatusId == "6") {
-  //     this.userProv.changeStaffStatus(this.user.id, '1');
-  //     this.ready = false;
-  //     this.checkAcceptedOrder();
-  //   }
-  // }
+  async changeStatus() {
+    let newStatus;
+    this.helperTool.ShowLoadingSpinnerOnly();
+    if (this.order.orderStatusId == '1') {
+      newStatus = "3";
+    } else if (this.order.orderStatusId == '3') {
+      newStatus = "5"
+    } else if (this.order.orderStatusId == '5') {
+      newStatus = "6";
+    } else {
+      newStatus = "4"
+    }
+    let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
+    this.order.orderStatusId = newStatus;
+
+    this.helperTool.DismissLoading();
+    if (this.order.orderStatusId == "6") {
+      await this.changeUserStatus();
+      this.ready = false;
+      
+      this.checkAcceptedOrder();
+    }
+
+  }
 
   navToCustomerPos(lat, long) {
     let destination = lat + "," + long;

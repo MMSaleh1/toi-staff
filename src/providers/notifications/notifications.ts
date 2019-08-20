@@ -17,7 +17,7 @@ export class NotificationsProvider {
   }
 
   public init() {
-    this.oneSignal.startInit('47d5cac0-673c-430a-82ce-0cd2fea2e5fd', '690713618535');
+    this.oneSignal.startInit('75a74ea9-311c-4ec7-a0ee-2b7b04c14404', '440781592056');
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 
     this.oneSignal.handleNotificationReceived().subscribe(() => {

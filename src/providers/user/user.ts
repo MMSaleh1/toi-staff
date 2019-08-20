@@ -27,6 +27,8 @@ export class UserProvider extends RootProvider {
   private changeUserStatusActionString = "update_stuff_states?";
   private updateDeviceTokenActionString = "update_stuff_token_id?";
 
+  private updateStaffStateActionString = "update_stuff_states?"
+
 
   public user: User;
 
@@ -98,7 +100,7 @@ export class UserProvider extends RootProvider {
   public async getorderItems(orderId: string): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getOrderItemActionString}order_id=${orderId}`;
     this.user = await this.getUser();
-    console.log(temp);
+   // console.log(temp);
     return new Promise((resolve) => {
       this.http.get(temp).subscribe((data: any) => {
         if (data == undefined || data.length == 0) {
@@ -122,7 +124,7 @@ export class UserProvider extends RootProvider {
   // 1 = avilable
   // 0  = unavilable
   public async changeStaffStatus(stuff_id, ava, queue): Promise<any> {
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeUserStatusActionString}stuff_id=${stuff_id}&available=${ava}&queue${queue}`;
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeUserStatusActionString}stuff_id=${stuff_id}&available=${ava}&queue=${queue}`;
     console.log(temp);
     return new Promise((resolve) => {
       this.http.get(temp).subscribe((data: any) => {
@@ -160,29 +162,54 @@ export class UserProvider extends RootProvider {
 
   public async getAcceptedOrder(stuff_id: string): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getAcceptedOrdersActionString}stuff_id=${stuff_id}`;
+    console.log(temp);
     return new Promise((resolve) => {
       this.http.get(temp).subscribe((data: any) => {
         if (data == undefined || data.length == 0) {
           resolve(undefined)
         } else {
-          if (2 <= data.length) {
+          let orderCounter =1;
+          for(let i = 1 ; i < data.length; i++){
+            if(data[i].order_id != data[i-1].order_id){
+              orderCounter++
+            }
+          }
+          console.log(orderCounter)
+          if (1 < orderCounter) {
             this.available = 0;
             this.queue = 1;
           }
-          else if (data.length == 1) {
+          else if (orderCounter == 1) {
             this.available = 0;
             this.queue = 0;
           }
-          else if (data.length == 0) {
+          else if (orderCounter == 0) {
             this.available = 1;
             this.queue = 0;
           }
+          console.log(this.available)
+          console.log(this.queue);
+          console.log(data);
+          this.changeStaffStatus(stuff_id,this.available,this.queue);
           let orders = new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt);
           resolve(orders);
         }
       })
     })
   }
+
+
+
+  // public updateStatus(staffId : string) :Promise<any>{
+  //   let temp =`${RootProvider.APIURL}${this.userApiController}${this.updateStaffStateActionString}stuff_id=${staffId}&available=${this.available}&queue=${this.queue}`;
+  //   console.log(temp);
+  //   return new Promise((resolve)=>{
+  //     this.http.get(temp).subscribe((data : any)=>{
+  //       console.log(data);
+  //       resolve(data);
+  //     })
+  //   })
+  // }
 
 
   public async changeStatus(stuff_id, order_id, statusId, userToken): Promise<any> {

@@ -22,7 +22,7 @@ import { UserProvider } from '../providers/user/user';
 import { HomePageModule } from '../pages/home/home.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
 import { EnterCodePageModule } from '../pages/enter-code/enter-code.module';
-
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 
 
@@ -79,6 +79,7 @@ export function createTranslateLoader(http: HttpClient) {
     ItemsApiProvider,
     UserProvider,
     Database,
+    LaunchNavigator,
     CartProvider,
     CallNumber,
     NotificationsProvider,
