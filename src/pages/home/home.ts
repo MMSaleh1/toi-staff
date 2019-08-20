@@ -6,6 +6,8 @@ import { SigninPage } from '../signin/signin';
 
 import { CallNumber } from '@ionic-native/call-number';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { OrderDetailsPage } from '../order-details/order-details';
 
 
 @IonicPage()
@@ -15,7 +17,7 @@ import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 })
 export class HomePage {
   public ready: boolean = false;
-
+  order_data: Array<order>;
   public order: order;
   public user: User;
   public db: Database;
@@ -24,11 +26,13 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private platform: Platform,
     public userProv: UserProvider,
+    private launchNavigator: LaunchNavigator,
     public navParms: NavParams,
     public call: CallNumber,
-    public helperTool : HelperToolsProvider
-    ) {
+    public helperTool: HelperToolsProvider
+  ) {
     this.getData(undefined);
+    this.order_data = new Array();
   }
 
 
@@ -43,16 +47,14 @@ export class HomePage {
   }
 
   public async checkAcceptedOrder() {
-    let order = await this.userProv.getAcceptedOrder(this.user.id);
-    //console.log(order);
+    this.order_data = await this.userProv.getAcceptedOrder(this.user.id);
+    // console.log(this.order_data)
+    // console.log(order);
     if (order == undefined) {
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 1000);
     } else {
-      this.order = order;
-      this.orderItems = await this.userProv.getorderItems(this.order.id);
-      this.ready = true;
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 3000);
@@ -63,7 +65,7 @@ export class HomePage {
     console.log(this.userProv.available);
     let available = (this.userProv.queue == '1') ? '0' : '1';
     console.log(this.userProv.available);
-    let status = await this.userProv.changeStaffStatus(this.user.id,available,'0');
+    let status = await this.userProv.changeStaffStatus(this.user.id, available, '0');
 
 
 
@@ -90,30 +92,30 @@ export class HomePage {
   }
 
 
-  async changeStatus() {
-    let newStatus;
-    this.helperTool.ShowLoadingSpinnerOnly();
-    if (this.order.orderStatusId == '1') {
-      newStatus = "3";
-    } else if (this.order.orderStatusId == '3') {
-      newStatus = "5"
-    } else if (this.order.orderStatusId == '5') {
-      newStatus = "6";
-    } else {
-      newStatus = "4"
-    }
-    let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
-    this.order.orderStatusId = newStatus;
+  // async changeStatus() {
+  //   let newStatus;
+  //   this.helperTool.ShowLoadingSpinnerOnly();
+  //   if (this.order.orderStatusId == '1') {
+  //     newStatus = "3";
+  //   } else if (this.order.orderStatusId == '3') {
+  //     newStatus = "5"
+  //   } else if (this.order.orderStatusId == '5') {
+  //     newStatus = "6";
+  //   } else {
+  //     newStatus = "4"
+  //   }
+  //   let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
+  //   this.order.orderStatusId = newStatus;
 
-    this.helperTool.DismissLoading();
-    if (this.order.orderStatusId == "6") {
-      await this.changeUserStatus();
-      this.ready = false;
-      
-      this.checkAcceptedOrder();
-    }
+  //   this.helperTool.DismissLoading();
+  //   if (this.order.orderStatusId == "6") {
+  //     await this.changeUserStatus();
+  //     this.ready = false;
 
-  }
+  //     this.checkAcceptedOrder();
+  //   }
+
+  // }
 
   navToCustomerPos(lat, long) {
     let destination = lat + "," + long;
@@ -127,6 +129,32 @@ export class HomePage {
 
   doRefresh(event) {
     this.getData(event);
+  }
+
+  onCallClicked(numb) {
+    this.call.callNumber(numb, true)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
+  onLocationClicked(lat, long) {
+    // let destination = lat + "," + long;
+    // if (this.platform.is("ios")) {
+    //   window.open("maps://?q=" + destination, "_system");
+    // } else {
+    //   let label = encodeURI('Customer Location');
+    //   window.open("geo:0,0?q=" + destination + "(" + label + ")", "_system");
+    let dest = [lat, long]
+    this.launchNavigator.navigate(dest)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
+
+    // }
+  }
+  goToOrderDet(clicked_order) {
+    this.navCtrl.push(OrderDetailsPage, { data: clicked_order })
   }
 
 }

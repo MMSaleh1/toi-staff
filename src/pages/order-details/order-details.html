@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border text-center>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
@@ -17,7 +17,7 @@
   </ion-refresher>
 
   <ion-card>
-    
+
   </ion-card>
   <!-- <ion-list *ngIf="ready" class="orders-list">
         <ion-item *ngFor="let item of  orders" (tap)="toDetails(item)">
@@ -34,19 +34,24 @@
   <div *ngIf="ready">
 
     <div class="date-container">
-      <div class="date">{{'Ordered' | translate}}: {{order.orderDate | date : 'mediumDate' }}</div>
-      <div class="time">{{'At' | translate}}: {{order.orderDate | date : 'shortTime' }} </div>
+      <div class="date">
+        <p>{{'Ordered' | translate}}: {{order_details.orderDate | date : 'mediumDate' }}</p>
+      </div>
+      <div class="time">
+        <p>{{'At' | translate}}: {{order_details.orderDate | date : 'shortTime' }} </p>
+      </div>
     </div>
     <ion-card>
       <ion-card-header>{{'CustomerInfo' | translate}}: </ion-card-header>
       <ion-card-content>
         <div class="image-container">
-          <img class="profile-image" src="assets/imgs/signup_male.png">
+          <img class="profile-image" src="assets/imgs/signup_female.png">
         </div>
-        <div class="name">{{order.customerName}}</div>
-        <div class="address">{{order.address}}</div>
+        <div class="name">{{order_details.customerName}}</div>
+        <div class="address">{{order_details.address}}</div>
         <div class="button-container">
-          <button ion-button icon-only class="location-button" (click)="navToCustomerPos(order.lat,order.long)">
+          <button ion-button icon-only class="location-button"
+            (click)="navToCustomerPos(order_details.lat,order_details.long)">
             <ion-icon name="ios-pin"></ion-icon>
           </button>
           <button ion-button icon-only (tap)="makeCall()" class="call-button">
@@ -67,25 +72,29 @@
         </ion-item> -->
         <ion-card *ngFor="let item of orderItems" class="item">
           <img src="./assets/imgs/icon.png">
-          <div class="item-name">{{'Itemname' | translate}}: {{item.productName}}</div>
-          <div class="item-quant">{{'Itemprice' | translate}}: {{item.cost}} LE</div>
+          <div class="item-name">
+            <p>{{'Itemname' | translate}}: {{item.productName}}</p>
+          </div>
+          <div class="item-quant">
+            <p>{{'Itemprice' | translate}}: {{item.cost}} {{'LE' | translate}}</p>
+          </div>
         </ion-card>
 
         <!-- </ion-scroll> -->
       </ion-card-content>
     </ion-card>
 
-    <div class="total-price">{{'TotalPrice' | translate}} : {{order.totalPrice}} LE</div>
+    <div class="total-price">{{'TotalPrice' | translate}} : {{order_details.totalPrice}} {{'LE' | translate}}</div>
 
-    <div *ngIf="order.orderStatusId == '1' " class="change-status-container">
+    <div *ngIf="order_details.orderStatusId == '1' " class="change-status-container">
       <button ion-button (tap)="changeStatus()">{{'Accept' | translate}}</button>
     </div>
 
-    <div *ngIf="order.orderStatusId == '3' " class="change-status-container">
+    <div *ngIf="order_details.orderStatusId == '3' " class="change-status-container">
       <button ion-button (tap)="changeStatus()">{{'Arrived' | translate}}</button>
     </div>
 
-    <div *ngIf="order.orderStatusId == '5' " class="change-status-container">
+    <div *ngIf="order_details.orderStatusId == '5' " class="change-status-container">
       <button ion-button class="status-button" (tap)="changeStatus()">{{'Done' | translate}}</button>
     </div>
 

@@ -1,25 +1,27 @@
 page-order-details {
     .content {
-        background-image: url('../assets/imgs/bg.png')
-    }
-    .content-ios{
-        background-color:transparent;
+        background-image: url('../assets/imgs/bg.png') !important;
     }
 
-    .title {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
-        height: 100%;
-        text-align: center;
-        font-weight: bold !important;
-
-        img {
-            width: 60px;
-        }
+    .content-ios, .content-md {
+        background-color: transparent;
+        background-image: url('../assets/imgs/bg.png') !important;
     }
+
+    // .title {
+    //     position: absolute;
+    //     left: 50%;
+    //     top: 0;
+    //     -webkit-transform: translateX(-50%);
+    //     transform: translateX(-50%);
+    //     height: 100%;
+    //     text-align: center;
+    //     font-weight: bold !important;
+
+    //     img {
+    //         width: 60px;
+    //     }
+    // }
 
     .card {
         border-radius: 10px;
@@ -56,22 +58,54 @@ page-order-details {
         }
     }
 
+    .card{
+        border-radius: 10px !important;
+    }
+
 
     .date-container {
         padding: 0 0 2vh 3vw;
         font-size: 1.6rem;
         color: color($colors, primary);
-        display: flex;
+        display: block;
         width: 95%;
         margin-top: 15px;
+
+        p {
+            margin: 0px;
+        }
+
         .date {
-            margin-right:auto ;
-            // margin-left: 10px; 
-               }
+            p {
+                @include ltr {
+                    margin-left: auto;
+                    margin-right: 10px;
+                }
+
+                @include rtl {
+                    margin-right: 10px;
+                    margin-left: auto;
+                    ;
+                }
+            }
+        }
 
         .time {
-            // margin-right: 10px;
-            margin-left: auto;        }
+            p {
+                margin-top: 10px;
+
+                @include ltr {
+                    margin-left: auto;
+                    margin-right: 10px;
+                }
+
+                @include rtl {
+                    // margin-right: auto;
+                    margin-right: 10px;
+
+                }
+            }
+        }
     }
 
 
@@ -91,7 +125,7 @@ page-order-details {
         text-align: center;
 
         .location-button {
-            margin: 0 7vw 0 0;
+            margin: 0 7vw 0 7vw;
             border-radius: 50%;
             font-size: 13px;
             width: 40px;
@@ -100,6 +134,7 @@ page-order-details {
         }
 
         .call-button {
+            margin: 0 7vw 0 7vw;
             border-radius: 50%;
             font-size: 13px;
             width: 40px;
@@ -124,23 +159,55 @@ page-order-details {
         background-color: #3e3c3d;
 
         img {
+            @include ltr{
+                float: left !important;
+                margin-right: 10px;
+            }
+            @include rtl{
+                float: right !important;
+                margin-left: 10px;
+            }
             background-color: #231f20;
-            float: left;
             height: 100%;
             width: 100px !important;
             display: block;
-            margin: auto;
-            margin-right: 10px;
+            // margin: auto;
             border-radius: 10px !important;
         }
 
         .item-name {
             margin-top: 23px;
-            color: color($colors, primary);
+
+            p {
+                color: color($colors, primary);
+
+                @include ltr {
+                    text-align: left;
+                }
+
+                @include rtl {
+                    text-align: right !important;
+                    margin-right: 5px;
+                }
+            }
         }
+
         .item-quant {
             margin-top: 10px;
-            color: color($colors, primary);
+
+            p {
+                color: color($colors, primary);
+
+                @include ltr {
+                    text-align: left;
+                }
+
+                @include rtl {
+                    text-align: right !important;
+                    margin-left: auto !important;
+                    margin-right: 5px;
+                }
+            }
         }
 
 
@@ -150,11 +217,22 @@ page-order-details {
     }
 
     .total-price {
-        margin-left: 10px;
-        margin-right: auto;
         margin-top: 15px;
         font-weight: bold;
         color: color($colors, primary);
+        font-size: 17px;
+        @include rtl {
+            text-align: left;
+            margin-left: 10px;
+            margin-right: auto;
+        }
+
+        @include ltr {
+            text-align: right;
+            margin-right: 10px;
+            margin-left: auto;
+
+        }
     }
 
     .items-container {

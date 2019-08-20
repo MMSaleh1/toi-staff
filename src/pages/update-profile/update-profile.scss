@@ -30,7 +30,7 @@ page-update-profile {
         background-color: transparent;
         border-top: transparent !important;
         margin: 0 0vh 4vh 0;
-
+        margin-top: 30px !important;
         .item-inner {
             border-bottom: transparent !important;
             box-shadow: none !important;
@@ -54,9 +54,12 @@ page-update-profile {
 
     .update-button {
         width: 40%;
-        margin: auto;
+        margin: auto !important;
         border-radius: 30px;
         background-color: color($colors, primary);
+        margin: auto !important;
+        margin-top: 40px !important;
+        border-radius: 30px !important;
     }
 
 }

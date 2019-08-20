@@ -4,6 +4,23 @@
     background-color: color($colors, dark);
 }
 
+ion-navbar {
+    @include ltr() {
+      direction: ltr;
+    }
+
+    @include rtl() {
+      direction: rtl;
+    }
+  }
+
+  .loading-md .loading-wrapper,
+  .loading-ios .loading-wrapper {
+      background: transparent;
+      box-shadow: none;
+  }
+  
+
 .logo-container {
     width: 50%;
     margin: auto;
@@ -58,7 +75,7 @@
 }
 
 .user-img {
-
+    border:1px solid color($colors, primary);
     border-radius: 50%;
     width: 100%;
 }
@@ -90,22 +107,37 @@
 
 ion-header {
     box-sizing: unset !important;
-}
 
-ion-title {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    height: 100%;
-    width: 70%;
-    text-align: center;
-    font-weight: bold !important;
 
-    img {
-        width: 60px;
+    .title {
+        position: absolute;
+        left: 50% !important;
+        top: 0;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        height: 100%;
+        text-align: center;
+        font-weight: bold !important;
+        right: inherit !important;
+        img {
+            width: 60px;
+        }
     }
 }
+
+
+// ion-title {
+//     position: absolute;
+//     left: 50%;
+//     top: 0;
+//     transform: translateX(-50%);
+//     height: 100%;
+//     width: 70%;
+//     text-align: center;
+//     font-weight: bold !important;
+// }
+
+
 
 .bg-theme {
     background: #ec008c;
@@ -144,8 +176,8 @@ ion-title {
     color: color($colors, primary);
     padding-left: 0px !important;
     width: 80%;
-    margin: auto;
-
+    padding-right: 0px !important;
+    margin: auto !important;
     .item-inner {
         padding: 0px !important;
     }

@@ -44,6 +44,14 @@ page-signin {
         }
     }
 
+    .appLogo {
+        height: 14vh;
+        width: 80%;
+        display: block;
+        margin: auto;
+        margin-top: -60px;
+    }
+
     .Header-Name {
         color: white;
         margin-top: 23vh;
@@ -55,13 +63,15 @@ page-signin {
     }
 
     .login-button {
-        width: 40%;
-        margin: auto;
-        border-radius: 30px;
+        width: 50%;
+        display: block !important;
+        margin: auto !important;
+        border-radius: 30px !important;
         background-color: color($colors, primary);
     }
-    .text-input{
-        padding:0px !important;
+
+    .text-input {
+        padding: 0px !important;
         text-align: center;
     }
 

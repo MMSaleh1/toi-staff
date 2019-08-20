@@ -8,12 +8,12 @@
     "Newuser" : "New user?",
     "RegisterNow" : "Register Now!",
     "NoOrdersAssignedToYou" : "No Orders Assigned To You.",
-    "Ordered" : "Ordered",
+    "Ordered" : "Order Date",
     "At" : "At",
     "CustomerInfo" : "Customer Info",
     "Items" : "Items",
-    "Itemname" : "Item name",
-    "Itemprice" : "Item price",
+    "Itemname" : "Name",
+    "Itemprice" : "Price",
     "TotalPrice" : "Total Price",
     "Accept" : "Accept",
     "Arrived" : "Arrived",
@@ -38,6 +38,12 @@
     "ConfirmPassword" : "Confirm Password",
     "Arabic" : "عربي",
     "En" : "En",
-    "Logout" : "Logout"
+    "Logout" : "Logout",
+    "Name" : "Name",
+    "TotalCost" : "Total Cost",
+    "LE" : "LE",
+    "SoonThisFeatureWillBeAva" : "Soon this feature will be available, Thank you.",
+    "Alert" : "Alert",
+    "LogOutDone" : "Logged out successfully, Thank you."
 
 }

@@ -6,6 +6,7 @@ import { Database } from '../../providers/database/database';
 import { SigninPage } from '../signin/signin';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the OrderDetailsPage page.
@@ -21,7 +22,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 })
 export class OrderDetailsPage {
   public ready: boolean = false;
-
+  order_details = {} as any;
   public order: order;
   public user: User;
   public db: Database;
@@ -38,6 +39,11 @@ export class OrderDetailsPage {
 
 
   ) {
+    this.order_details = this.navParms.get('data');
+    this.userProv.getorderItems(this.order_details.id).then(data=>{
+      this.orderItems = data;
+      this.ready =true;
+    });
     this.getData(undefined);
   }
 
@@ -49,29 +55,28 @@ export class OrderDetailsPage {
   async getData(ev) {
     this.user = await this.userProv.getUser();
 
-    this.checkAcceptedOrder();
+    // this.checkAcceptedOrder();
     console.log(this.user)
     if (ev) {
       ev.complete()
     }
   }
 
-  public async checkAcceptedOrder() {
-    let order = await this.userProv.getAcceptedOrder(this.user.id);
-    //console.log(order);
-    if (order == undefined) {
-      setTimeout(() => {
-        this.checkAcceptedOrder()
-      }, 1000);
-    } else {
-      this.order = order;
-      this.orderItems = await this.userProv.getorderItems(this.order.id);
-      this.ready = true;
-      setTimeout(() => {
-        this.checkAcceptedOrder()
-      }, 3000);
-    }
-  }
+  // public async checkAcceptedOrder() {
+  //   let order = await this.userProv.getAcceptedOrder(this.user.id);
+  //   //console.log(order);
+  //   if (order == undefined) {
+  //     setTimeout(() => {
+  //       this.checkAcceptedOrder()
+  //     }, 1000);
+  //   } else {
+  //     this.order = order;
+  //     this.ready = true;
+  //     setTimeout(() => {
+  //       this.checkAcceptedOrder()
+  //     }, 3000);
+  //   }
+  // }
   private async changeUserStatus() {
     console.log(this.userProv.queue);
     console.log(this.userProv.available);
@@ -98,7 +103,7 @@ export class OrderDetailsPage {
 
 
   async makeCall() {
-    this.call.callNumber(this.order.customerPhone, true)
+    this.call.callNumber(this.order_details.customerPhone, true)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
@@ -107,24 +112,23 @@ export class OrderDetailsPage {
   async changeStatus() {
     let newStatus;
     this.helperTool.ShowLoadingSpinnerOnly();
-    if (this.order.orderStatusId == '1') {
+    if (this.order_details.orderStatusId == '1') {
       newStatus = "3";
-    } else if (this.order.orderStatusId == '3') {
+    } else if (this.order_details.orderStatusId == '3') {
       newStatus = "5"
-    } else if (this.order.orderStatusId == '5') {
+    } else if (this.order_details.orderStatusId == '5') {
       newStatus = "6";
     } else {
       newStatus = "4"
     }
-    let bool = await this.userProv.changeStatus(this.user.id, this.order.id, newStatus, this.order.userToken);
-    this.order.orderStatusId = newStatus;
+    let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, newStatus, this.order_details.userToken, this.order_details.user_id);
+    this.order_details.orderStatusId = newStatus;
 
     this.helperTool.DismissLoading();
-    if (this.order.orderStatusId == "6") {
+    if (this.order_details.orderStatusId == "6") {
       await this.changeUserStatus();
       this.ready = false;
-
-      this.checkAcceptedOrder();
+      this.navCtrl.setRoot(HomePage)
     }
 
   }

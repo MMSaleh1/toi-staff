@@ -65,7 +65,7 @@ export class HelperToolsProvider {
       content: `
         <div class="custom-spinner-container">
           <div class="custom-spinner-box">
-            <img src="assets/imgs/loading.svg" width="200" height="200">
+            <img src="assets/imgs/loading.svg" width="100" height="100">
           </div>
         </div>`,
     });

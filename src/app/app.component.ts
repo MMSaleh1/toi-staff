@@ -16,6 +16,7 @@ import { HomePage } from '../pages/home/home';
 // import { MyOrdersPage } from '../pages/my-orders/my-orders';
 import { UpdateProfilePage } from '../pages/update-profile/update-profile';
 import { OrderDetailsPage } from '../pages/order-details/order-details';
+import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 @Component({
   templateUrl: 'app.html'
 })
@@ -30,19 +31,20 @@ export class MyApp {
     splashScreen: SplashScreen,
     public userProv: UserProvider,
     private storage: Storage,
+    private helperTools: HelperToolsProvider,
     private menuCntrl: MenuController,
     private translate: TranslateService,
     public event: Events,
     private notifyCtrl: NotificationsProvider) {
-    // this.rememberUser();
+    this.rememberUser();
     this.initTranslate();
     platform.ready().then(() => {
       this.event.subscribe('logedin', () => {
         this.userProv.getUser().then(data => {
           this.user = data;
-          this.isLogedin = true;
+          // this.isLogedin = true;
           this.userProv.getAcceptedOrder(this.user.id);
-         
+
           console.log(this.user)
         });
 
@@ -103,7 +105,8 @@ export class MyApp {
     if (number == 1) {
       this.nav.setRoot(HomePage);
     } else if (number == 2) {
-       this.nav.push(OrderDetailsPage);
+      this.helperTools.ShowAlertWithTranslation('Alert', "SoonThisFeatureWillBeAva")
+      // this.nav.push(OrderDetailsPage);
     } else if (number == '3') {
       this.nav.push(UpdateProfilePage);
     }
@@ -111,6 +114,7 @@ export class MyApp {
   }
 
   logOut() {
+    this.helperTools.ShowAlertWithTranslation('Done', "LogOutDone")
     this.userProv.logout();
     this.menuCntrl.enable(false);
     this.nav.setRoot(SigninPage);

@@ -67,7 +67,8 @@
       "onesignal-cordova-plugin": {},
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {
         "GOOGLE_API_KEY_FOR_ANDROID": "AIzaSyB9T7HFZs6aViYzsqISbtZoPe4urKBGhk0",
-        "OKHTTP_VERSION": "3.12.0"
+        "OKHTTP_VERSION": "3.12.0",
+        "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes"
       }
     },
     "platforms": [

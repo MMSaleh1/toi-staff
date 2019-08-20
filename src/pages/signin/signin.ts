@@ -75,7 +75,7 @@ export class SigninPage {
         this.user.deviceId = token;
         this.storage.set('toi-staff-user', this.user);
         this.events.publish('logedin');
-        this.navCtrl.setRoot(OrderDetailsPage, { 'change': true });
+        this.navCtrl.setRoot(HomePage);
 
 
       } else {

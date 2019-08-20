@@ -100,7 +100,7 @@ export class UserProvider extends RootProvider {
   public async getorderItems(orderId: string): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getOrderItemActionString}order_id=${orderId}`;
     this.user = await this.getUser();
-   // console.log(temp);
+    // console.log(temp);
     return new Promise((resolve) => {
       this.http.get(temp).subscribe((data: any) => {
         if (data == undefined || data.length == 0) {
@@ -168,10 +168,14 @@ export class UserProvider extends RootProvider {
         if (data == undefined || data.length == 0) {
           resolve(undefined)
         } else {
-          let orderCounter =1;
-          for(let i = 1 ; i < data.length; i++){
-            if(data[i].order_id != data[i-1].order_id){
+          let orderCounter = 1;
+          let orders = new Array<order>();
+          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id));
+          for (let i = 1; i < data.length; i++) {
+            if (data[i].order_id != data[i - 1].order_id) {
               orderCounter++
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id));
+
             }
           }
           console.log(orderCounter)
@@ -190,8 +194,7 @@ export class UserProvider extends RootProvider {
           console.log(this.available)
           console.log(this.queue);
           console.log(data);
-          this.changeStaffStatus(stuff_id,this.available,this.queue);
-          let orders = new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt);
+          this.changeStaffStatus(stuff_id, this.available, this.queue);
           resolve(orders);
         }
       })
@@ -212,8 +215,8 @@ export class UserProvider extends RootProvider {
   // }
 
 
-  public async changeStatus(stuff_id, order_id, statusId, userToken): Promise<any> {
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}&user_token=${userToken}`;
+  public async changeStatus(stuff_id, order_id, statusId, userToken, user_id): Promise<any> {
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}&user_token=${userToken}&user_id=${user_id}`;
     console.log(temp);
     return new Promise((resolve) => {
       this.http.get(temp).subscribe((data: any) => {
@@ -350,6 +353,7 @@ export class order {
   userToken: string
   long: string;
   lat: string;
+  user_id: number;
 
   constructor(id: string,
     customerName: string,
@@ -361,7 +365,8 @@ export class order {
     order_states_id = "1",
     userToken,
     long,
-    latt
+    latt,
+    user_id
   ) {
     this.id = id;
     this.customerName = customerName;
@@ -374,6 +379,7 @@ export class order {
     this.userToken = userToken;
     this.lat = latt;
     this.long = long;
+    this.user_id = user_id
   }
 }
 export class orderItem {

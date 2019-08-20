@@ -42,16 +42,18 @@ export class UpdateProfilePage {
     this.ready = true;
   }
 
-  // public async update() {
-  //   console.log(this.updateForm.value.userName);
-  //   if (this.updateForm.valid) {
-  //     this.helperTools.ShowLoadingSpinnerOnly();
-  //     this.userProv.updateProfile(this.user.id, this.updateForm.value.userName, this.updateForm.value.phone, this.updateForm.value.email, this.updateForm.value.password, "").then(data => {
-  //       this.helperTools.DismissLoading();
-  //       this.helperTools.ShowAlertWithTranslation('Done', "Profile has been updated successfully, Thank you.")
-  //       this.navCtrl.pop();
-  //     })
-  //   }
-  // }
+  public async update() {
+    this.helperTools.ShowAlertWithTranslation('Alert', "SoonThisFeatureWillBeAva")
+
+    //   console.log(this.updateForm.value.userName);
+    //   if (this.updateForm.valid) {
+    //     this.helperTools.ShowLoadingSpinnerOnly();
+    //     this.userProv.updateProfile(this.user.id, this.updateForm.value.userName, this.updateForm.value.phone, this.updateForm.value.email, this.updateForm.value.password, "").then(data => {
+    //       this.helperTools.DismissLoading();
+    //       this.helperTools.ShowAlertWithTranslation('Done', "Profile has been updated successfully, Thank you.")
+    //       this.navCtrl.pop();
+    //     })
+    //   }
+  }
 
 }

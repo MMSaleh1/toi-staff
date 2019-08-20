@@ -1,9 +1,10 @@
-<ion-header>
+<ion-header no-border text-center>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
-    </button>
-
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       <img src="assets/imgs/logo.png">
     </ion-title>
@@ -16,9 +17,28 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-card>
-    
+  <ion-card class="cardItem" *ngFor="let order of order_data; let i = index">
+    <ion-item class="OneItem" (click)="goToOrderDet(order)">
+      <img src="assets/imgs/signup_female.png" item-left />
+      <div class="MarketInfo">
+        <p>{{'Name' | translate}}: {{ order.customerName }}</p>
+        <p>
+          <span>{{'TotalCost' | translate}}: {{ order.totalPrice }} {{'LE' | translate}}</span>
+        </p>
+      </div>
+    </ion-item>
+    <div class="interaction" item-right>
+      <button ion-button clear icon-only small (click)="onCallClicked(order.customerPhone)">
+        <ion-icon color="primary" name="call">
+        </ion-icon>
+      </button>
+      <button ion-button clear icon-only small (click)="onLocationClicked(order.lat, order.long)">
+        <ion-icon color="primary" name="pin"> </ion-icon>
+      </button>
+    </div>
   </ion-card>
+
+
   <!-- <ion-list *ngIf="ready" class="orders-list">
         <ion-item *ngFor="let item of  orders" (tap)="toDetails(item)">
             <div class="order-address">Address : {{item.address}}</div>
@@ -26,7 +46,7 @@
             <div class="order-date-day">Order Day :  {{item.orderDate  | date :'shortDate' }}</div>
         </ion-item>
     </ion-list> -->
-  <div *ngIf="!ready" class="no-order">
+  <div *ngIf="!order_data" class="no-order">
     <img src="./assets/imgs/empty_white.png">
     <h4>{{'NoOrdersAssignedToYou' | translate}}</h4>
   </div>
