@@ -141,6 +141,7 @@ page-order-details {
             height: 37px;
             background-color: color($colors, light);
         }
+      
 
     }
 
@@ -245,11 +246,19 @@ page-order-details {
         margin-top: 20px;
         margin-bottom: 20px;
 
-        .button {
+      
+        .status-button{
+            font-size: 15px;
             display: block;
-            margin: auto;
-            border-radius: 20px !important;
-
+            margin: auto !important;
+            height: 100px;
+            border: solid thick #f9a618;
+            background: transparent;
+            color: #f1e2c8;
+            border-radius: 50% !important;
+            width: 100px;
+           
+            box-shadow: 0 0 8px 0px #f9a618;
         }
     }
 

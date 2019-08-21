@@ -18,6 +18,7 @@ export class UserProvider extends RootProvider {
   private userApiController: string = 'stuff/';
 
   private logInActionString = "stuff_login?";
+  private updateStaffActionString = "edit_stuf_mob/"
 
   private getOrderItemActionString = "get_order_items?";
   private changeStatusActionString = "stuff_response_order?";
@@ -47,9 +48,10 @@ export class UserProvider extends RootProvider {
         console.log(data[0]);
         if (data != null && data != undefined && data.length > 0 && data[0].error_name != "wrong_password") {
 
-          let image = ImageProcess.getImageUrl(data[0].img);
-          this.user = User.getInstance(data[0].id, data[0].name, data[0].password, data[0].mail, data[0].gender, data[0].phone, data[0].area_id, data[0].device_id, image);
+         // let image = ImageProcess.getImageUrl(data[0].img);
+          this.user = User.getInstance(data[0].id, data[0].name, data[0].password, data[0].mail, data[0].gender, data[0].phone, data[0].area_id, data[0].device_id , data[0].user_name,data[0].available , data[0].queue,data[0].img);
           this.event.publish('logedin');
+          this.saveUser(this.user);
           console.log(this.user);
           resolve(true);
         } else {
@@ -73,6 +75,26 @@ export class UserProvider extends RootProvider {
       })
     })
 
+
+  }
+
+  public async updateUser(user : User) : Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.updateStaffActionString}${user.id}?name=${user.name}&phone=${user.phone}&password=${user.password}&img=${user.serverImage}&gender=${user.gender}&user_name=${user.userName}&national_id=""&available=${user.available}&queue=${user.queue}&day_off=0`;
+    console.log(temp);
+     return new Promise((resolve)=>{
+       this.http.get(temp).subscribe(data=>{
+         if(data == undefined){
+           resolve(false)
+         }else{
+           resolve(true)
+          this.saveUser(user).then(()=>{
+            this.getUser();
+          }
+          
+          );
+         }
+       })
+     })
 
   }
 
@@ -253,7 +275,9 @@ export class UserProvider extends RootProvider {
 
 
 
-
+  public async saveUser(user : User){
+    this.storage.set('toi-staff-user',user);
+  }
 
 
   public async getUser(): Promise<any> {
@@ -263,7 +287,7 @@ export class UserProvider extends RootProvider {
           resolve(User.getInstance());
         } else {
           let user = <User>data;
-          resolve(User.getInstance(user.id, user.name, user.password, user.email, user.gender, user.phone, user.areaId, user.deviceId, user.image));
+          resolve(User.getInstance(user.id, user.name, user.password, user.email, user.gender, user.phone, user.areaId, user.deviceId,user.userName,user.available ,user.queue,user.serverImage));
 
         }
       });
@@ -287,25 +311,29 @@ export class User {
   email: string;
   phone: string;
   image: string;
+  serverImage: string;
   areaId: string;
   deviceId: string;
+  userName : string;
+  available: any;
+  queue : any;
 
 
   private static instance: User = null;
   static isCreating: boolean = false;
 
 
-  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", area_id = "", deviceId: string, imageUrl: string) {
+  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", area_id = "", deviceId: string ,user_name: string,available , queue,serverImage) {
 
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
     } else {
-      this.setData(id, name, password, email, gender, phone, area_id, deviceId, imageUrl);
+      this.setData(id, name, password, email, gender, phone, area_id, deviceId ,user_name,available , queue,serverImage);
       User.isCreating = true;
     }
   }
 
-  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string, imageUrl: string) {
+  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string, user_name : string ,available , queue,serverImage) {
 
     this.id = id;
     this.name = name;
@@ -315,20 +343,24 @@ export class User {
     this.phone = phone;
     this.areaId = area_id;
     this.deviceId = deviceId;
-    this.image = imageUrl;
+    this.image = serverImage ? ImageProcess.getImageUrl(serverImage) : "./assets/imgs/icon.png";
+    this.userName = user_name;
+    this.available = available;
+    this.queue = queue;
+    this.serverImage = serverImage
   }
 
-  static getInstance(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string = '0', imageUrl: string = "") {
+  static getInstance(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string = '0' , user_name : string ="",available="1" , queue = "0",serverImage="") {
 
 
 
     if (User.isCreating === false && id != "-1") {
       //User.isCreating = false;
-      User.instance = new User(id, name, gender, password, email, phone, area_id, deviceId, imageUrl);
+      User.instance = new User(id, name, gender, password, email, phone, area_id, deviceId,user_name,available , queue,serverImage);
       console.log(console.log(User.instance));
     }
     if (id != "-1") {
-      User.instance.setData(id, name, password, email, gender, phone, area_id, deviceId, imageUrl);
+      User.instance.setData(id, name, password, email, gender, phone, area_id, deviceId ,user_name,available , queue ,serverImage);
     }
     return User.instance;
   }

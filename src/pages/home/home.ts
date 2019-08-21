@@ -50,7 +50,7 @@ export class HomePage {
     this.order_data = await this.userProv.getAcceptedOrder(this.user.id);
     // console.log(this.order_data)
     // console.log(order);
-    if (order == undefined) {
+    if (this.order_data == undefined) {
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 1000);

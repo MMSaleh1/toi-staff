@@ -1,5 +1,5 @@
 {
-    "Username" : "اسم المستخدم",
+    "Username" : "اسم الحساب",
     "Usernameisrequired" : "اسم المستخدم مطلوب.",
     "Passwordisrequired" : "كلمه المرور مطلوبة.",
     "Passwordcannotbelessthan6digits" : "كلمه المرور لا يجب ان تقل عن ٦ خانات.",
@@ -44,8 +44,11 @@
     "LE" : "جم",
     "SoonThisFeatureWillBeAva" : "قريباً هذه الخدمه سوف تكون متاحه، شكراً لك.",
     "Alert" : "تنبيه",
-    "LogOutDone" : "تم تسجيل الخروج بنجاح، شكراً لك."
-
+    "LogOutDone" : "تم تسجيل الخروج بنجاح، شكراً لك.",
+    "Female" : "انثي",
+    "Male" : "ذكر",
+    "email" : "الحساب",
+    "name" : "الاسم"
 
 
 

@@ -35,6 +35,10 @@ page-update-profile {
             border-bottom: transparent !important;
             box-shadow: none !important;
         }
+
+        .gender-select{
+            color: white;
+        }
     }
 
     ion-input {
@@ -53,13 +57,17 @@ page-update-profile {
     }
 
     .update-button {
-        width: 40%;
+        font-size: 15px;
+        display: block;
         margin: auto !important;
-        border-radius: 30px;
-        background-color: color($colors, primary);
-        margin: auto !important;
-        margin-top: 40px !important;
-        border-radius: 30px !important;
+        height: 100px;
+        border: solid thick #f9a618;
+        background: transparent;
+        color: #f1e2c8;
+        border-radius: 50% !important;
+        width: 100px;
+       
+        box-shadow: 0 0 8px 0px #f9a618;
     }
 
 }

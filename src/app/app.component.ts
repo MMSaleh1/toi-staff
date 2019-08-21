@@ -36,7 +36,7 @@ export class MyApp {
     private translate: TranslateService,
     public event: Events,
     private notifyCtrl: NotificationsProvider) {
-    this.rememberUser();
+  this.rememberUser();
     this.initTranslate();
     platform.ready().then(() => {
       this.event.subscribe('logedin', () => {

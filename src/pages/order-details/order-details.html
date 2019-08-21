@@ -87,15 +87,15 @@
     <div class="total-price">{{'TotalPrice' | translate}} : {{order_details.totalPrice}} {{'LE' | translate}}</div>
 
     <div *ngIf="order_details.orderStatusId == '1' " class="change-status-container">
-      <button ion-button (tap)="changeStatus()">{{'Accept' | translate}}</button>
+      <button class="status-button" ion-button (tap)="changeStatus()">{{'Accept' | translate}}</button>
     </div>
 
     <div *ngIf="order_details.orderStatusId == '3' " class="change-status-container">
-      <button ion-button (tap)="changeStatus()">{{'Arrived' | translate}}</button>
+      <button class="status-button" ion-button (tap)="changeStatus()">{{'Arrived' | translate}}</button>
     </div>
 
     <div *ngIf="order_details.orderStatusId == '5' " class="change-status-container">
-      <button ion-button class="status-button" (tap)="changeStatus()">{{'Done' | translate}}</button>
+      <button class="status-button" ion-button class="status-button" (tap)="changeStatus()">{{'Done' | translate}}</button>
     </div>
 
     <!-- <div class="customer-container">

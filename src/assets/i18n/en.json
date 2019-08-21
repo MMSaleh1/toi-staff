@@ -44,6 +44,11 @@
     "LE" : "LE",
     "SoonThisFeatureWillBeAva" : "Soon this feature will be available, Thank you.",
     "Alert" : "Alert",
-    "LogOutDone" : "Logged out successfully, Thank you."
+    "LogOutDone" : "Logged out successfully, Thank you.",
+    "Female" : "Female",
+    "Male" : "Male",
+    "email" :  "email",
+    "name" : "name"
+
 
 }
