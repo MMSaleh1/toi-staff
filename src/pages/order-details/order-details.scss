@@ -3,7 +3,8 @@ page-order-details {
         background-image: url('../assets/imgs/bg.png') !important;
     }
 
-    .content-ios, .content-md {
+    .content-ios,
+    .content-md {
         background-color: transparent;
         background-image: url('../assets/imgs/bg.png') !important;
     }
@@ -34,8 +35,8 @@ page-order-details {
 
         .profile-image {
             border-radius: 30rem;
-            width: 80px;
-            height: 80px;
+            width: 95px;
+            height: 95px;
             margin-bottom: 20px;
             border: 2px solid color($colors, light);
 
@@ -58,7 +59,7 @@ page-order-details {
         }
     }
 
-    .card{
+    .card {
         border-radius: 10px !important;
     }
 
@@ -123,6 +124,7 @@ page-order-details {
 
     .button-container {
         text-align: center;
+        margin-top: 20px;
 
         .location-button {
             margin: 0 7vw 0 7vw;
@@ -141,7 +143,7 @@ page-order-details {
             height: 37px;
             background-color: color($colors, light);
         }
-      
+
 
     }
 
@@ -160,14 +162,16 @@ page-order-details {
         background-color: #3e3c3d;
 
         img {
-            @include ltr{
+            @include ltr {
                 float: left !important;
                 margin-right: 10px;
             }
-            @include rtl{
+
+            @include rtl {
                 float: right !important;
                 margin-left: 10px;
             }
+
             background-color: #231f20;
             height: 100%;
             width: 100px !important;
@@ -222,6 +226,7 @@ page-order-details {
         font-weight: bold;
         color: color($colors, primary);
         font-size: 17px;
+
         @include rtl {
             text-align: left;
             margin-left: 10px;
@@ -246,8 +251,8 @@ page-order-details {
         margin-top: 20px;
         margin-bottom: 20px;
 
-      
-        .status-button{
+
+        .status-button {
             font-size: 15px;
             display: block;
             margin: auto !important;
@@ -257,7 +262,7 @@ page-order-details {
             color: #f1e2c8;
             border-radius: 50% !important;
             width: 100px;
-           
+            white-space: normal;
             box-shadow: 0 0 8px 0px #f9a618;
         }
     }

@@ -6,7 +6,9 @@
             <!-- <img class="logo" src="assets/imgs/logo.png"> -->
         </div>
         <diV *ngIf="user">
-            <div class="img-container"><img class="user-img" [src]="user?.image"></div>
+            <div *ngIf="user?.image" class="img-container"><img class="user-img" [src]="user?.image"></div>
+            <div *ngIf="!user?.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png"></div>
+
             <div class="info-container">
                 <div *ngIf="user.name" class="name-container">{{user?.name}}</div>
                 <div *ngIf="user.phone" class="name-container">{{user?.phone}}</div>
@@ -29,7 +31,9 @@
             <!-- <img class="logo" src="assets/imgs/logo.png"> -->
         </div>
         <diV *ngIf="user">
-            <div class="img-container"><img class="user-img" [src]="user?.image"></div>
+            <div *ngIf="user?.image" class="img-container"><img class="user-img" [src]="user?.image"></div>
+            <div *ngIf="!user?.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png"></div>
+
             <div class="info-container">
                 <div *ngIf="user.name" class="name-container">{{user?.name}}</div>
                 <div *ngIf="user.phone" class="name-container">{{user?.phone}}</div>

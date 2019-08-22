@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { ToastController, LoadingController, Loading, AlertController, ActionSheetController, App, MenuController, Platform } from 'ionic-angular';
 // import { SharedClass } from '../sharedClass';
 import { TranslateService } from '@ngx-translate/core';
-// import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 // import { LaunchNavigator } from '@ionic-native/launch-navigator';
 // import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
@@ -26,7 +26,7 @@ export class HelperToolsProvider {
     //private launchNavigator: LaunchNavigator,
     //private camera: Camera,
     private translate: TranslateService,
-    // private geolocation: Geolocation,
+    private geolocation: Geolocation,
     private storage: Storage,
     //private geocoder: NativeGeocoder,
     private actionsheetCtrl: ActionSheetController,
@@ -238,13 +238,13 @@ export class HelperToolsProvider {
       });
     });
   }
-  private calculateDistances(origins, destinations) {
+  calculateDistances(origins, destinations) {
     var service = new google.maps.DistanceMatrixService();
     return new Promise((resolve, reject) => {
       service.getDistanceMatrix(
         {
-          origins: origins,
-          destinations: destinations,
+          origins: [origins],
+          destinations: [destinations],
           travelMode: google.maps.TravelMode.DRIVING,
           unitSystem: google.maps.UnitSystem.METRIC,
           avoidHighways: false,
@@ -339,17 +339,17 @@ export class HelperToolsProvider {
     })
   }
   //////////////////////////////////////////////////////INTIALIZE USER CURRENT POS //////////////////////////////////////////////////////
-  // IntializeUSerCurrentPosition() {
-  //   return new Promise((resolve, reject) => {
-  //     this.geolocation.getCurrentPosition().then(userPOS => {
-  //       this.currentUserPosition.lat = userPOS.coords.latitude;
-  //       this.currentUserPosition.lng = userPOS.coords.longitude;
-  //       resolve(this.currentUserPosition);
-  //     }).catch(err => {
-  //       reject(err);
-  //     });
-  //   })
-  // }
+  IntializeUSerCurrentPosition() {
+    return new Promise((resolve, reject) => {
+      this.geolocation.getCurrentPosition().then(userPOS => {
+        this.currentUserPosition.lat = userPOS.coords.latitude;
+        this.currentUserPosition.lng = userPOS.coords.longitude;
+        resolve(this.currentUserPosition);
+      }).catch(err => {
+        reject(err);
+      });
+    })
+  }
   // //////////////////////////////////// REGISTER BACKBUTTON FUNCTION ////////////////////
   onRegisterBackButtonFunction() {
     const overlay = this.app._appRoot._overlayPortal.getActive();

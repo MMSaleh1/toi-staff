@@ -80,10 +80,10 @@ export class SigninPage {
 
       } else {
         loading.dismiss();
-        this.helperTools.showAlertWithOkButton('Alert', 'Wrong password, please make sure your write the correct password')
+        this.helperTools.ShowAlertWithTranslation('Alert', 'Wrongpasswordpleasemakesureyourwritethecorrectpassword')
       }
     } else {
-      this.helperTools.showAlertWithOkButton('Alert', 'Wrong user name or password')
+      this.helperTools.ShowAlertWithTranslation('Alert', 'Wrongpasswordpleasemakesureyourwritethecorrectpassword')
 
     }
 

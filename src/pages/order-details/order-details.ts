@@ -27,7 +27,10 @@ export class OrderDetailsPage {
   public user: User;
   public db: Database;
   public orderItems: Array<orderItem>;
-
+  user_location = {} as any;
+  customer_location = {} as any;
+  distance;
+  estimated_duration;
   constructor(public navCtrl: NavController,
     private platform: Platform,
     public userProv: UserProvider,
@@ -40,18 +43,41 @@ export class OrderDetailsPage {
 
   ) {
     this.order_details = this.navParms.get('data');
-    this.userProv.getorderItems(this.order_details.id).then(data=>{
+    this.customer_location.lat = parseInt(this.order_details.lat);
+    this.customer_location.lng = parseInt(this.order_details.long);
+    console.log(this.order_details)
+    this.userProv.getorderItems(this.order_details.id).then(data => {
       this.orderItems = data;
-      this.ready =true;
+      this.ready = true;
     });
+    this.getTheUserPosition()
     this.getData(undefined);
   }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderDetailsPage');
   }
 
-
+  getTheUserPosition() {
+    this.helperTool.IntializeUSerCurrentPosition().then(data => {
+      console.log(data);
+      this.user_location.lat = data['lat'];
+      this.user_location.lng = data['lng'];
+      this.getTheDistanceBetweenStaffAndCustomer()
+      console.log(this.user_location)
+    })
+  }
+  getTheDistanceBetweenStaffAndCustomer() {
+    this.helperTool.calculateDistances(this.user_location, this.customer_location).then(data => {
+      console.log(data)
+      this.distance = parseFloat(data['rows'][0]['elements'][0]['distance'].text);
+      this.estimated_duration = data['rows'][0]['elements'][0]['duration'].text;
+      console.log(this.distance);
+      console.log(this.estimated_duration)
+    });
+  }
   async getData(ev) {
     this.user = await this.userProv.getUser();
 

@@ -36,8 +36,9 @@ export class MyApp {
     private translate: TranslateService,
     public event: Events,
     private notifyCtrl: NotificationsProvider) {
-  this.rememberUser();
+    this.rememberUser();
     this.initTranslate();
+    this.helperTools.IntializeUSerCurrentPosition()
     platform.ready().then(() => {
       this.event.subscribe('logedin', () => {
         this.userProv.getUser().then(data => {
@@ -48,8 +49,19 @@ export class MyApp {
           console.log(this.user)
         });
 
+      
 
 
+
+
+      })
+      this.event.subscribe('user-updates',()=>{
+        this.userProv.getUser().then(data => {
+          this.user = data;
+         console.log(this.user);
+        
+
+        });
 
       })
 

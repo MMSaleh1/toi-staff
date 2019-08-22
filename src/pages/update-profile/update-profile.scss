@@ -23,20 +23,21 @@ page-update-profile {
             border-radius: 30rem;
             width: 10rem;
             height: 10rem;
+            border: 1px solid color($colors, primary);
         }
     }
-
     .item {
         background-color: transparent;
         border-top: transparent !important;
         margin: 0 0vh 4vh 0;
         margin-top: 30px !important;
+
         .item-inner {
             border-bottom: transparent !important;
             box-shadow: none !important;
         }
 
-        .gender-select{
+        .gender-select {
             color: white;
         }
     }
@@ -61,12 +62,13 @@ page-update-profile {
         display: block;
         margin: auto !important;
         height: 100px;
+        margin-top: 40px !important;
         border: solid thick #f9a618;
         background: transparent;
         color: #f1e2c8;
         border-radius: 50% !important;
         width: 100px;
-       
+
         box-shadow: 0 0 8px 0px #f9a618;
     }
 

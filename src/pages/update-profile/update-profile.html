@@ -1,59 +1,65 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
-      </button>
-  
-      <ion-title>
-        <img src="assets/imgs/logo.png">
-      </ion-title>
-  
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding class="bg-img">
-    <div class="image-container">
-      <img class="profile-image" src="assets/imgs/signup_male.png">
-      <button color="light" ion-button icon-only class="btn">
-        <ion-icon color="primary" name="create"></ion-icon>
-      </button>
-    </div>
-  
-  
-    <form *ngIf="ready" [formGroup]="updateForm" (ngSubmit)="update()">
-      <ion-list *ngIf="ready">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
+    </button>
 
-        <ion-item class="item">
-          <ion-input type="text" placeholder="{{'name' | translate}}" formControlName="name" value="{{user.name}}"></ion-input>
-        </ion-item>
-  
-        <ion-item class="item">
-          <ion-input type="password" placeholder="{{'Password' | translate}}" formControlName="password" value="{{user.password}}"></ion-input>
-        </ion-item>
-  
-        <ion-item class="item">
-          <ion-input type="number" placeholder="{{'Phone' | translate}}" formControlName="phone" value="{{user.phone}}"></ion-input>
-        </ion-item>
+    <ion-title>
+      <img src="assets/imgs/logo.png">
+    </ion-title>
 
-        <ion-item class="item">
-          <ion-input type="text" placeholder="{{'userName' | translate}}" formControlName="userName" value="{{user.userName}}"></ion-input>
-        </ion-item>
+  </ion-navbar>
+</ion-header>
 
-        <ion-item class="item">
+<ion-content padding class="bg-img">
+  <div class="image-container">
+    <img *ngIf="user?.image" class="profile-image" [src]="user?.image">
+    <img *ngIf="!user?.image" class="profile-image" src="assets/imgs/signup_male.png">
+
+    <button color="light" ion-button icon-only class="btn">
+      <ion-icon color="primary" name="create"></ion-icon>
+    </button>
+  </div>
+
+
+  <form *ngIf="ready" [formGroup]="updateForm" (ngSubmit)="update()">
+    <ion-list *ngIf="ready">
+
+      <ion-item class="item">
+        <ion-input type="text" placeholder="{{'name' | translate}}" formControlName="name" value="{{user.name}}">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="item">
+        <ion-input type="password" placeholder="{{'Password' | translate}}" formControlName="password"
+          value="{{user.password}}"></ion-input>
+      </ion-item>
+
+      <ion-item class="item">
+        <ion-input type="number" placeholder="{{'Phone' | translate}}" formControlName="phone" value="{{user.phone}}">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="item">
+        <ion-input type="text" placeholder="{{'userName' | translate}}" formControlName="userName"
+          value="{{user.userName}}"></ion-input>
+      </ion-item>
+
+      <!-- <ion-item class="item">
           <ion-input type="email" placeholder="{{'email' | translate}}" formControlName="email" value="{{user.email}}"></ion-input>
-        </ion-item>
+        </ion-item> -->
 
-        <ion-item class="item">
+      <!-- <ion-item class="item">
           <ion-select class="gender-select"  formControlName="gender" [(ngModel)]="user.gender">
               <ion-option  value="Female">{{'Female' | translate}} </ion-option>
             <ion-option   value="Male">{{'Male' | translate}}</ion-option>
            
-        </ion-select>
-        </ion-item>
+        </ion-select> -->
+      <!-- </ion-item> -->
 
-        <button ion-button class="update-button" (tap)="update()">{{'Update' | translate}}</button>
-      </ion-list>
-    </form>
-  
-  
-  </ion-content>
+      <button ion-button class="update-button" (tap)="update()">{{'Update' | translate}}</button>
+    </ion-list>
+  </form>
+
+
+</ion-content>

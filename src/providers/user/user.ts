@@ -89,6 +89,7 @@ export class UserProvider extends RootProvider {
            resolve(true)
           this.saveUser(user).then(()=>{
             this.getUser();
+            this.event.publish('user-updates');
           }
           
           );

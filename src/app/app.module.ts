@@ -10,6 +10,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 
@@ -84,6 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
     CallNumber,
     NotificationsProvider,
     OneSignal,
+    Geolocation,
     HelperToolsProvider
 
   ]

@@ -48,7 +48,10 @@
     "Female" : "انثي",
     "Male" : "ذكر",
     "email" : "الحساب",
-    "name" : "الاسم"
+    "StartMoving" : "ابدآ التحرك",
+    "name" : "الاسم",
+    "ProfilehasbeenupdatedsuccessfullyThankyou" : "تم تحديث الملف الشخصي بنجاح، شكراً لك.",
+    "Wrongpasswordpleasemakesureyourwritethecorrectpassword" : "عفواً، هناك خطآ في البيانات المدخله، برجاء التاكد من صحه البيانات."
 
 
 

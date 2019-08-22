@@ -49,9 +49,10 @@ page-signup {
     }
 
     .login-button {
-        width: 40%;
-        margin: auto;
-        border-radius: 30px;
+        width: 50%;
+        display: block !important;
+        margin: auto !important;
+        border-radius: 30px !important;
         background-color: color($colors, primary);
     }
 

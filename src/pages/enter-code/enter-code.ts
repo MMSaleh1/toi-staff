@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
+import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 
 /**
  * Generated class for the EnterCodePage page.
@@ -16,7 +17,9 @@ import { SignupPage } from '../signup/signup';
 })
 export class EnterCodePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    private helperTools: HelperToolsProvider,
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -24,7 +27,8 @@ export class EnterCodePage {
   }
 
   goToSignUp() {
-    this.navCtrl.setRoot(SignupPage);
+    this.helperTools.ShowAlertWithTranslation('Alert', 'SoonThisFeatureWillBeAva')
+    // this.navCtrl.setRoot(SignupPage);
   }
 
 }
