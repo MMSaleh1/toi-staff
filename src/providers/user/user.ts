@@ -333,7 +333,7 @@ export class UserProvider extends RootProvider {
           resolve(User.getInstance());
         } else {
           let user = <User>data;
-          resolve(User.getInstance(user.id, user.name, user.password, user.email, user.gender, user.phone, user.areaId, user.deviceId,user.userName,user.available ,user.queue,user.serverImage));
+          resolve(User.getInstance(user.id, user.name, user.password, user.email, user.gender, user.phone, user.areaId, user.deviceId,user.userName,user.available ,user.queue,user.image));
 
         }
       });

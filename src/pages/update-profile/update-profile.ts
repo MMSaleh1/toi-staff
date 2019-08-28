@@ -67,7 +67,7 @@ export class UpdateProfilePage {
         // console.log(this.helperTools.uploadPic(this.base64,RootProvider.UserImageUrl,name));
         this.user.serverImage = await this.userProv.sendImage(this.base64)
        this.user.image = ImageProcess.getUserImageUrl(this.user.serverImage);
-      //  alert(this.user.image);
+        // alert(this.user.image);
         //  this.user.image = RootProvider.UserImageUrl+name;
       }
          let bool = await this.userProv.updateUser(this.user);
