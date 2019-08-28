@@ -52,7 +52,11 @@
     "ProfilehasbeenupdatedsuccessfullyThankyou" : "Profile has been updated successfully, Thank you.",
     "Wrongpasswordpleasemakesureyourwritethecorrectpassword" : "Wrong data, please make sure your write the valid data.",
     "StartMoving" : "Start Moving",
-    "NoHistory"  : "You Have No Old Orders"
-
+    "NoHistory"  : "You Have No Old Orders",
+    "Canceled" : "Canceled",
+    "galary" : "galary",
+    "camera" : "camera",
+    "uploadImage": "uploadImage",
+    "cancel" : "cancel"
 
 }

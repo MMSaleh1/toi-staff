@@ -2,6 +2,7 @@ import { orderStatus } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { order, User, UserProvider } from '../../providers/user/user';
+import { OrderDetailsPage } from '../order-details/order-details';
 
 /**
  * Generated class for the HistoryPage page.
@@ -62,6 +63,11 @@ export class HistoryPage {
     }else{
       return '0000ff';
     }
+  }
+
+
+  goToOrderDet(clicked_order) {
+    this.navCtrl.push(OrderDetailsPage, { data: clicked_order , bool : false })
   }
 
 }

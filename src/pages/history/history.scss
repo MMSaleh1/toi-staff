@@ -87,7 +87,7 @@ page-history {
           p {
             margin-top: 15px;
             margin-left: 10px;
-            color: color($colors, secondary, base) !important;
+            color: color($colors, secondary, base) ;
             font-weight: bold;
             white-space: nowrap;
             text-overflow: ellipsis;

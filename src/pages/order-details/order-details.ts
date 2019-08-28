@@ -31,6 +31,7 @@ export class OrderDetailsPage {
   customer_location = {} as any;
   distance;
   estimated_duration;
+  canCommunicate : boolean;
   constructor(public navCtrl: NavController,
     private platform: Platform,
     public userProv: UserProvider,
@@ -43,6 +44,7 @@ export class OrderDetailsPage {
 
   ) {
     this.order_details = this.navParms.get('data');
+    this.canCommunicate = this.navParms.get('bool') != undefined ? this.navParms.get('bool') : true;
     this.customer_location.lat = parseInt(this.order_details.lat);
     this.customer_location.lng = parseInt(this.order_details.long);
     console.log(this.order_details)
@@ -141,13 +143,17 @@ export class OrderDetailsPage {
     if (this.order_details.orderStatusId == '1') {
       newStatus = "3";
     } else if (this.order_details.orderStatusId == '3') {
-      newStatus = "5"
-    } else if (this.order_details.orderStatusId == '5') {
+      newStatus = "7"
+    } else if (this.order_details.orderStatusId == '7') {
+      newStatus = "5";
+    } else if(this.order_details.orderStatusId == '5'){
       newStatus = "6";
-    } else {
+    }
+    
+    else {
       newStatus = "4"
     }
-    let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, newStatus, this.order_details.userToken, this.order_details.user_id);
+    let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, newStatus, this.order_details.userToken, this.order_details.user_id,this.estimated_duration);
     this.order_details.orderStatusId = newStatus;
 
     this.helperTool.DismissLoading();

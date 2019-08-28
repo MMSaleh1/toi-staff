@@ -47,14 +47,31 @@ export class HomePage {
   }
 
   public async checkAcceptedOrder() {
-    this.order_data = await this.userProv.getAcceptedOrder(this.user.id);
+    let tempData = new Array<order>();
+    tempData = await this.userProv.getAcceptedOrder(this.user.id);
     // console.log(this.order_data)
     // console.log(order);
-    if (this.order_data == undefined) {
+    if (tempData == undefined) {
+     
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 1000);
     } else {
+      if(this.order_data == undefined){
+        this.order_data = tempData;
+      }else{
+        if(this.order_data.length != tempData.length){
+          this.order_data = tempData;
+        }else{
+          for(let i = 0 ; i< this.order_data.length ; i++){
+            if(this.order_data[i].id != tempData[i].id){
+              this.order_data = tempData;
+              break;
+            }
+        }
+        }
+        
+      }
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 3000);

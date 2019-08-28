@@ -45,11 +45,14 @@
       <ion-card-header>{{'CustomerInfo' | translate}}: </ion-card-header>
       <ion-card-content>
         <div class="image-container">
-          <img class="profile-image" src="assets/imgs/signup_female.png">
+          <img *ngIf="order_details.customerImage == 'undefined'"  class="profile-image" src="assets/imgs/signup_female.png">
+          
+          <img *ngIf="order_details.customerImage != 'undefined'"  class="profile-image" [src]="order_details.customerImage">
         </div>
         <div class="name">{{order_details.customerName}}</div>
         <div class="address">{{order_details.address}}</div>
-        <div class="button-container">
+        <div *ngIf="canCommunicate" class="button-container">
+
           <button ion-button icon-only class="location-button"
             (click)="navToCustomerPos(order_details.lat,order_details.long)">
             <ion-icon name="ios-pin"></ion-icon>
@@ -86,11 +89,11 @@
 
     <div class="total-price">{{'TotalPrice' | translate}} : {{order_details.totalPrice}} {{'LE' | translate}}</div>
 
-    <div *ngIf="order_details.orderStatusId == '1' " class="change-status-container">
+    <div *ngIf="order_details.orderStatusId == '3' " class="change-status-container">
       <button class="status-button" ion-button (tap)="changeStatus()">{{'StartMoving' | translate}}</button>
     </div>
 
-    <div *ngIf="order_details.orderStatusId == '3' " class="change-status-container">
+    <div *ngIf="order_details.orderStatusId == '7' " class="change-status-container">
       <button class="status-button" ion-button (tap)="changeStatus()">{{'Arrived' | translate}}</button>
     </div>
 

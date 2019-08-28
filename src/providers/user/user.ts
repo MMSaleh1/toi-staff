@@ -79,7 +79,7 @@ export class UserProvider extends RootProvider {
   }
 
   public async updateUser(user : User) : Promise<any>{
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.updateStaffActionString}${user.id}?name=${user.name}&phone=${user.phone}&password=${user.password}&img=${user.serverImage}&gender=${user.gender}&user_name=${user.userName}&national_id=""&available=${user.available}&queue=${user.queue}&day_off=0`;
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.updateStaffActionString}${user.id}?name=${user.name}&phone=${user.phone}&password=${user.password}&img=${user.image}&gender=${user.gender}&user_name=${user.userName}&national_id=""&available=${user.available}&queue=${user.queue}&day_off=0`;
     console.log(temp);
      return new Promise((resolve)=>{
        this.http.get(temp).subscribe(data=>{
@@ -217,7 +217,7 @@ export class UserProvider extends RootProvider {
         }else{
           let orders = new Array<order>();
           for (let i = 1; i < data.length; i++) { 
-              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id));
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id,data[i].user_img));
           }
           console.log(orders);
           resolve(orders);
@@ -237,11 +237,11 @@ export class UserProvider extends RootProvider {
         } else {
           let orderCounter = 1;
           let orders = new Array<order>();
-          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id));
+          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id,data[0].user_img));
           for (let i = 1; i < data.length; i++) {
             if (data[i].order_id != data[i - 1].order_id) {
               orderCounter++
-              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id));
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id,data[i].user_img));
 
             }
           }
@@ -282,8 +282,8 @@ export class UserProvider extends RootProvider {
   // }
 
 
-  public async changeStatus(stuff_id, order_id, statusId, userToken, user_id): Promise<any> {
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}&user_token=${userToken}&user_id=${user_id}`;
+  public async changeStatus(stuff_id, order_id, statusId, userToken, user_id , arrive_time): Promise<any> {
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}&user_token=${userToken}&user_id=${user_id}&arrive_time=${arrive_time}`;
     console.log(temp);
     return new Promise((resolve) => {
       this.http.get(temp).subscribe((data: any) => {
@@ -389,11 +389,11 @@ export class User {
     this.phone = phone;
     this.areaId = area_id;
     this.deviceId = deviceId;
-    this.image = serverImage ? ImageProcess.getUserImageUrl(serverImage) : "./assets/imgs/icon.png";
+    this.image = serverImage ;
     this.userName = user_name;
     this.available = available;
     this.queue = queue;
-    this.serverImage = serverImage
+  //  this.serverImage = serverImage
   }
 
   static getInstance(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string = '0' , user_name : string ="",available="1" , queue = "0",serverImage="") {
@@ -433,6 +433,7 @@ export class order {
   lat: string;
   user_id: number;
   orderStatus : string;
+  customerImage: string; 
 
   constructor(id: string,
     customerName: string,
@@ -445,7 +446,9 @@ export class order {
     userToken,
     long,
     latt,
-    user_id
+    user_id,
+    customerImage
+
   ) {
     this.id = id;
     this.customerName = customerName;
@@ -459,6 +462,7 @@ export class order {
     this.lat = latt;
     this.long = long;
     this.user_id = user_id;
+    this.customerImage = customerImage
 
   }
 }

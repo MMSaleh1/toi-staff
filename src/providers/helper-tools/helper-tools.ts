@@ -190,11 +190,12 @@ export class HelperToolsProvider {
   }
   OpenImage() {
     return new Promise((resolve, reject) => {
+      this.translate.get(['galary', 'camera', 'cancel' ,'uploadImage']).subscribe(values => {
       let actionsheet = this.actionsheetCtrl.create({
-        title: 'تحميل صورة',
+        title: values['uploadImage'],
         buttons: [
           {
-            text: 'Pictures',
+            text: values['galary'],
             icon: 'images',
             handler: () => {
               this.GalleryLoadPhoto().then(DataURI => {
@@ -205,7 +206,7 @@ export class HelperToolsProvider {
             }
           },
           {
-            text: 'Camera',
+            text: values['camera'],
             icon: 'camera',
             handler: () => {
               this.CameraLoadPhoto().then(URI => {
@@ -216,7 +217,7 @@ export class HelperToolsProvider {
             }
           },
           {
-            text: 'الغاء',
+            text: values['cancel'],
             role: 'cancel',
             handler: () => {
               resolve('cancel');
@@ -226,6 +227,7 @@ export class HelperToolsProvider {
       });
       actionsheet.present();
     })
+  })
 
   }
   ////////////////////////////////////////////////////////IF DRIVIER APP ////////////////////////////////////////////////////////

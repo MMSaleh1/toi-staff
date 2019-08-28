@@ -52,7 +52,13 @@
     "name" : "الاسم",
     "ProfilehasbeenupdatedsuccessfullyThankyou" : "تم تحديث الملف الشخصي بنجاح، شكراً لك.",
     "Wrongpasswordpleasemakesureyourwritethecorrectpassword" : "عفواً، هناك خطآ في البيانات المدخله، برجاء التاكد من صحه البيانات.",
-    "NoHistory" : "ليس لديك طلبات قديمه"
+    "NoHistory" : "ليس لديك طلبات قديمه",
+    "Canceled" : "ملغي",
+    "galary" : "المعرض",
+    "camera" : "الكاميرا",
+    "uploadImage": "اضف صوره",
+    "cancel" : "الغاء"
+
 
 
 
