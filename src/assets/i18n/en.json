@@ -19,7 +19,7 @@
     "Arrived" : "Arrived",
     "Done" : "Done",
     "Home" : "Home",
-    "MyOrders" : "My Orders",
+    "MyOrders" : "History",
     "UpdateProfile" : "Update Profile",
     "Phone" : "Phone number",
     "Pleaseenteryourcodetoproceed" : "Please enter your code to proceed",
@@ -51,7 +51,8 @@
     "name" : "name",
     "ProfilehasbeenupdatedsuccessfullyThankyou" : "Profile has been updated successfully, Thank you.",
     "Wrongpasswordpleasemakesureyourwritethecorrectpassword" : "Wrong data, please make sure your write the valid data.",
-    "StartMoving" : "Start Moving"
+    "StartMoving" : "Start Moving",
+    "NoHistory"  : "You Have No Old Orders"
 
 
 }

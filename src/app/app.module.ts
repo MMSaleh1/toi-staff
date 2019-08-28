@@ -11,6 +11,7 @@ import { SignupPageModule } from '../pages/signup/signup.module';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { Geolocation } from '@ionic-native/geolocation';
+import { Camera } from '@ionic-native/camera';
 
 
 
@@ -35,6 +36,8 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 import { UpdateProfilePageModule } from '../pages/update-profile/update-profile.module';
 import { OrderDetailsPageModule } from '../pages/order-details/order-details.module';
+import { HistoryPageModule } from '../pages/history/history.module';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -64,6 +67,7 @@ export function createTranslateLoader(http: HttpClient) {
     SignupPageModule,
     EnterCodePageModule,
     UpdateProfilePageModule,
+    HistoryPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -86,7 +90,8 @@ export function createTranslateLoader(http: HttpClient) {
     NotificationsProvider,
     OneSignal,
     Geolocation,
-    HelperToolsProvider
+    HelperToolsProvider,
+    Camera
 
   ]
 })

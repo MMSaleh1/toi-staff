@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User, UserProvider } from '../../providers/user/user';
+import { User, UserProvider, ImageProcess } from '../../providers/user/user';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 /**
  * Generated class for the UpdateProfilePage page.
@@ -19,12 +19,15 @@ export class UpdateProfilePage {
   public updateForm: FormGroup;
   public user: User
   public ready = false;
+  public base64 : string = "";
+  public displayImage :string = "";
 
   constructor(public navCtrl: NavController,
     public formBuilder: FormBuilder,
     private helperTools: HelperToolsProvider,
     public userProv: UserProvider,
     public navParams: NavParams) {
+
     this.buildForm();
   }
 
@@ -57,6 +60,16 @@ export class UpdateProfilePage {
          this.user.phone =  this.updateForm.value.phone  ;
         //  this.user.email =  this.updateForm.value.email  ;
          console.log(this.user);
+         if(this.base64.length >  1){
+
+        // let name = this.user.id+ new Date().getTime();
+        // console.log(name);
+        // console.log(this.helperTools.uploadPic(this.base64,RootProvider.UserImageUrl,name));
+        this.user.serverImage = await this.userProv.sendImage(this.base64)
+       this.user.image = ImageProcess.getUserImageUrl(this.user.serverImage);
+      //  alert(this.user.image);
+        //  this.user.image = RootProvider.UserImageUrl+name;
+      }
          let bool = await this.userProv.updateUser(this.user);
          console.log(bool);
          this.helperTools.DismissLoading();
@@ -68,5 +81,20 @@ export class UpdateProfilePage {
         // this.helperTools.DismissLoading();
       }
   }
+
+  public getPhoto(){
+    this.helperTools.OpenImage().then((data : any)=>{
+      console.log(data);
+      if(data != 'cancel'){
+        this.base64 =  data;
+        this.displayImage = 'data:image/jpeg;base64,' +data;
+      }
+       //'data:image/jpeg;base64,' 
+      // this.hasImage = true;
+     
+    });
+  }
+
+
 
 }

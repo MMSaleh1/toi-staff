@@ -28,7 +28,7 @@ export class UserProvider extends RootProvider {
   private changeUserStatusActionString = "update_stuff_states?";
   private updateDeviceTokenActionString = "update_stuff_token_id?";
 
-  private updateStaffStateActionString = "update_stuff_states?"
+  private getStaffHistoryActionString = "get_stuff_orders?"
 
 
   public user: User;
@@ -91,13 +91,38 @@ export class UserProvider extends RootProvider {
             this.getUser();
             this.event.publish('user-updates');
           }
-          
           );
          }
        })
      })
 
   }
+
+
+
+  public sendImage(image: string): Promise<any> {
+    return new Promise((resolve) => {
+      // let header = new HttpHeaders({ 'Content-Type': 'application/json', "Accept": 'application/json' });
+      // header.set();
+      //header.append("Accept", 'application/json');
+      //header.append();
+      // let body = {
+      //   'ImgStr': image
+      // }
+
+        console.log((image));
+      // console.log(JSON.stringify(body));
+      this.http.post(`${RootProvider.APIURL}/test_upload/SaveImage_staff`, { image: image }).subscribe(data => {
+      //  console.log(image);
+        //  alert(data);
+        resolve(data);
+      }, err => {
+        console.log(err);
+      })
+    })
+
+  }
+
 
   // public async getAllOrders(gender:any) : Promise<any>{
   //   let temp = `${RootProvider.APIURL}${this.userApiController}${this.getAllOrdersActionString}emp_gender=${gender}`;
@@ -181,6 +206,25 @@ export class UserProvider extends RootProvider {
   //     })
   //   })
   // }
+
+  public async getHistory(staffId):Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.getStaffHistoryActionString}stuff_id=${staffId}`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        if(data == undefined || data.length == 0){
+          resolve([])
+        }else{
+          let orders = new Array<order>();
+          for (let i = 1; i < data.length; i++) { 
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id));
+          }
+          console.log(orders);
+          resolve(orders);
+        }
+      })
+    })
+  }
 
 
   public async getAcceptedOrder(stuff_id: string): Promise<any> {
@@ -277,7 +321,8 @@ export class UserProvider extends RootProvider {
 
 
   public async saveUser(user : User){
-    this.storage.set('toi-staff-user',user);
+    let data =  await this.storage.set('toi-staff-user',user);
+    this.event.publish('user-updated')
   }
 
 
@@ -344,7 +389,7 @@ export class User {
     this.phone = phone;
     this.areaId = area_id;
     this.deviceId = deviceId;
-    this.image = serverImage ? ImageProcess.getImageUrl(serverImage) : "./assets/imgs/icon.png";
+    this.image = serverImage ? ImageProcess.getUserImageUrl(serverImage) : "./assets/imgs/icon.png";
     this.userName = user_name;
     this.available = available;
     this.queue = queue;
@@ -387,6 +432,7 @@ export class order {
   long: string;
   lat: string;
   user_id: number;
+  orderStatus : string;
 
   constructor(id: string,
     customerName: string,
@@ -412,7 +458,8 @@ export class order {
     this.userToken = userToken;
     this.lat = latt;
     this.long = long;
-    this.user_id = user_id
+    this.user_id = user_id;
+
   }
 }
 export class orderItem {
@@ -445,6 +492,11 @@ export class ImageProcess {
 
   static getImageUrl(image: string) {
     let baseString = RootProvider.ImagesUrl;
+    image = image.slice(1, image.length);
+    return baseString + image;
+  }
+  static getUserImageUrl(image: string) {
+    let baseString = RootProvider.UserImagesUrl;
     image = image.slice(1, image.length);
     return baseString + image;
   }

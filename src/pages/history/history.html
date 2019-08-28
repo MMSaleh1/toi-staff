@@ -1,0 +1,39 @@
+<ion-header no-border text-center>
+    <ion-navbar>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon color="primary" name="ios-menu-outline"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>
+        <img src="assets/imgs/logo.png">
+      </ion-title>
+  
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+<div *ngIf="ready">
+    <ion-card class="cardItem" *ngFor="let order of order_data; let i = index">
+        <ion-item class="OneItem" >
+          <img src="assets/imgs/signup_female.png" item-left />
+          <div class="MarketInfo">
+            <p>{{'Name' | translate}}: {{ order.customerName }}</p>
+            <p>
+              <span>{{'TotalCost' | translate}}: {{ order.totalPrice }} {{'LE' | translate}}</span>
+            </p>
+            <div [ngStyle]="{'color': getColor(order.orderStatusId) }" class="item-status">{{order.orderStatus}}</div>
+          </div>
+        </ion-item>
+        <div class="interaction" item-right>
+        </div>
+      </ion-card>
+    </div>
+
+
+
+      <div *ngIf="!order_data" class="no-order">
+          <img src="./assets/imgs/empty_white.png">
+          <h4>{{'NoHistory' | translate}}</h4>
+        </div>
+</ion-content>

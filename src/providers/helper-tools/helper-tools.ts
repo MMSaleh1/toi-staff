@@ -5,6 +5,8 @@ import { ToastController, LoadingController, Loading, AlertController, ActionShe
 import { TranslateService } from '@ngx-translate/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
+import {Camera} from '@ionic-native/camera';
+
 // import { LaunchNavigator } from '@ionic-native/launch-navigator';
 // import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 // import { SharedClass } from '../SharedClass';
@@ -24,7 +26,7 @@ export class HelperToolsProvider {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     //private launchNavigator: LaunchNavigator,
-    //private camera: Camera,
+    private camera: Camera,
     private translate: TranslateService,
     private geolocation: Geolocation,
     private storage: Storage,
@@ -157,75 +159,75 @@ export class HelperToolsProvider {
 
   // End alert Functions
   ///////////////////////////////////////////////////
-  // CameraLoadPhoto() {
-  //   const options = {
-  //     quality: 75,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     //maximumImagesCount: 4,
-  //     sourceType: this.camera.PictureSourceType.CAMERA,
-  //     // sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-  //     allowEdit: true,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     targetWidth: 300,
-  //     targetHeight: 300,
-  //   };
-  //   return this.camera.getPicture(options);
-  // }
-  // // Load Photo from Gallery
-  // GalleryLoadPhoto() {
-  //   const options = {
-  //     quality: 75,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     //maximumImagesCount: 4,
-  //     //sourceType: this.camera.PictureSourceType.CAMERA,
-  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-  //     allowEdit: true,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     targetWidth: 300,
-  //     targetHeight: 300,
-  //   };
-  //   return this.camera.getPicture(options);
-  // }
-  // OpenImage() {
-  //   return new Promise((resolve, reject) => {
-  //     let actionsheet = this.actionsheetCtrl.create({
-  //       title: 'تحميل صورة',
-  //       buttons: [
-  //         {
-  //           text: 'Pictures',
-  //           icon: 'images',
-  //           handler: () => {
-  //             this.GalleryLoadPhoto().then(DataURI => {
-  //               resolve(DataURI);
-  //             }).catch(err => {
-  //               reject(err)
-  //             });
-  //           }
-  //         },
-  //         {
-  //           text: 'Camera',
-  //           icon: 'camera',
-  //           handler: () => {
-  //             this.CameraLoadPhoto().then(URI => {
-  //               resolve(URI);
-  //             }).catch(err => {
-  //               reject(err);
-  //             })
-  //           }
-  //         },
-  //         {
-  //           text: 'الغاء',
-  //           role: 'cancel',
-  //           handler: () => {
-  //             reject('cancel');
-  //           }
-  //         }
-  //       ]
-  //     });
-  //     actionsheet.present();
-  //   })
+  CameraLoadPhoto() {
+    const options = {
+      quality: 75,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      //maximumImagesCount: 4,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      // sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      encodingType: this.camera.EncodingType.JPEG,
+      targetWidth: 300,
+      targetHeight: 300,
+    };
+    return this.camera.getPicture(options);
+  }
+  // Load Photo from Gallery
+  GalleryLoadPhoto() {
+    const options = {
+      quality: 75,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      //maximumImagesCount: 4,
+      //sourceType: this.camera.PictureSourceType.CAMERA,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      encodingType: this.camera.EncodingType.JPEG,
+      targetWidth: 300,
+      targetHeight: 300,
+    };
+    return this.camera.getPicture(options);
+  }
+  OpenImage() {
+    return new Promise((resolve, reject) => {
+      let actionsheet = this.actionsheetCtrl.create({
+        title: 'تحميل صورة',
+        buttons: [
+          {
+            text: 'Pictures',
+            icon: 'images',
+            handler: () => {
+              this.GalleryLoadPhoto().then(DataURI => {
+                resolve(DataURI);
+              }).catch(err => {
+                reject(err)
+              });
+            }
+          },
+          {
+            text: 'Camera',
+            icon: 'camera',
+            handler: () => {
+              this.CameraLoadPhoto().then(URI => {
+                resolve(URI);
+              }).catch(err => {
+                reject(err);
+              })
+            }
+          },
+          {
+            text: 'الغاء',
+            role: 'cancel',
+            handler: () => {
+              resolve('cancel');
+            }
+          }
+        ]
+      });
+      actionsheet.present();
+    })
 
-  // }
+  }
   ////////////////////////////////////////////////////////IF DRIVIER APP ////////////////////////////////////////////////////////
   GetTimeTrip(Origin, Destination) {
     return new Promise((resolve, reject) => {

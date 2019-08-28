@@ -17,6 +17,7 @@ import { HomePage } from '../pages/home/home';
 import { UpdateProfilePage } from '../pages/update-profile/update-profile';
 import { OrderDetailsPage } from '../pages/order-details/order-details';
 import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
+import { HistoryPage } from '../pages/history/history';
 @Component({
   templateUrl: 'app.html'
 })
@@ -117,8 +118,8 @@ export class MyApp {
     if (number == 1) {
       this.nav.setRoot(HomePage);
     } else if (number == 2) {
-      this.helperTools.ShowAlertWithTranslation('Alert', "SoonThisFeatureWillBeAva")
-      // this.nav.push(OrderDetailsPage);
+      //this.helperTools.ShowAlertWithTranslation('Alert', "SoonThisFeatureWillBeAva")
+       this.nav.push(HistoryPage);
     } else if (number == '3') {
       this.nav.push(UpdateProfilePage);
     }
