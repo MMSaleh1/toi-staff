@@ -1,3 +1,4 @@
+
 import { LandingPage } from './../pages/landing/landing';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Events, Nav, MenuController } from 'ionic-angular';
@@ -18,6 +19,7 @@ import { UpdateProfilePage } from '../pages/update-profile/update-profile';
 import { OrderDetailsPage } from '../pages/order-details/order-details';
 import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 import { HistoryPage } from '../pages/history/history';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -36,11 +38,15 @@ export class MyApp {
     private menuCntrl: MenuController,
     private translate: TranslateService,
     public event: Events,
-    private notifyCtrl: NotificationsProvider) {
-    this.rememberUser();
-    this.initTranslate();
-    this.helperTools.IntializeUSerCurrentPosition()
+    private notifyCtrl: NotificationsProvider,
+    ) {
+    
     platform.ready().then(() => {
+      this.rememberUser();
+      this.initTranslate();
+      this.helperTools.IntializeUSerCurrentPosition()
+
+      
       this.event.subscribe('logedin', () => {
         this.userProv.getUser().then(data => {
           this.user = data;
@@ -133,7 +139,7 @@ export class MyApp {
     this.nav.setRoot(SigninPage);
   }
 
-
+ 
 }
 
 

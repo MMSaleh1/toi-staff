@@ -12,7 +12,8 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
-
+import { Diagnostic } from "@ionic-native/diagnostic";
+import { OpenNativeSettings } from "@ionic-native/open-native-settings";
 
 
 
@@ -87,6 +88,8 @@ export function createTranslateLoader(http: HttpClient) {
     LaunchNavigator,
     CartProvider,
     CallNumber,
+    Diagnostic,
+    OpenNativeSettings,
     NotificationsProvider,
     OneSignal,
     Geolocation,

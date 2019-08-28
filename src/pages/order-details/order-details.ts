@@ -7,6 +7,8 @@ import { SigninPage } from '../signin/signin';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { HomePage } from '../home/home';
+import { Diagnostic } from '@ionic-native/diagnostic';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 /**
  * Generated class for the OrderDetailsPage page.
@@ -38,11 +40,22 @@ export class OrderDetailsPage {
     public navParms: NavParams,
     private launchNavigator: LaunchNavigator,
     public call: CallNumber,
-    public helperTool: HelperToolsProvider
+    public helperTool: HelperToolsProvider,
+    private diagnostic : Diagnostic,
+    private openNativeSettings : OpenNativeSettings,
 
 
 
   ) {
+
+    this.diagnostic.isLocationEnabled().then(enabled=>{
+      if(enabled){
+        this.getTheUserPosition()
+      }else{
+        this.navToLocationService()
+        
+      }
+    })
     this.order_details = this.navParms.get('data');
     this.canCommunicate = this.navParms.get('bool') != undefined ? this.navParms.get('bool') : true;
     this.customer_location.lat = parseInt(this.order_details.lat);
@@ -52,7 +65,7 @@ export class OrderDetailsPage {
       this.orderItems = data;
       this.ready = true;
     });
-    this.getTheUserPosition()
+    
     this.getData(undefined);
   }
 
@@ -185,6 +198,21 @@ export class OrderDetailsPage {
   doRefresh(event) {
     this.getData(event);
   }
+
+
+  navToLocationService() {
+    this.navCtrl.pop();
+    this.helperTool.ShowAlertWithTranslation(
+      "Error",
+      "Please turn on location service or give app permission to your location service."
+    );
+    this.openNativeSettings.open("location").then(val => {
+      // alert('location')
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
 
 
 

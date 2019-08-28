@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { RootProvider } from '../root/root';
 import { Events } from 'ionic-angular';
 import { e, P } from '@angular/core/src/render3';
+import { HelperToolsProvider } from '../helper-tools/helper-tools';
 /*
   Generated class for the UserProvider provider.
 
@@ -28,6 +29,10 @@ export class UserProvider extends RootProvider {
   private changeUserStatusActionString = "update_stuff_states?";
   private updateDeviceTokenActionString = "update_stuff_token_id?";
 
+  private checkStaffRegestrationCode = "check_stuff_reg_code?"
+
+  private registerStaffActionString = "stuff_reg?";
+
   private getStaffHistoryActionString = "get_stuff_orders?"
 
 
@@ -36,7 +41,7 @@ export class UserProvider extends RootProvider {
   available;
   queue;
 
-  constructor(public http: HttpClient, public storage: Storage, public event: Events) {
+  constructor(public http: HttpClient, public storage: Storage, public event: Events , public helperTools : HelperToolsProvider) {
     super(http);
   }
 
@@ -59,6 +64,27 @@ export class UserProvider extends RootProvider {
         }
       })
     })
+  }
+
+
+  public async registration(name,phone,password,img,gender,user_name,branch_id,deviceId) : Promise<any>{
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.registerStaffActionString}name=${name}&phone=${phone}&password=${password}&img=${img}&gender=${gender}&user_name=${user_name}&branch_id=${branch_id}`
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        this.helperTools.ShowLoadingSpinnerOnly();
+        if(data == undefined || data.length> 0 ){
+          resolve([]);
+        }else{
+          this.user = User.getInstance(data[0].id,name,password,"",gender,phone,branch_id,deviceId,user_name,'1','0',img);
+          this.saveUser(this.user).then(data=>{
+            this.event.publish('logedin');
+            resolve(this.user);
+          });
+        
+        }
+      })
+    })
+ 
   }
 
   public async updateDeviceToken(user_id, device_id): Promise<any> {
@@ -96,6 +122,19 @@ export class UserProvider extends RootProvider {
        })
      })
 
+  }
+
+  public async checkCode(code) : Promise<any>{
+    let temp= `${RootProvider.APIURL}${this.userApiController}${this.checkStaffRegestrationCode}code=${code}`;
+    return new Promise((resolve)=>{
+      this.http.get(temp).subscribe((data:any)=>{
+        if(data == undefined || data.length == 0 ){
+          resolve([])
+        }else{
+          resolve(data);
+        }
+      })
+    })
   }
 
 
@@ -168,6 +207,7 @@ export class UserProvider extends RootProvider {
       })
     })
   }
+
 
   // 1 = avilable
   // 0  = unavilable
