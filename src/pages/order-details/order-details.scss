@@ -131,7 +131,7 @@ page-order-details {
             border-radius: 50%;
             font-size: 13px;
             width: 40px;
-            height: 37px;
+            height: 40px;
             background-color: color($colors, light);
         }
 
@@ -140,7 +140,7 @@ page-order-details {
             border-radius: 50%;
             font-size: 13px;
             width: 40px;
-            height: 37px;
+            height: 40px;
             background-color: color($colors, light);
         }
 
@@ -181,7 +181,7 @@ page-order-details {
         }
 
         .item-name {
-            margin-top: 23px;
+            margin-top: 10px;
 
             p {
                 color: color($colors, primary);
@@ -226,7 +226,7 @@ page-order-details {
         font-weight: bold;
         color: color($colors, primary);
         font-size: 17px;
-
+        margin-bottom: 20px;
         @include rtl {
             text-align: left;
             margin-left: 10px;

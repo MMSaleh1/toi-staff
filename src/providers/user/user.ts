@@ -197,7 +197,7 @@ export class UserProvider extends RootProvider {
           let items = new Array<orderItem>();
           for (let i = 0; i < data.length; i++) {
             if (data[i].stuff_id == this.user.id) {
-              items.push(new orderItem(data[i].product_name, data[i].cost, data[i].img1));
+              items.push(new orderItem(data[i].product_name, data[i].cost, data[i].img1,data[i].quntity ));
             }
 
           }
@@ -510,10 +510,11 @@ export class orderItem {
   productName: string;
   cost: number;
   imagUrl: string;
-
-  constructor(ProductName, cost, imageUrl) {
+  quan: number
+  constructor(ProductName, cost, imageUrl, quan) {
     this.productName = ProductName;
     this.cost = cost;
+    this.quan = quan;
     this.imagUrl = ImageProcess.getImageUrl(imageUrl);
   }
 

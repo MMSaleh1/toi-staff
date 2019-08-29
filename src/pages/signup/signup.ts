@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Events } from 'ionic-angular';
+import { NavController, LoadingController, Events, NavParams } from 'ionic-angular';
 import {
   FormGroup,
   Validators,
@@ -23,26 +23,34 @@ import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 export class SignupPage {
   public regesterForm: FormGroup;
   public user: User;
-
+  public hasImage: boolean;
+  public base64: string = "";
+  public displayImage: string = "";
+  gender;
+  branch_id;
   constructor(public navCtrl: NavController
     , public formBuilder: FormBuilder
     , public loadCtrl: LoadingController
     , public userProvider: UserProvider
     , public events: Events
+    , public navParams: NavParams
     , private helperTools: HelperToolsProvider
     , public storage: Storage
     , public notifiCtrl: NotificationsProvider
   ) {
     this.buildForm();
+    this.hasImage = false;
+    this.branch_id = this.navParams.get('branchId')
+    console.log(new Date().getTime() + "1234425");
 
   }
 
   buildForm() {
     this.regesterForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
       userName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]],
       passwordConfirm: new FormControl("", [Validators.required, this.equalto("password")]),
-      email: ['', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       phone: ['', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]],
 
     })
@@ -74,39 +82,55 @@ export class SignupPage {
 
   }
 
-  // public async onRegester() {
-  //   if (this.regesterForm.value.passwordConfirm != this.regesterForm.value.password) {
-  //     alert("Password does Not Match")
-  //   } else {
-  //     if (this.regesterForm.valid) {
-  //       this.helperTools.ShowLoadingSpinnerOnly();
-  //       let token = await this.notifiCtrl.getDeviceId();
-  //       let add = await this.userProvider.RegesterNop(this.regesterForm.value.userName, this.regesterForm.value.password, this.regesterForm.value.email, this.regesterForm.value.phone, token);
-  //       console.log(add);
-  //       this.helperTools.DismissLoading();
-  //       if (add == true) {
-  //         this.user = User.getInstance();
-  //         this.storage.set('user', this.user);
-  //         this.events.publish('logedin')
+  public async onRegester() {
+    console.log('clicked')
+    if (this.regesterForm.value.passwordConfirm != this.regesterForm.value.password) {
+      // alert("Password does Not Match")
+    } else {
+      if (this.regesterForm.valid) {
+        this.helperTools.ShowLoadingSpinnerOnly();
+        let token = await this.notifiCtrl.getDeviceId();
+        let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.base64, this.gender, this.regesterForm.value.userName, this.branch_id, token);
+        console.log(add);
+        this.helperTools.DismissLoading();
+        if (add == []) {
+          this.user = User.getInstance();
+          this.storage.set('user', this.user);
+          this.events.publish('logedin')
+          console.log(this.userProvider.user);
+          // this.navCtrl.setRoot(TabsPage);
+
+        } else if('') {
+          this.helperTools.ShowAlertWithTranslation('Error', "UsernameAlreadyExists")
+        }
+        this.helperTools.DismissLoading();
+
+      } else {
+        this.helperTools.DismissLoading();
+        this.helperTools.ShowAlertWithTranslation('Error', "Invalidfields")
+      }
+
+    }
 
 
+  }
 
-  //         console.log(this.userProvider.user);
-  //         // this.navCtrl.setRoot(TabsPage);
+  public getPhoto() {
+    this.helperTools.OpenImage().then((data: any) => {
+      console.log(data);
+      if (data != 'cancel') {
+        this.base64 = data;
+        this.displayImage = 'data:image/jpeg;base64,' + data;
+      }
 
-  //       } else {
-  //         this.helperTools.ShowAlertWithTranslation('Error', "This user name is already in use, Please try a new one or Login.")
-  //       }
+      //'data:image/jpeg;base64,' 
+      // this.hasImage = true;
 
+    });
+  }
 
-
-  //     } else {
-  //       this.helperTools.ShowAlertWithTranslation('Error', "Invalid fields.")
-  //     }
-
-  //   }
-
-
-  // }
-
+  onChange(ev) {
+    console.log(ev)
+    this.gender = ev;
+  }
 }

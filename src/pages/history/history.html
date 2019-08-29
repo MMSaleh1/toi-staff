@@ -12,7 +12,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content no-padding>
   <div *ngIf="ready">
     <ion-card class="cardItem" *ngFor="let order of order_data; let i = index">
       <ion-item (tap)="goToOrderDet(order)" class="OneItem">

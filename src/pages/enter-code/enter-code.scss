@@ -34,7 +34,9 @@ page-enter-code {
         background-color: color($colors, light);
         border-radius: 20px;
         color: #fff;
-        text-align: center;
+    }
+    .text-input{
+        text-align: center !important;
     }
 
     .item.item-input {
@@ -43,6 +45,7 @@ page-enter-code {
         }            
     }        
     .difault-form .item .text-input {
+        text-align: center !important;
         padding-left: 3rem;
         ::placeholder{
             margin-left:25px !important;
@@ -51,6 +54,7 @@ page-enter-code {
 
     .difault-form .list .item-block .item-inner {
         background-color: transparent;
+        text-align: center !important;
     }
 
     .btn{

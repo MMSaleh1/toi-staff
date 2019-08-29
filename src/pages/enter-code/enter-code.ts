@@ -34,7 +34,7 @@ export class EnterCodePage {
     if(output.length > 0 ){
       this.navCtrl.setRoot(SignupPage,{'branchId' : output[0].branch_id});
     }else{
-      this.helperTools.ShowAlertWithTranslation('Alert', 'Code Not Valid')
+      this.helperTools.ShowAlertWithTranslation('Alert', 'ThisCodeIsNotAValidCode')
     }
     
     // this.navCtrl.setRoot(SignupPage);
