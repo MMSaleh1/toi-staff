@@ -76,7 +76,7 @@ export class UserProvider extends RootProvider {
           resolve([]);
         }else{
           this.user = User.getInstance(data[0].id,name,password,"",gender,phone,branch_id,deviceId,user_name,'1','0',img);
-          this.saveUser(this.user).then(data=>{
+          this.saveUser(this.user).then(()=>{
             this.event.publish('logedin');
             resolve(this.user);
           });
