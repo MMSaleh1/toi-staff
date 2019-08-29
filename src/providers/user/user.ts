@@ -41,7 +41,7 @@ export class UserProvider extends RootProvider {
   available;
   queue;
 
-  constructor(public http: HttpClient, public storage: Storage, public event: Events , public helperTools : HelperToolsProvider) {
+  constructor(public http: HttpClient, public storage: Storage, public event: Events, public helperTools: HelperToolsProvider) {
     super(http);
   }
 
@@ -53,8 +53,8 @@ export class UserProvider extends RootProvider {
         console.log(data[0]);
         if (data != null && data != undefined && data.length > 0 && data[0].error_name != "wrong_password") {
 
-         // let image = ImageProcess.getImageUrl(data[0].img);
-          this.user = User.getInstance(data[0].id, data[0].name, data[0].password, data[0].mail, data[0].gender, data[0].phone, data[0].area_id, data[0].device_id , data[0].user_name,data[0].available , data[0].queue,data[0].img);
+          // let image = ImageProcess.getImageUrl(data[0].img);
+          this.user = User.getInstance(data[0].id, data[0].name, data[0].password, data[0].mail, data[0].gender, data[0].phone, data[0].area_id, data[0].device_id, data[0].user_name, data[0].available, data[0].queue, data[0].img);
           this.event.publish('logedin');
           this.saveUser(this.user);
           console.log(this.user);
@@ -67,24 +67,24 @@ export class UserProvider extends RootProvider {
   }
 
 
-  public async registration(name,phone,password,img,gender,user_name,branch_id,deviceId) : Promise<any>{
+  public async registration(name, phone, password, img, gender, user_name, branch_id, deviceId): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.registerStaffActionString}name=${name}&phone=${phone}&password=${password}&img=${img}&gender=${gender}&user_name=${user_name}&branch_id=${branch_id}`
-    return new Promise((resolve)=>{
-      this.http.get(temp).subscribe((data:any)=>{
+    return new Promise((resolve) => {
+      this.http.get(temp).subscribe((data: any) => {
         this.helperTools.ShowLoadingSpinnerOnly();
-        if(data == undefined || data.length> 0 ){
+        if (data == undefined || data.length > 0) {
           resolve([]);
-        }else{
-          this.user = User.getInstance(data[0].id,name,password,"",gender,phone,branch_id,deviceId,user_name,'1','0',img);
-          this.saveUser(this.user).then(()=>{
+        } else {
+          this.user = User.getInstance(data[0].id, name, password, "", gender, phone, branch_id, deviceId, user_name, '1', '0', img);
+          this.saveUser(this.user).then(() => {
             this.event.publish('logedin');
             resolve(this.user);
           });
-        
+
         }
       })
     })
- 
+
   }
 
   public async updateDeviceToken(user_id, device_id): Promise<any> {
@@ -104,38 +104,39 @@ export class UserProvider extends RootProvider {
 
   }
 
-  public async updateUser(user : User) : Promise<any>{
+  public async updateUser(user: User): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.updateStaffActionString}${user.id}?name=${user.name}&phone=${user.phone}&password=${user.password}&img=${user.image}&gender=${user.gender}&user_name=${user.userName}&national_id=""&available=${user.available}&queue=${user.queue}&day_off=0`;
     console.log(temp);
-     return new Promise((resolve)=>{
-       this.http.get(temp).subscribe(data=>{
-         if(data == undefined){
-           resolve(false)
-         }else{
-           resolve(true)
-          this.saveUser(user).then(()=>{
+    return new Promise((resolve) => {
+      this.http.get(temp).subscribe(data => {
+        if (data == undefined) {
+          resolve(false)
+        } else {
+          resolve(true)
+          this.saveUser(user).then(() => {
             this.getUser();
             this.event.publish('user-updates');
           }
           );
-         }
-       })
-     })
+        }
+      })
+    })
 
   }
 
-  public async checkCode(code) : Promise<any>{
-    let temp= `${RootProvider.APIURL}${this.userApiController}${this.checkStaffRegestrationCode}code=${code}`;
-    return new Promise((resolve)=>{
-      this.http.get(temp).subscribe((data:any)=>{
-        if(data == undefined || data.length == 0 ){
+  public async checkCode(code): Promise<any> {
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.checkStaffRegestrationCode}code=${code}`;
+    return new Promise((resolve) => {
+      this.http.get(temp).subscribe((data: any) => {
+        if (data == undefined || data.length == 0) {
           resolve([])
-        }else{
+        } else {
           resolve(data);
         }
       })
     })
   }
+
 
 
 
@@ -149,10 +150,10 @@ export class UserProvider extends RootProvider {
       //   'ImgStr': image
       // }
 
-        console.log((image));
+      console.log((image));
       // console.log(JSON.stringify(body));
       this.http.post(`${RootProvider.APIURL}/test_upload/SaveImage_staff`, { image: image }).subscribe(data => {
-      //  console.log(image);
+        //  console.log(image);
         //  alert(data);
         resolve(data);
       }, err => {
@@ -197,7 +198,7 @@ export class UserProvider extends RootProvider {
           let items = new Array<orderItem>();
           for (let i = 0; i < data.length; i++) {
             if (data[i].stuff_id == this.user.id) {
-              items.push(new orderItem(data[i].product_name, data[i].cost, data[i].img1,data[i].quntity ));
+              items.push(new orderItem(data[i].product_name, data[i].cost, data[i].img1, data[i].quntity));
             }
 
           }
@@ -247,17 +248,17 @@ export class UserProvider extends RootProvider {
   //   })
   // }
 
-  public async getHistory(staffId):Promise<any>{
+  public async getHistory(staffId): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getStaffHistoryActionString}stuff_id=${staffId}`;
     console.log(temp);
-    return new Promise((resolve)=>{
-      this.http.get(temp).subscribe((data:any)=>{
-        if(data == undefined || data.length == 0){
+    return new Promise((resolve) => {
+      this.http.get(temp).subscribe((data: any) => {
+        if (data == undefined || data.length == 0) {
           resolve([])
-        }else{
+        } else {
           let orders = new Array<order>();
-          for (let i = 1; i < data.length; i++) { 
-              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id,data[i].user_img));
+          for (let i = 1; i < data.length; i++) {
+            orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img));
           }
           console.log(orders);
           resolve(orders);
@@ -277,11 +278,11 @@ export class UserProvider extends RootProvider {
         } else {
           let orderCounter = 1;
           let orders = new Array<order>();
-          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id,data[0].user_img));
+          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id, data[0].user_img));
           for (let i = 1; i < data.length; i++) {
             if (data[i].order_id != data[i - 1].order_id) {
               orderCounter++
-              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id,data[i].user_img));
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img));
 
             }
           }
@@ -322,7 +323,7 @@ export class UserProvider extends RootProvider {
   // }
 
 
-  public async changeStatus(stuff_id, order_id, statusId, userToken, user_id , arrive_time): Promise<any> {
+  public async changeStatus(stuff_id, order_id, statusId, userToken, user_id, arrive_time): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}&user_token=${userToken}&user_id=${user_id}&arrive_time=${arrive_time}`;
     console.log(temp);
     return new Promise((resolve) => {
@@ -360,8 +361,8 @@ export class UserProvider extends RootProvider {
 
 
 
-  public async saveUser(user : User){
-    let data =  await this.storage.set('toi-staff-user',user);
+  public async saveUser(user: User) {
+    let data = await this.storage.set('toi-staff-user', user);
     this.event.publish('user-updated')
   }
 
@@ -373,7 +374,7 @@ export class UserProvider extends RootProvider {
           resolve(User.getInstance());
         } else {
           let user = <User>data;
-          resolve(User.getInstance(user.id, user.name, user.password, user.email, user.gender, user.phone, user.areaId, user.deviceId,user.userName,user.available ,user.queue,user.image));
+          resolve(User.getInstance(user.id, user.name, user.password, user.email, user.gender, user.phone, user.areaId, user.deviceId, user.userName, user.available, user.queue, user.image));
 
         }
       });
@@ -400,26 +401,26 @@ export class User {
   serverImage: string;
   areaId: string;
   deviceId: string;
-  userName : string;
+  userName: string;
   available: any;
-  queue : any;
+  queue: any;
 
 
   private static instance: User = null;
   static isCreating: boolean = false;
 
 
-  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", area_id = "", deviceId: string ,user_name: string,available , queue,serverImage) {
+  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", area_id = "", deviceId: string, user_name: string, available, queue, serverImage) {
 
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
     } else {
-      this.setData(id, name, password, email, gender, phone, area_id, deviceId ,user_name,available , queue,serverImage);
+      this.setData(id, name, password, email, gender, phone, area_id, deviceId, user_name, available, queue, serverImage);
       User.isCreating = true;
     }
   }
 
-  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string, user_name : string ,available , queue,serverImage) {
+  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string, user_name: string, available, queue, serverImage) {
 
     this.id = id;
     this.name = name;
@@ -429,24 +430,24 @@ export class User {
     this.phone = phone;
     this.areaId = area_id;
     this.deviceId = deviceId;
-    this.image = serverImage ;
+    this.image = serverImage;
     this.userName = user_name;
     this.available = available;
     this.queue = queue;
-  //  this.serverImage = serverImage
+    //  this.serverImage = serverImage
   }
 
-  static getInstance(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string = '0' , user_name : string ="",available="1" , queue = "0",serverImage="") {
+  static getInstance(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string = '0', user_name: string = "", available = "1", queue = "0", serverImage = "") {
 
 
 
     if (User.isCreating === false && id != "-1") {
       //User.isCreating = false;
-      User.instance = new User(id, name, gender, password, email, phone, area_id, deviceId,user_name,available , queue,serverImage);
+      User.instance = new User(id, name, gender, password, email, phone, area_id, deviceId, user_name, available, queue, serverImage);
       console.log(console.log(User.instance));
     }
     if (id != "-1") {
-      User.instance.setData(id, name, password, email, gender, phone, area_id, deviceId ,user_name,available , queue ,serverImage);
+      User.instance.setData(id, name, password, email, gender, phone, area_id, deviceId, user_name, available, queue, serverImage);
     }
     return User.instance;
   }
@@ -472,8 +473,8 @@ export class order {
   long: string;
   lat: string;
   user_id: number;
-  orderStatus : string;
-  customerImage: string; 
+  orderStatus: string;
+  customerImage: string;
 
   constructor(id: string,
     customerName: string,

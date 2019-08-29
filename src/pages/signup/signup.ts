@@ -26,8 +26,9 @@ export class SignupPage {
   public hasImage: boolean;
   public base64: string = "";
   public displayImage: string = "";
-  gender;
+  gender : string = "";
   branch_id;
+  ImageProcess: any;
   constructor(public navCtrl: NavController
     , public formBuilder: FormBuilder
     , public loadCtrl: LoadingController
@@ -90,6 +91,7 @@ export class SignupPage {
       if (this.regesterForm.valid) {
         this.helperTools.ShowLoadingSpinnerOnly();
         let token = await this.notifiCtrl.getDeviceId();
+        // this.user.image = this.ImageProcess.getUserImageUrl(await this.userProvider.sendImage(this.base64));
         let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.base64, this.gender, this.regesterForm.value.userName, this.branch_id, token);
         console.log(add);
         this.helperTools.DismissLoading();
@@ -98,7 +100,7 @@ export class SignupPage {
           this.storage.set('user', this.user);
           this.events.publish('logedin')
           console.log(this.userProvider.user);
-          // this.navCtrl.setRoot(TabsPage);
+          this.navCtrl.setRoot(HomePage);
 
         } else if('') {
           this.helperTools.ShowAlertWithTranslation('Error', "UsernameAlreadyExists")
@@ -132,5 +134,7 @@ export class SignupPage {
   onChange(ev) {
     console.log(ev)
     this.gender = ev;
+    this.gender = this.gender.toString();
+    console.log(this.gender)
   }
 }
