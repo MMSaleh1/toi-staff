@@ -12,7 +12,7 @@ import {
 import { HomePage } from '../home/home';
 import { SigninPage } from '../signin/signin';
 
-import { User, UserProvider } from '../../providers/user/user';
+import { User, UserProvider, ImageProcess } from '../../providers/user/user';
 import { Storage } from '@ionic/storage';
 import { NotificationsProvider } from '../../providers/notifications/notifications';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
@@ -26,9 +26,8 @@ export class SignupPage {
   public hasImage: boolean;
   public base64: string = "";
   public displayImage: string = "";
-  gender : string = "";
+  gender: string = "";
   branch_id;
-  ImageProcess: any;
   constructor(public navCtrl: NavController
     , public formBuilder: FormBuilder
     , public loadCtrl: LoadingController
@@ -91,7 +90,7 @@ export class SignupPage {
       if (this.regesterForm.valid) {
         this.helperTools.ShowLoadingSpinnerOnly();
         let token = await this.notifiCtrl.getDeviceId();
-        this.user.image = this.ImageProcess.getUserImageUrl(await this.userProvider.sendImage(this.base64));
+        this.user.image = ImageProcess.getUserImageUrl(await this.userProvider.sendImage(this.base64));
         let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.user.image, this.gender, this.regesterForm.value.userName, this.branch_id, token);
         console.log(add);
         this.helperTools.DismissLoading();
@@ -102,7 +101,7 @@ export class SignupPage {
           console.log(this.userProvider.user);
           this.navCtrl.setRoot(HomePage);
 
-        } else if('') {
+        } else if ('') {
           this.helperTools.ShowAlertWithTranslation('Error', "UsernameAlreadyExists")
         }
         this.helperTools.DismissLoading();
