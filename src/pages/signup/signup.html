@@ -1,24 +1,46 @@
 <ion-content class="bg-color" padding>
   <div padding>
-    <div class="logo bg-white fadeInUp animated delay-1" text-center>
-      <figure class="Header-Name"> <img src="assets/imgs/logo.png"></figure>
-      <!-- <div class="Header-Name">Glam & Go</div> -->
+    <!-- <div class="logo bg-white fadeInUp animated delay-1" text-center> -->
+    <!-- <figure class="Header-Name"> <img src="assets/imgs/logo.png"></figure> -->
+    <!-- <div class="Header-Name">Glam & Go</div> -->
+    <!-- </div> -->
+    <div class="image-uploader-conatainer">
+      <ion-icon *ngIf="!(this.base64.length >  1)" (tap)="getPhoto()" class="image-uploader-icon" name="custom-camera">
+      </ion-icon>
+      <div *ngIf="!(this.base64.length >  1)" class="image-uploader-text">Add Profile Picture</div>
+      <img *ngIf="(this.base64.length >  1)" class="image-uploader-image" [src]="displayImage">
     </div>
+
     <!-- <h2 class="heading text-white fadeInUp animated delay-2" text-center>Register now</h2> -->
     <div class="form-container">
 
       <!-- <form [formGroup]="regesterForm" (ngSubmit)="onRegester()"> -->
-          <form [formGroup]="regesterForm">
+      <form [formGroup]="regesterForm">
         <div class="difault-form">
           <ion-list>
+            <ion-item class="fadeInUp animated delay-2">
+              <ion-input formControlName="name" type="text" placeholder="{{'Name'}}"></ion-input>
+            </ion-item>
+            <div class="error-box"
+              *ngIf="regesterForm.controls['name'].hasError('required') && regesterForm.controls['name'].touched">
+              * {{'nameisrequired' | translate}}</div>
+            <div class="error-box"
+              *ngIf="regesterForm.controls['name'].hasError('maxlength') && regesterForm.controls['name'].touched">
+              * {{'namecannotexceed20digits' | translate}}</div>
+            <div class="error-box"
+              *ngIf="regesterForm.controls['name'].hasError('minlength') && regesterForm.controls['name'].touched">
+              * {{'namecannotbelessthan4digits' | translate}}</div>
             <ion-item class="fadeInUp animated delay-3">
               <ion-input formControlName="userName" type="text" placeholder="{{'Username'}}"></ion-input>
             </ion-item>
-            <div class="error-box" *ngIf="regesterForm.controls['userName'].hasError('required') && regesterForm.controls['userName'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['userName'].hasError('required') && regesterForm.controls['userName'].touched">
               * {{'Usernameisrequired' | translate}}</div>
-            <div class="error-box" *ngIf="regesterForm.controls['userName'].hasError('maxlength') && regesterForm.controls['userName'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['userName'].hasError('maxlength') && regesterForm.controls['userName'].touched">
               * {{'Usernamecannotexceed20digits' | translate}}</div>
-            <div class="error-box" *ngIf="regesterForm.controls['userName'].hasError('minlength') && regesterForm.controls['userName'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['userName'].hasError('minlength') && regesterForm.controls['userName'].touched">
               * {{'Usernamecannotbelessthan4digits' | translate}}</div>
             <!-- <ion-item class="fadeInUp animated delay-4">
               <ion-input formControlName="email" type="email" placeholder="Email address"></ion-input>
@@ -27,39 +49,57 @@
               * {{'Emailisrequired' | translate}}</div>
             <div class="error-box" *ngIf="regesterForm.controls['email'].hasError('pattern') && regesterForm.controls['email'].touched">
               * {{'Invalidemailaddressformat' | translate}} </div> -->
+            <ion-item class="fadeInUp animated delay-4">
+              <ion-select placeholder="{{ 'Gender' | translate }}" okText="{{'Done' | translate}}"
+                cancelText="{{'Cancel' | translate}}" interface="action-sheet" (ionChange)="onChange($event)">
+                <ion-option [value]="male"> {{ 'Male' | translate }} </ion-option>
+                <ion-option [value]="female"> {{ 'Female' | translate }} </ion-option>
+              </ion-select>
+            </ion-item>
 
             <ion-item class="fadeInUp animated delay-5">
               <ion-input formControlName="phone" type="number" placeholder="{{'Phone' | translate}}"></ion-input>
             </ion-item>
-            <div class="error-box" *ngIf="regesterForm.controls['phone'].hasError('required') && regesterForm.controls['phone'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['phone'].hasError('required') && regesterForm.controls['phone'].touched">
               * {{'Phonenumberisrequired' | translate}}</div>
-            <div class="error-box" *ngIf="regesterForm.controls['phone'].hasError('maxlength') && regesterForm.controls['phone'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['phone'].hasError('maxlength') && regesterForm.controls['phone'].touched">
               * {{'Phonenumbercannotbemorethan11digits' | translate}}</div>
-            <div class="error-box" *ngIf="regesterForm.controls['phone'].hasError('minlength') && regesterForm.controls['phone'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['phone'].hasError('minlength') && regesterForm.controls['phone'].touched">
               * {{'Phonenumbercannotbelessthan11digits' | translate}}.</div>
 
 
             <ion-item class="fadeInUp animated delay-6">
-              <ion-input formControlName="password" type="password" placeholder="{{'Password' | translate}}"></ion-input>
+              <ion-input formControlName="password" type="password" placeholder="{{'Password' | translate}}">
+              </ion-input>
             </ion-item>
-            <div class="error-box" *ngIf="regesterForm.controls['password'].hasError('required') && regesterForm.controls['password'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['password'].hasError('required') && regesterForm.controls['password'].touched">
               * {{'Passwordisrequired' | translate}} </div>
-            <div class="error-box" *ngIf="regesterForm.controls['password'].hasError('minlength') && regesterForm.controls['password'].touched">
+            <div class="error-box"
+              *ngIf="regesterForm.controls['password'].hasError('minlength') && regesterForm.controls['password'].touched">
               * {{'Passwordcannotbelessthan6digits' | translate}}</div>
 
             <ion-item class="fadeInUp animated delay-7">
-              <ion-input formControlName="passwordConfirm" type="password" placeholder="{{'ConfirmPassword' | translate}}">
+              <ion-input formControlName="passwordConfirm" type="password"
+                placeholder="{{'ConfirmPassword' | translate}}">
               </ion-input>
             </ion-item>
-            <div class="error-box" *ngIf="regesterForm.get('passwordConfirm').hasError('required') && regesterForm.get('passwordConfirm').touched">
+            <div class="error-box"
+              *ngIf="regesterForm.get('passwordConfirm').hasError('required') && regesterForm.get('passwordConfirm').touched">
               * {{'Passwordconfirmarionisrequired' | translate}}
             </div>
-            <div class="error-box" *ngIf="regesterForm.get('passwordConfirm').hasError('equalTo') && regesterForm.get('passwordConfirm').touched">
+            <div class="error-box"
+              *ngIf="regesterForm.get('passwordConfirm').hasError('equalTo') && regesterForm.get('passwordConfirm').touched">
               * {{'Passowddoesnotmatch' | translate}}
             </div>
             <br>
-            <button [disabled]="!regesterForm.valid" ion-button full class="btn bg-theme fadeInUp animated delay-6 login-button" type="submit">{{'Registernow' | translate}}</button>
-            <p text-center class="text-white fadeInUp animated delay-7">Already have an account? <strong (tap)="signin()">{{'Signin' | translate}}</strong></p>
+            <button ion-button full (click)="onRegester()" class="btn bg-theme fadeInUp animated delay-6 login-button"
+              type="submit">{{'Registernow' | translate}}</button>
+            <p text-center class="text-white fadeInUp animated delay-7">Already have an account? <strong
+                (tap)="signin()">{{'Signin' | translate}}</strong></p>
           </ion-list>
         </div>
       </form>

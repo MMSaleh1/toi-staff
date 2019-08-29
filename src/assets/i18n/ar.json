@@ -1,6 +1,7 @@
 {
     "Username" : "اسم الحساب",
     "Usernameisrequired" : "اسم المستخدم مطلوب.",
+    "nameisrequired" : "الاسم بالكامل مطلوب.",
     "Passwordisrequired" : "كلمه المرور مطلوبة.",
     "Passwordcannotbelessthan6digits" : "كلمه المرور لا يجب ان تقل عن ٦ خانات.",
     "Password" : "كلمه المرور",
@@ -27,6 +28,8 @@
     "Code" : "الكود",
     "Usernamecannotexceed20digits" : "اسم المستخدم لا يجب ان يكون اكبر من ٢٠ خانه.",
     "Usernamecannotbelessthan4digits" :"اسم المستخدم لا يقل عن ٤ خانات.",
+    "namecannotexceed20digits" : "الاسم بالكامل لا يجب ان يكون اكبر من ٢٠ خانه.",
+    "namecannotbelessthan4digits" :"الاسم بالكامل لا يقل عن ٤ خانات.",
     "Emailisrequired" : "البريد الالكتروني مطلوب.",
     "Invalidemailaddressformat" : "صيغه بريد الكتروني خاطئه.",
     "Phonenumberisrequired" : "رقم الهاتف مطلوب.",
@@ -57,7 +60,13 @@
     "galary" : "المعرض",
     "camera" : "الكاميرا",
     "uploadImage": "اضف صوره",
-    "cancel" : "الغاء"
+    "cancel" : "الغاء",
+    "ThisCodeIsNotAValidCode" : "الكود المدخل غير صالح للاستخدام.",
+    "Gender" : "اختر النوع",
+    "ItemQuan" : "الكميه",
+    "Invalidfields" : "البيانات الدخله غير صحيحه",
+    "UsernameAlreadyExists" : "اسم المستخدم المدخل مستخدم من قبل، برجاء ادخل اسم مستخدم اخر او قم بتسجيل الدخول."
+
 
 
 

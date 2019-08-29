@@ -35,7 +35,10 @@
     "Passwordconfirmarionisrequired" : "Password confirmarion is required.",
     "Passowddoesnotmatch" : "Passowd does not match.",
     "Registernow" : "Register now",
+    "namecannotexceed20digits" : "Full name cannot exceed 20 digits.",
+    "namecannotbelessthan4digits" :"Full name cannot be less than 4 digits.",
     "ConfirmPassword" : "Confirm Password",
+    "nameisrequired" : "Full name is required.",
     "Arabic" : "عربي",
     "En" : "En",
     "Logout" : "Logout",
@@ -54,9 +57,14 @@
     "StartMoving" : "Start Moving",
     "NoHistory"  : "You Have No Old Orders",
     "Canceled" : "Canceled",
-    "galary" : "galary",
-    "camera" : "camera",
-    "uploadImage": "uploadImage",
-    "cancel" : "cancel"
+    "galary" : "Gallery",
+    "camera" : "Camera",
+    "uploadImage": "Upload Image",
+    "cancel" : "Cancel",
+    "ThisCodeIsNotAValidCode" : "Code you entered is not a valid code.",
+    "Gender" : "Select gender",
+    "ItemQuan" : "Quantity",
+    "Invalidfields" : "Invalid fields",
+    "UsernameAlreadyExists" : "This username is already in use, Please try a new one or login."
 
 }
