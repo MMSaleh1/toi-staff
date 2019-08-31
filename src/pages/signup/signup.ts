@@ -28,6 +28,7 @@ export class SignupPage {
   public displayImage: string = "";
   gender: string = "";
   branch_id;
+  user_data = {} as any;
   constructor(public navCtrl: NavController
     , public formBuilder: FormBuilder
     , public loadCtrl: LoadingController
@@ -90,8 +91,14 @@ export class SignupPage {
       if (this.regesterForm.valid) {
         this.helperTools.ShowLoadingSpinnerOnly();
         let token = await this.notifiCtrl.getDeviceId();
-        this.user.image = ImageProcess.getUserImageUrl(await this.userProvider.sendImage(this.base64));
-        let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.user.image, this.gender, this.regesterForm.value.userName, this.branch_id, token);
+        if(this.base64.length >  1){
+
+        this.user_data.serverImage = await this.userProvider.sendImage(this.base64)
+        console.log(this.user_data.serverImage);
+        this.user_data.image = ImageProcess.getUserImageUrl(this.user_data.serverImage);
+        }
+        console.log(this.user_data.image);
+        let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.user_data.image, this.gender, this.regesterForm.value.userName, this.branch_id, token);
         console.log(add);
         this.helperTools.DismissLoading();
         if (add == []) {

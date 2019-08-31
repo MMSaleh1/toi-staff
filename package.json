@@ -52,7 +52,7 @@
     "ionic2-auto-complete": "^1.6.2-alpha",
     "ionicons": "3.0.0",
     "mx.ferreyra.callnumber": "0.0.2",
-    "onesignal-cordova-plugin": "^2.5.0",
+    "onesignal-cordova-plugin": "^2.5.2",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "uk.co.workingedge.phonegap.plugin.launchnavigator": "^5.0.4",
