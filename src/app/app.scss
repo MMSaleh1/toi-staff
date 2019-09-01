@@ -83,6 +83,7 @@ ion-icon {
         font-weight: 600;
         color: white;
         text-align: center;
+        margin-top: 5px;
     }
 }
 
@@ -139,10 +140,10 @@ ion-header {
 
     .title {
         position: absolute;
-        left: 50% !important;
+        // left: 50% !important;
         top: 0;
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
+        // -webkit-transform: translateX(-50%);
+        // transform: translateX(-50%);
         height: 100%;
         text-align: center;
         font-weight: bold !important;
