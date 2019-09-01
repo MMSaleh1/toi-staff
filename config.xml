@@ -103,9 +103,9 @@
         <variable name="ANDROID_SUPPORT_VERSION" value="28.+" />
     </plugin>
     <plugin name="cordova-open-native-settings" spec="^1.5.2" />
-    <engine name="android" spec="7.0.0" />
-    <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-plugin-mauron85-background-geolocation" spec="^2.3.6">
         <variable name="ALWAYS_USAGE_DESCRIPTION" value="This app always requires location tracking" />
     </plugin>
+    <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="7.0.0" />
 </widget>
