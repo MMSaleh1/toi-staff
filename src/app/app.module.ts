@@ -17,6 +17,7 @@ import { OpenNativeSettings } from "@ionic-native/open-native-settings";
 
 
 
+
 import { MyApp } from './app.component';
 
 import { RootProvider } from '../providers/root/root';
@@ -38,6 +39,8 @@ import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 import { UpdateProfilePageModule } from '../pages/update-profile/update-profile.module';
 import { OrderDetailsPageModule } from '../pages/order-details/order-details.module';
 import { HistoryPageModule } from '../pages/history/history.module';
+import { LocationProvider } from '../providers/location/location';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -93,8 +96,10 @@ export function createTranslateLoader(http: HttpClient) {
     NotificationsProvider,
     OneSignal,
     Geolocation,
+    BackgroundGeolocation,
     HelperToolsProvider,
-    Camera
+    Camera, 
+    LocationProvider
 
   ]
 })

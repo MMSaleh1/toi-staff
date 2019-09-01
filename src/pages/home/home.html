@@ -47,7 +47,7 @@
             <div class="order-date-day">Order Day :  {{item.orderDate  | date :'shortDate' }}</div>
         </ion-item>
     </ion-list> -->
-  <div *ngIf="!order_data" class="no-order">
+  <div *ngIf="!order_data.length" class="no-order">
     <img src="./assets/imgs/empty_white.png">
     <h4>{{'NoOrdersAssignedToYou' | translate}}</h4>
   </div>
@@ -59,11 +59,11 @@
 
 
   </div>
-  <ion-fab bottom right (click)="logOut()">
+  <!-- <ion-fab bottom right (click)="logOut()">
     <button ion-fab>
       <ion-icon color="third" name="log-out"></ion-icon>
     </button>
-  </ion-fab>
+  </ion-fab> -->
 
 
 </ion-content>
