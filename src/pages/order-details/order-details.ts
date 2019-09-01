@@ -16,7 +16,6 @@ import { OpenNativeSettings } from '@ionic-native/open-native-settings';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @IonicPage()
 @Component({
   selector: 'page-order-details',
@@ -58,8 +57,8 @@ export class OrderDetailsPage {
     })
     this.order_details = this.navParms.get('data');
     this.canCommunicate = this.navParms.get('bool') != undefined ? this.navParms.get('bool') : true;
-    this.customer_location.lat = parseInt(this.order_details.lat);
-    this.customer_location.lng = parseInt(this.order_details.long);
+    this.customer_location.lat = parseFloat(this.order_details.lat);
+    this.customer_location.lng = parseFloat(this.order_details.long);
     console.log(this.order_details)
     this.userProv.getorderItems(this.order_details.id).then(data => {
       this.orderItems = data;

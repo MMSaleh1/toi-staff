@@ -250,7 +250,7 @@ export class HelperToolsProvider {
           origins: [origins],
           destinations: [destinations],
           travelMode: google.maps.TravelMode.DRIVING,
-          unitSystem: google.maps.UnitSystem.METRIC,
+          unitSystem: google.maps.UnitSystem.IMPERIAL,
           avoidHighways: false,
           avoidTolls: false
         },
