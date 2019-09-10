@@ -81,16 +81,16 @@
           <div class="item-quant">
             <p>{{'Itemprice' | translate}}: {{item.cost}} {{'LE' | translate}}</p>
           </div>
-          <div class="item-quant">
+          <!-- <div class="item-quant">
             <p>{{'ItemQuan' | translate}}: {{item.quan}}</p>
-          </div>
+          </div> -->
         </ion-card>
 
         <!-- </ion-scroll> -->
       </ion-card-content>
     </ion-card>
 
-    <div class="total-price">{{'TotalPrice' | translate}} : {{order_details.totalPrice}} {{'LE' | translate}}</div>
+    <div class="total-price">{{'TotalPrice' | translate}} : {{totalPrice}} {{'LE' | translate}}</div>
 
     <div *ngIf="order_details.orderStatusId == '3' " class="change-status-container">
       <button class="status-button" ion-button (tap)="changeStatus()">{{'StartMoving' | translate}}</button>
@@ -101,7 +101,7 @@
     </div>
 
     <div *ngIf="order_details.orderStatusId == '5' " class="change-status-container">
-      <button class="status-button" ion-button class="status-button" (tap)="changeStatus()">{{'Done' | translate}}</button>
+      <button class="status-button" ion-button class="status-button" (tap)="openWallet()">{{'Done' | translate}}</button>
     </div>
 
     <!-- <div class="customer-container">

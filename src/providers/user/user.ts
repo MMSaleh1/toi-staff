@@ -36,6 +36,10 @@ export class UserProvider extends RootProvider {
   private getStaffHistoryActionString = "get_stuff_orders?"
 
 
+  private walletApiController = "wallet/";
+  private changeWalletActionString = "add_change_wallet?";
+
+
   public user: User;
 
   available;
@@ -198,12 +202,31 @@ export class UserProvider extends RootProvider {
           let items = new Array<orderItem>();
           for (let i = 0; i < data.length; i++) {
             if (data[i].stuff_id == this.user.id) {
-              items.push(new orderItem(data[i].product_name, data[i].cost, data[i].img1, data[i].quntity));
+              let name = data[i].is_product == '0' ? data[i].service_name : data[i].sale_prduct_name;
+              let cost = data[i].is_product == '0' ? data[i].service_cost : data[i].sale_prduct_cost;
+              items.push(new orderItem(name, cost, data[i].name, data[i].is_product, data[i].phone, data[i].stuff_img,data[i].stuff_id));
             }
 
           }
           resolve(items);
 
+        }
+      })
+    })
+  }
+
+
+
+  public async changeUserWallet(order_id, staffId, amount, reson, user_id): Promise<any> {
+    let temp = `${RootProvider.APIURL}${this.walletApiController}${this.changeWalletActionString}order_id=${order_id}&stuff_id=${staffId}&amount=${amount}&reson=${reson}&user_id=${user_id}`;
+    console.log(temp);
+    return new Promise((resolve) => {
+      this.http.get(temp).subscribe(data => {
+         console.log(data);
+        if (data != undefined) {
+          resolve(data);
+        } else {
+          resolve(null);
         }
       })
     })
@@ -258,7 +281,7 @@ export class UserProvider extends RootProvider {
         } else {
           let orders = new Array<order>();
           for (let i = 1; i < data.length; i++) {
-            orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img));
+            orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[0].wallet));
           }
           console.log(orders);
           resolve(orders);
@@ -278,11 +301,11 @@ export class UserProvider extends RootProvider {
         } else {
           let orderCounter = 1;
           let orders = new Array<order>();
-          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id, data[0].user_img));
+          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id, data[0].user_img,data[0].wallet));
           for (let i = 1; i < data.length; i++) {
             if (data[i].order_id != data[i - 1].order_id) {
               orderCounter++
-              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img));
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[i].wallet));
 
             }
           }
@@ -475,6 +498,7 @@ export class order {
   user_id: number;
   orderStatus: string;
   customerImage: string;
+  wallet: number
 
   constructor(id: string,
     customerName: string,
@@ -488,7 +512,9 @@ export class order {
     long,
     latt,
     user_id,
-    customerImage
+    customerImage,
+    wallet
+
 
   ) {
     this.id = id;
@@ -504,23 +530,31 @@ export class order {
     this.long = long;
     this.user_id = user_id;
     this.customerImage = customerImage
+    this.wallet = wallet;
 
   }
 }
 export class orderItem {
   productName: string;
   cost: number;
-  imagUrl: string;
-  quan: number
-  constructor(ProductName, cost, imageUrl, quan) {
+  stylistName: string;
+  isProduct: string;
+  stylistPhone: string;
+  stylistImg: string;
+  stylistId: string;
+
+
+  constructor(ProductName, cost, stylistName, is_product, stylistPhone, StylistImg,stuff_id) {
     this.productName = ProductName;
     this.cost = cost;
-    this.quan = quan;
-    this.imagUrl = imageUrl;
+    this.stylistName = stylistName == undefined ? "" : stylistName;
+    this.isProduct = is_product;
+    this.stylistImg = StylistImg == undefined ? "" : StylistImg;
+    this.stylistPhone = stylistPhone == undefined ? "" : stylistPhone;
+    this.stylistId = stuff_id == undefined ? "" : stuff_id;
   }
-
-
 }
+
 
 
 export class ImageProcess {

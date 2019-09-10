@@ -29,6 +29,7 @@ export class OrderDetailsPage {
   public user: User;
   public db: Database;
   public orderItems: Array<orderItem>;
+  public totalPrice : number= 0;
   user_location = {} as any;
   customer_location = {} as any;
   distance;
@@ -64,6 +65,9 @@ export class OrderDetailsPage {
     console.log(this.order_details)
     this.userProv.getorderItems(this.order_details.id).then(data => {
       this.orderItems = data;
+      for(let i = 0 ; i< this.orderItems.length;i++){
+        this.totalPrice+= this.orderItems[i].cost;
+      }
       this.ready = true;
     });
     
@@ -119,23 +123,6 @@ export class OrderDetailsPage {
   //     }, 3000);
   //   }
   // }
-  private async changeUserStatus() {
-    console.log(this.userProv.queue);
-    console.log(this.userProv.available);
-    let available = (this.userProv.queue == '1') ? '0' : '1';
-    console.log(this.userProv.available);
-    let status = await this.userProv.changeStaffStatus(this.user.id, available, '0');
-
-
-
-    console.log(status);
-    if (status != true) {
-      this.changeUserStatus();
-    } else {
-      return;
-    }
-  }
-
 
 
   logOut() {
@@ -168,16 +155,17 @@ export class OrderDetailsPage {
     else {
       newStatus = "4"
     }
+    if(newStatus != "6"){
     let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, newStatus, this.order_details.userToken, this.order_details.user_id,this.estimated_duration);
     this.order_details.orderStatusId = newStatus;
 
     this.helperTool.DismissLoading();
-    if (this.order_details.orderStatusId == "6") {
-      await this.changeUserStatus();
-      this.ready = false;
-      this.navCtrl.setRoot(HomePage)
-    }
+   
+  }else{
+    this.openWallet();
+    
 
+  }
   }
 
   navToCustomerPos(lat, long) {
@@ -217,7 +205,8 @@ export class OrderDetailsPage {
 
 
   openWallet(){
-    let Wpop = this.popoverCtrl.create(WalletComponent);
+    let walet : number = this.order_details.wallet
+    let Wpop = this.popoverCtrl.create(WalletComponent,{'totalPrice' : this.totalPrice,'wallet' : walet,'order_details' : this.order_details ,'duration ' : this.estimated_duration});
     Wpop.present();
   }
 }

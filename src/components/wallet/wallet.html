@@ -15,19 +15,19 @@
   <ion-item class="items">
     <!-- <ion-input type="text" placeholder="{{'EnterHere' | translate}}" [(ngModel)]="order_price">
     </ion-input> -->
-    <h5>50 {{'LE' | translate}}</h5>
+    <h5>{{order_price}} {{'LE' | translate}}</h5>
   </ion-item>
   <h3>{{'UserWallet' | translate}}:</h3>
   <ion-item class="items">
-    <h5>50 {{'LE' | translate}}</h5>
+    <h5>{{user_current_wallet}} {{'LE' | translate}}</h5>
   </ion-item>
   <h3>{{'CollectedAmount' | translate}}:</h3>
   <ion-item class="items">
-    <ion-input type="text" placeholder="{{'EnterHere' | translate}}" [(ngModel)]="collected">
+    <ion-input type="number" (ionChange)="change() " placeholder="{{'EnterHere' | translate}}" [(ngModel)]="collected">
     </ion-input>
   </ion-item>
 
-  <button ion-button clear full class="confirmBtn" (click)="onPaymentDone()">
+  <button ion-button clear [disabled]=" 0 > user_current_wallet " full class="confirmBtn" (click)="onPaymentDone()">
     {{'Done' | translate}}
   </button>
 </div>
