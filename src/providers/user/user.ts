@@ -21,7 +21,7 @@ export class UserProvider extends RootProvider {
   private logInActionString = "stuff_login?";
   private updateStaffActionString = "edit_stuf_mob/"
 
-  private getOrderItemActionString = "get_order_items?";
+  private getOrderItemActionString = "get_order_items_mob?";
   private changeStatusActionString = "stuff_response_order?";
   private getStatusActionString = "get_all_order_states?";
 
@@ -516,7 +516,7 @@ export class orderItem {
     this.productName = ProductName;
     this.cost = cost;
     this.quan = quan;
-    this.imagUrl = ImageProcess.getImageUrl(imageUrl);
+    this.imagUrl = imageUrl;
   }
 
 

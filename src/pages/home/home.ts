@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams, Platform } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, Platform, PopoverController } from 'ionic-angular';
 import { Database } from '../../providers/database/database';
 import { order, UserProvider, User, orderItem } from '../../providers/user/user';
 import { SigninPage } from '../signin/signin';
@@ -8,6 +8,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { OrderDetailsPage } from '../order-details/order-details';
+import { WalletComponent } from '../../components/wallet/wallet';
 
 
 @IonicPage()
@@ -29,7 +30,8 @@ export class HomePage {
     private launchNavigator: LaunchNavigator,
     public navParms: NavParams,
     public call: CallNumber,
-    public helperTool: HelperToolsProvider
+    public helperTool: HelperToolsProvider,
+    public popoverCtrl: PopoverController
   ) {
     this.getData(undefined);
     this.order_data = new Array();
@@ -172,6 +174,13 @@ export class HomePage {
   }
   goToOrderDet(clicked_order) {
     this.navCtrl.push(OrderDetailsPage, { data: clicked_order })
+  }
+  
+
+  openWallet(){
+    let Wpop = this.popoverCtrl.create(WalletComponent);
+
+    Wpop.present();
   }
 
 }
