@@ -1,4 +1,33 @@
-<!-- Generated template for the WalletComponent component -->
-<div>
-  {{text}}
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button class="closeButt" (click)="close()">
+        <ion-icon color="light" name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center> <span text-color="my-custom-color">{{'Checkout' | translate}}</span></ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<div class="content">
+  <h3>{{'OrderPrice' | translate}}:</h3>
+  <ion-item class="items">
+    <!-- <ion-input type="text" placeholder="{{'EnterHere' | translate}}" [(ngModel)]="order_price">
+    </ion-input> -->
+    <h5>50 {{'LE' | translate}}</h5>
+  </ion-item>
+  <h3>{{'UserWallet' | translate}}:</h3>
+  <ion-item class="items">
+    <h5>50 {{'LE' | translate}}</h5>
+  </ion-item>
+  <h3>{{'CollectedAmount' | translate}}:</h3>
+  <ion-item class="items">
+    <ion-input type="text" placeholder="{{'EnterHere' | translate}}" [(ngModel)]="collected">
+    </ion-input>
+  </ion-item>
+
+  <button ion-button clear full class="confirmBtn" (click)="onPaymentDone()">
+    {{'Done' | translate}}
+  </button>
 </div>

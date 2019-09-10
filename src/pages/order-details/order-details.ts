@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, PopoverController } from 'ionic-angular';
 import { UserProvider, order, User, orderItem } from '../../providers/user/user';
 import { CallNumber } from '@ionic-native/call-number';
 import { Database } from '../../providers/database/database';
@@ -9,6 +9,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { HomePage } from '../home/home';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
+import { WalletComponent } from '../../components/wallet/wallet';
 
 /**
  * Generated class for the OrderDetailsPage page.
@@ -36,6 +37,7 @@ export class OrderDetailsPage {
   constructor(public navCtrl: NavController,
     private platform: Platform,
     public userProv: UserProvider,
+    private popoverCtrl: PopoverController,
     public navParms: NavParams,
     private launchNavigator: LaunchNavigator,
     public call: CallNumber,
@@ -159,6 +161,7 @@ export class OrderDetailsPage {
     } else if (this.order_details.orderStatusId == '7') {
       newStatus = "5";
     } else if(this.order_details.orderStatusId == '5'){
+
       newStatus = "6";
     }
     
@@ -213,6 +216,8 @@ export class OrderDetailsPage {
   }
 
 
-
-
+  openWallet(){
+    let Wpop = this.popoverCtrl.create(WalletComponent);
+    Wpop.present();
+  }
 }

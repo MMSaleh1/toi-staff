@@ -64,6 +64,11 @@
     "ThisCodeIsNotAValidCode" : "الكود المدخل غير صالح للاستخدام.",
     "Gender" : "اختر النوع",
     "ItemQuan" : "الكميه",
+    "OrderPrice" : "سعر الطلب",
+    "EnterHere" : "ادخل هنا",
+    "UserWallet" : "محفظه العميل",
+    "CollectedAmount" : "المبلغ المحصل",
+    "Checkout" : "الدفع",
     "Invalidfields" : "البيانات الدخله غير صحيحه",
     "UsernameAlreadyExists" : "اسم المستخدم المدخل مستخدم من قبل، برجاء ادخل اسم مستخدم اخر او قم بتسجيل الدخول."
 

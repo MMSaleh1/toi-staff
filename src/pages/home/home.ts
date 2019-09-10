@@ -8,7 +8,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { OrderDetailsPage } from '../order-details/order-details';
-import { WalletComponent } from '../../components/wallet/wallet';
+// import { WalletComponent } from '../../components/wallet/wallet';
 
 
 @IonicPage()
@@ -54,7 +54,7 @@ export class HomePage {
     // console.log(this.order_data)
     // console.log(order);
     if (tempData == undefined) {
-     
+     this.order_data =[]
       setTimeout(() => {
         this.checkAcceptedOrder()
       }, 1000);
@@ -177,10 +177,9 @@ export class HomePage {
   }
   
 
-  openWallet(){
-    let Wpop = this.popoverCtrl.create(WalletComponent);
-
-    Wpop.present();
-  }
+  // openWallet(){
+  //   let Wpop = this.popoverCtrl.create(WalletComponent);
+  //   Wpop.present();
+  // }
 
 }

@@ -41,7 +41,6 @@ import { OrderDetailsPageModule } from '../pages/order-details/order-details.mod
 import { HistoryPageModule } from '../pages/history/history.module';
 import { LocationProvider } from '../providers/location/location';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
-import { ComponentsModule } from '../components/components.module';
 import { WalletComponent } from '../components/wallet/wallet';
 
 
@@ -52,7 +51,8 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    WalletComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +74,6 @@ export function createTranslateLoader(http: HttpClient) {
     EnterCodePageModule,
     UpdateProfilePageModule,
     HistoryPageModule,
-    ComponentsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

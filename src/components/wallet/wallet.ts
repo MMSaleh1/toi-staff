@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ViewController, NavParams, Events } from 'ionic-angular';
 
 /**
  * Generated class for the WalletComponent component.
@@ -12,11 +13,23 @@ import { Component } from '@angular/core';
 })
 export class WalletComponent {
 
-  text: string;
-
-  constructor() {
+  order_price;
+  user_wallet;
+  collected;
+  constructor(private viewCtrl: ViewController,
+    public navParams: NavParams,
+    public events: Events) {
     console.log('Hello WalletComponent Component');
-    this.text = 'Hello World';
   }
+
+  close() {
+    this.viewCtrl.dismiss();
+  }
+
+
+  onPaymentDone(){
+    this.viewCtrl.dismiss();
+  }
+
 
 }

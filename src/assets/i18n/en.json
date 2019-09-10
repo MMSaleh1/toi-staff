@@ -65,6 +65,11 @@
     "Gender" : "Select gender",
     "ItemQuan" : "Quantity",
     "Invalidfields" : "Invalid fields",
+    "OrderPrice" : "Order Price",
+    "EnterHere" : "Enter Here",
+    "UserWallet" : "User Wallet",
+    "CollectedAmount" : "Collected Amount",
+    "Checkout" : "Receipt",
     "UsernameAlreadyExists" : "This username is already in use, Please try a new one or login."
 
 }
