@@ -100,10 +100,8 @@ export class SignupPage {
         console.log(this.user_data.image);
         let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.user_data.image, this.gender, this.regesterForm.value.userName, this.branch_id, token);
         console.log(add);
-        this.helperTools.DismissLoading();
         if (add == []) {
           this.user = User.getInstance();
-          this.storage.set('user', this.user);
           this.events.publish('logedin')
           console.log(this.userProvider.user);
           this.navCtrl.setRoot(HomePage);
@@ -114,8 +112,8 @@ export class SignupPage {
         this.helperTools.DismissLoading();
 
       } else {
-        this.helperTools.DismissLoading();
         this.helperTools.ShowAlertWithTranslation('Error', "Invalidfields")
+        this.helperTools.DismissLoading();
       }
 
     }

@@ -1,0 +1,26 @@
+page-check-user {
+    .content{
+        .Header-Name {
+            color: white;
+            margin-top: 10vh;
+            font-size: 3rem;
+    
+            img {
+                width: 244px;
+                height: auto;
+    
+            }
+        }
+    .login-button {
+        width: 60%;
+        margin: auto;
+        margin-top: 20vh;
+        border-radius: 30px;
+        background-color: color($colors, ternary);
+    }
+    .text-white {
+        margin-top: 20px;
+    }
+
+}
+}

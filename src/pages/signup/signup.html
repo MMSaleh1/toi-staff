@@ -19,6 +19,7 @@
         <div class="difault-form">
           <ion-list>
             <ion-item class="fadeInUp animated delay-2">
+               <ion-icon name="md-person" item-start></ion-icon>
               <ion-input formControlName="name" type="text" placeholder="{{'Name'}}"></ion-input>
             </ion-item>
             <div class="error-box"
@@ -31,6 +32,7 @@
               *ngIf="regesterForm.controls['name'].hasError('minlength') && regesterForm.controls['name'].touched">
               * {{'namecannotbelessthan4digits' | translate}}</div>
             <ion-item class="fadeInUp animated delay-3">
+                <ion-icon name="md-person" item-start></ion-icon>
               <ion-input formControlName="userName" type="text" placeholder="{{'Username'}}"></ion-input>
             </ion-item>
             <div class="error-box"
@@ -49,15 +51,16 @@
               * {{'Emailisrequired' | translate}}</div>
             <div class="error-box" *ngIf="regesterForm.controls['email'].hasError('pattern') && regesterForm.controls['email'].touched">
               * {{'Invalidemailaddressformat' | translate}} </div> -->
-            <ion-item class="fadeInUp animated delay-4">
+            <ion-item class="fadeInUp animated delay-4 gender-select">
               <ion-select placeholder="{{ 'Gender' | translate }}" okText="{{'Done' | translate}}"
                 cancelText="{{'Cancel' | translate}}" interface="action-sheet" (ionChange)="onChange($event)">
-                <ion-option [value]="Male"> {{ 'Male' | translate }} </ion-option>
-                <ion-option [value]="Female"> {{ 'Female' | translate }} </ion-option>
+                <ion-option value="Male"> {{ 'Male' | translate }} </ion-option>
+                <ion-option value="Female"> {{ 'Female' | translate }} </ion-option>
               </ion-select>
             </ion-item>
 
             <ion-item class="fadeInUp animated delay-5">
+                <ion-icon name="call" item-start></ion-icon>
               <ion-input formControlName="phone" type="number" placeholder="{{'Phone' | translate}}"></ion-input>
             </ion-item>
             <div class="error-box"
@@ -72,6 +75,7 @@
 
 
             <ion-item class="fadeInUp animated delay-6">
+                <ion-icon name="lock" item-start></ion-icon>
               <ion-input formControlName="password" type="password" placeholder="{{'Password' | translate}}">
               </ion-input>
             </ion-item>
@@ -83,6 +87,7 @@
               * {{'Passwordcannotbelessthan6digits' | translate}}</div>
 
             <ion-item class="fadeInUp animated delay-7">
+                <ion-icon name="lock" item-start></ion-icon>
               <ion-input formControlName="passwordConfirm" type="password"
                 placeholder="{{'ConfirmPassword' | translate}}">
               </ion-input>

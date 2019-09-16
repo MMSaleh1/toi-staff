@@ -72,16 +72,20 @@ export class UserProvider extends RootProvider {
 
 
   public async registration(name, phone, password, img, gender, user_name, branch_id, deviceId): Promise<any> {
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.registerStaffActionString}name=${name}&phone=${phone}&password=${password}&img=${img}&gender=${gender}&user_name=${user_name}&branch_id=${branch_id}`
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.registerStaffActionString}name=${name}&phone=${phone}&password=${password}&img=${img}&gender=${gender}&user_name=${user_name}&branch_id=${branch_id}&device_id=${deviceId}`;
     return new Promise((resolve) => {
       this.http.get(temp).subscribe((data: any) => {
+        console.log(data);
         this.helperTools.ShowLoadingSpinnerOnly();
-        if (data == undefined || data.length > 0) {
+        if (data == undefined || data.length == 0) {
           resolve([]);
         } else {
-          this.user = User.getInstance(data[0].id, name, password, "", gender, phone, branch_id, deviceId, user_name, '1', '0', img);
+          this.user = User.getInstance(data[0].ID, name, password, "", gender, phone, branch_id, deviceId, user_name, '1', '0', img);
+          console.log(this.user);
           this.saveUser(this.user).then(() => {
+            console.log(this.user);
             this.event.publish('logedin');
+            console.log(this.user);
             resolve(this.user);
           });
 
@@ -472,6 +476,7 @@ export class User {
     if (id != "-1") {
       User.instance.setData(id, name, password, email, gender, phone, area_id, deviceId, user_name, available, queue, serverImage);
     }
+    console.log(User.instance);
     return User.instance;
   }
 

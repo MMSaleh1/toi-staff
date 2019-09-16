@@ -17,6 +17,7 @@
 
                     <ion-list>
                         <ion-item class="fadeInUp animated delay-3">
+                                <ion-icon name="mail" item-start></ion-icon>
                             <ion-input formControlName="userName" type="text" placeholder="{{'Username' | translate}}">
                             </ion-input>
                         </ion-item>
@@ -24,6 +25,7 @@
                             *ngIf="loginForm.controls['userName'].hasError('required') && loginForm.controls['userName'].touched">
                             * {{'Usernameisrequired' | translate}}</div>
                         <ion-item class="fadeInUp animated delay-4">
+                                <ion-icon name="lock" item-start></ion-icon>
                             <ion-input formControlName="password" type="password"
                                 placeholder="{{'Password' | translate}}"></ion-input>
                             <!-- <small class="password">Forgot?</small> -->
@@ -38,7 +40,7 @@
                         <!-- <small class="password fadeInUp animated delay-5" (click)="password()">Forgot?</small> -->
                         <br>
                         <button ion-button full [disabled]="!loginForm.valid"
-                            class="btn bg-theme fadeInUp animated delay-6 login-button">{{'Signin' | translate}}</button>
+                        class="btn bg-theme fadeInUp animated delay-6 login-button">{{'Signin' | translate}}</button>
                     </ion-list>
                     <p class="text-white fadeInUp animated delay-7" text-center>{{'Newuser' | translate}} <span
                             (click)="signup()">

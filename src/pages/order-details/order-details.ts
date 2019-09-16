@@ -205,7 +205,7 @@ export class OrderDetailsPage {
 
 
   openWallet(){
-    let walet : number = this.order_details.wallet
+    let walet : number = this.order_details.wallet;
     let Wpop = this.popoverCtrl.create(WalletComponent,{'totalPrice' : this.totalPrice,'wallet' : walet,'order_details' : this.order_details ,'duration ' : this.estimated_duration});
     Wpop.present();
   }
