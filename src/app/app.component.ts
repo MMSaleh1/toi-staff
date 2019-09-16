@@ -19,6 +19,8 @@ import { UpdateProfilePage } from '../pages/update-profile/update-profile';
 import { OrderDetailsPage } from '../pages/order-details/order-details';
 import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 import { HistoryPage } from '../pages/history/history';
+import { CheckUserPage } from '../pages/check-user/check-user';
+import { CheckUserPageModule } from '../pages/check-user/check-user.module';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,7 +28,7 @@ import { HistoryPage } from '../pages/history/history';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   public user: User;
-  rootPage: any = SigninPage;
+  rootPage: any = CheckUserPage;
   isLogedin: boolean = false;
 
   constructor(public platform: Platform,
@@ -114,7 +116,7 @@ export class MyApp {
       }
       else {
         console.log('nav again')
-        this.nav.setRoot(SigninPage)
+        this.nav.setRoot(CheckUserPage)
       }
     })
   }

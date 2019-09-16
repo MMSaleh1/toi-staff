@@ -42,6 +42,8 @@ import { HistoryPageModule } from '../pages/history/history.module';
 import { LocationProvider } from '../providers/location/location';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { WalletComponent } from '../components/wallet/wallet';
+import { CheckUserPage } from '../pages/check-user/check-user';
+import { CheckUserPageModule } from '../pages/check-user/check-user.module';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -74,6 +76,7 @@ export function createTranslateLoader(http: HttpClient) {
     EnterCodePageModule,
     UpdateProfilePageModule,
     HistoryPageModule,
+    CheckUserPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

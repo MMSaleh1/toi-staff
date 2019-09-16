@@ -38,60 +38,97 @@ page-signin {
         margin-top: 30px;
         font-weight: 300;
         letter-spacing: .5px;
+        color: white !important;
 
         span {
             font-weight: 500;
         }
     }
 
-    .appLogo {
-        height: 14vh;
-        width: 80%;
+    .password-toggle {
+        position: absolute;
+        right: 4px;
+        bottom: 17px;
+        color: white;
+        width: 50px;
+        font-size: 13px !important;    
+    }
+
+    .loginUsingFb {
         display: block;
         margin: auto;
-        margin-top: -60px;
+        margin-top: 15vh;
+
+        .icon {
+            margin-right: 5px;
+            margin-left: 5px;
+        }
     }
 
     .Header-Name {
         color: white;
-        margin-top: 23vh;
+        margin: 0;
         font-size: 3rem;
-    }
 
-    .form-container {
-        margin-top: 36px;
-    }
+        img {
+            width: 148px;
+            height: 142px;
 
-    .login-button {
-        width: 50%;
-        display: block !important;
-        margin: auto !important;
-        border-radius: 30px !important;
-        background-color: color($colors, primary);
-    }
-
-    .text-input {
-        padding: 0px !important;
-        text-align: center;
-    }
-
-    ion-input {
-        background-color: color($colors, light);
-        border-radius: 20px;
-        color: #fff;
-
-        ::placeholder {
-
-            text-align: center;
         }
     }
 
-    .difault-form .item .text-input {
-        padding-left: 3rem;
+    .form-container {
+
+        .password {
+            color: #fff !important;
+            text-align: center !important;
+            position: initial !important;
+            margin-top: -5px;
+        }
+
+    }
+
+    .login-button {
+        width: 60%;
+        margin: auto !important;
+        margin-top: 30px !important;
+        border-radius: 30px !important;
+        background-color: color($colors, ternary);
+    }
+
+    ion-input {
+        background-color: transparent;
+        color: #fff;
+    }
+.password-item-container{
+    position: relative;
+}
+    .difault-form .list .item-input {
+        border-bottom: 1px solid #424242 !important;
+        min-height: 5rem;
+        width: 90% !important;
+        margin: auto !important;
+      
+    
+        ::placeholder {
+            color: white;
+            text-align: left;
+            // font-weight: bold;
+            font-size: 16px;
+        }
+
+        .icon {
+            color: #fff !important;
+            font-size: 15px !important;
+            margin-top: 18px;
+            margin-bottom: -7px !important;
+           
+        }
     }
 
     .difault-form .list .item-block .item-inner {
         background-color: transparent;
+
     }
 
     .error-box {
@@ -103,6 +140,10 @@ page-signin {
         text-align: center;
         margin-top: 2px;
     }
+    .text-white{
+        margin-top: 10vh;
+    }
+
 
     .langDiv {
         @include ltr {
