@@ -1,11 +1,12 @@
 page-home {
     .content {
-        background-image: url('../assets/imgs/bg.png') !important;
+        // background-image: url('../assets/imgs/bg.png') !important;
+        background-color: black;
     }
 
     .content-ios, .content-md {
-        background-color: transparent;
-        background-image: url('../assets/imgs/bg.png') !important;
+        // background-color: transparent;
+        // background-image: url('../assets/imgs/bg.png') !important;
     }
 
     // .title {

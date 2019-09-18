@@ -44,7 +44,7 @@
     "Logout" : "Logout",
     "Name" : "Name",
     "TotalCost" : "Total Cost",
-    "LE" : "LE",
+    "LE" : "L.E.",
     "SoonThisFeatureWillBeAva" : "Soon this feature will be available, Thank you.",
     "Alert" : "Alert",
     "LogOutDone" : "Logged out successfully, Thank you.",
@@ -70,6 +70,8 @@
     "UserWallet" : "User Wallet",
     "CollectedAmount" : "Collected Amount",
     "Checkout" : "Receipt",
+    "Customername" : "Customer name",
+    "Customeraddress" : "Customer address",
     "UsernameAlreadyExists" : "This username is already in use, Please try a new one or login."
 
 }

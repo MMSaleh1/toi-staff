@@ -1,12 +1,14 @@
 page-order-details {
     .content {
-        background-image: url('../assets/imgs/bg.png') !important;
+        // background-image: url('../assets/imgs/bg.png') !important;
     }
 
     .content-ios,
     .content-md {
-        background-color: transparent;
-        background-image: url('../assets/imgs/bg.png') !important;
+        // background-color: transparent;
+        // background-image: url('../assets/imgs/bg.png') !important;
+        background-color: #FFFFFF;
+        
     }
 
     // .title {
@@ -26,7 +28,7 @@ page-order-details {
 
     .card {
         border-radius: 10px;
-        background-color: color($colors, secondary);
+        background-color: white
     }
 
     .image-container {
@@ -38,7 +40,7 @@ page-order-details {
             width: 95px;
             height: 95px;
             margin-bottom: 20px;
-            border: 2px solid color($colors, light);
+            border: 4px solid #F2E5D2;
 
         }
     }
@@ -67,7 +69,7 @@ page-order-details {
     .date-container {
         padding: 0 0 2vh 3vw;
         font-size: 1.6rem;
-        color: color($colors, primary);
+        color: black;
         display: block;
         width: 95%;
         margin-top: 15px;
@@ -111,20 +113,30 @@ page-order-details {
 
 
     .name {
-        text-align: center;
-        color: color($colors, light);
+        color: black;
+        p{
+            text-align: left;
+            span{
+                font-weight: bold;
+            }
+        }
 
     }
 
     .address {
-        text-align: center;
-        margin-bottom: 10px;
-        color: color($colors, light);
+        margin-top: 15px !important;
+        color: black;
+        p{
+            text-align: left;
+            span{
+                font-weight: bold;
+            }
+        }
     }
 
     .button-container {
         text-align: center;
-        margin-top: 20px;
+        margin-top: 40px;
 
         .location-button {
             margin: 0 7vw 0 7vw;
@@ -132,7 +144,7 @@ page-order-details {
             font-size: 13px;
             width: 40px;
             height: 40px;
-            background-color: color($colors, light);
+            background-color:#E0C389;
         }
 
         .call-button {
@@ -141,9 +153,11 @@ page-order-details {
             font-size: 13px;
             width: 40px;
             height: 40px;
-            background-color: color($colors, light);
+            background-color:#E0C389;
         }
-
+.icon{
+    color:#424242;
+}
 
     }
 
@@ -224,7 +238,7 @@ page-order-details {
     .total-price {
         margin-top: 15px;
         font-weight: bold;
-        color: color($colors, primary);
+        color: black;
         font-size: 17px;
         margin-bottom: 20px;
         @include rtl {
@@ -248,22 +262,79 @@ page-order-details {
 
 
     .change-status-container {
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 40px;
+        margin-bottom: 30px;
 
 
         .status-button {
             font-size: 15px;
             display: block;
             margin: auto !important;
-            height: 100px;
-            border: solid thick #f9a618;
-            background: transparent;
-            color: #f1e2c8;
-            border-radius: 50% !important;
-            width: 100px;
-            white-space: normal;
-            box-shadow: 0 0 8px 0px #f9a618;
+            // height: 100px;
+            // border: solid thick #f9a618;
+            background: #E0C389;
+            color: white;
+            border-radius: 26px;
+            font-weight: bold;
+        }
+    }
+    .cardCont {
+        display: flex;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 10px;
+        border-radius: 11px;
+        border: 0.25px solid #707070;
+        width: 100%;
+        margin: auto !important;
+        .itemInfo {
+            width: 90% !important;
+            #itemDesc{
+                color:black !important;
+            }
+        }
+
+        h3 {
+            font-size: 16px;
+            // font-weight: bold;
+        }
+
+        p {
+            margin-top: 5px;
+        }
+
+        .addBtn {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            display: block;
+            margin-right: 10px;
+            margin-left: auto;
+            border: 1.5px solid #E0C389;
+            margin-top: auto;
+            margin-bottom: auto;
+
+            .icon {
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+
+        .checkBtn {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            display: block;
+            margin-right: 10px;
+            margin-left: auto;
+            background-color: #E0C389;
+            margin-top: auto;
+            margin-bottom: auto;
+            .icon {
+                font-size: 20px;
+                font-weight: bold;
+                color: white !important;
+            }
         }
     }
 
