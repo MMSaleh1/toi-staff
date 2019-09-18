@@ -41,6 +41,7 @@ page-home {
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
         border-radius: 10px !important;
+        background-color: color($colors, primary, base);        
         height: 100px;
         img{
             margin-top: 0px;
@@ -52,17 +53,19 @@ page-home {
             .button-md {
                 display: flex;
                 border-radius: 8px !important;
-                background-color: color($colors, dark, base);
+                background-color: color($colors, ternary, base);
                 width: 30px !important;
                 margin: 10px 0px 0px 10px;
+                color:white;                
             }
 
             .button-ios {
                 display: flex;
                 border-radius: 8px !important;
-                background-color: color($colors, dark, base);
+                background-color: color($colors, ternary, base);
                 width: 30px !important;
                 margin: 10px 0px 0px 10px;
+                color:white;
             }
         }
     }
@@ -187,9 +190,9 @@ page-home {
     img {
       float: right;
       margin: 10px 0px 5px 0px !important;
-      width: 85px !important;
+      width: 90px !important;
       border-radius: 10px !important;
-      height: 80px;
+      height: 90px;
     }
   }
 

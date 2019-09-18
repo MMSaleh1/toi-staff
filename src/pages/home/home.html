@@ -19,8 +19,8 @@
 
   <ion-card class="cardItem" *ngFor="let order of order_data; let i = index">
     <ion-item class="OneItem" (click)="goToOrderDet(order)">
-      <img  src="assets/imgs/signup_female.png" item-left />
-      <!-- <img *ngIf="order.customerImage != 'undefined'" [src]="order.customerImage" item-left /> -->
+      <img *ngIf="order.customerImage == 'undefined'" src="assets/imgs/signup_female.png" item-left />
+      <img *ngIf="order.customerImage != 'undefined'" [src]="order.customerImage" item-left />
       <div class="MarketInfo">
         <p>{{'Name' | translate}}: {{ order.customerName }}</p>
         <p>
@@ -30,11 +30,11 @@
     </ion-item>
     <div class="interaction" item-right>
       <button ion-button clear icon-only small (click)="onCallClicked(order.customerPhone)">
-        <ion-icon color="primary" name="call">
+        <ion-icon color="white" name="call">
         </ion-icon>
       </button>
       <button ion-button clear icon-only small (click)="onLocationClicked(order.lat, order.long)">
-        <ion-icon color="primary" name="pin"> </ion-icon>
+        <ion-icon color="white" name="pin"> </ion-icon>
       </button>
     </div>
   </ion-card>

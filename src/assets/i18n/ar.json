@@ -72,7 +72,18 @@
     "Invalidfields" : "البيانات الدخله غير صحيحه",
     "UsernameAlreadyExists" : "اسم المستخدم المدخل مستخدم من قبل، برجاء ادخل اسم مستخدم اخر او قم بتسجيل الدخول.",
     "Customername" : "اسم العميل",
-    "Customeraddress" : "عنوان العميل"
+    "Customeraddress" : "عنوان العميل",
+    "TheRequriedAmmountmustbe" : "القيمه المتسحقه لا يجب ان تقل عن ",
+    "orhigher" : "او اكثر ",
+    "Inprogress" : "حالي",
+    "pending" : "قيد الانتظار",
+    "CustomerExInfo" : "بيانات اضافيه علي الطلب: ",
+    "login" : "تسجيل دخول",
+    "noAcc" :"لا تملك حساب؟",
+    "signHere" : "سجل الان",
+    "haveAcc" : "لديك حساب؟"
+
+    
 
 
 

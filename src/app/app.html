@@ -5,34 +5,37 @@
         <div class="logo-container">
             <!-- <img class="logo" src="assets/imgs/logo.png"> -->
         </div>
-        <diV  class="userContainer"*ngIf="user">
+        <div class="userContainer" *ngIf="user">
             <div *ngIf="user?.image" class="img-container"><img class="user-img" [src]="user?.image"></div>
             <div *ngIf="!user?.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png">
             </div>
             <div class="info-container">
-                    <div *ngIf="user.name" class="name-container">
-                      <p>{{user?.name}}</p>
-                    </div>
-                    <div *ngIf="user.phone" class="email-container">
-                      <p>{{user?.phone}}</p>
-                    </div>
-                  </div>
-z
-        </diV>
+                <div *ngIf="user.name" class="name-container">
+                    <p>{{user?.name}}</p>
+                </div>
+                <div *ngIf="user.phone" class="email-container">
+                    <p>{{user?.phone}}</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <hr>
+
         <ion-list class="menu-list">
-            <button ion-item small icon-left menuClose (click)="toPage('1')" detail-none>
+            <button ion-item small icon-left menuClose no-lines (click)="toPage('1')" detail-none>
                 <ion-icon class="icons" name="custom-home-menu" color="primary"></ion-icon>
                 <span>{{'Home' | translate}}</span>
             </button>
-            <button ion-item small icon-left menuClose (click)="toPage('2')" detail-none>
+            <button ion-item small icon-left menuClose no-lines (click)="toPage('2')" detail-none>
                 <ion-icon class="icons" name="custom-about" color="primary"></ion-icon>
                 <span>{{'MyOrders' | translate}}</span>
             </button>
-            <button ion-item small icon-left menuClose (click)="toPage('3')" detail-none>
+            <button ion-item small icon-left menuClose no-lines (click)="toPage('3')" detail-none>
                 <ion-icon class="icons" name="custom-home-menu" color="primary"></ion-icon>
                 <span>{{'UpdateProfile' | translate}}</span>
             </button>
-            <button ion-item small icon-left menuClose (click)="logOut()" detail-none>
+            <button ion-item small icon-left menuClose no-lines (click)="logOut()" detail-none>
                 <ion-icon class="icons" name="custom-home-menu" color="primary"></ion-icon>
                 <span>{{'Logout' | translate}}</span>
             </button>
@@ -45,20 +48,23 @@ z
         <div class="logo-container">
             <!-- <img class="logo" src="assets/imgs/logo.png"> -->
         </div>
-        <diV  class="userContainer" *ngIf="user">
+        <diV class="userContainer" *ngIf="user">
             <div *ngIf="user?.image" class="img-container"><img class="user-img" [src]="user?.image"></div>
             <div *ngIf="!user?.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png">
             </div>
 
             <div class="info-container">
-                    <div *ngIf="user.name" class="name-container">
-                      <p>{{user?.name}}</p>
-                    </div>
-                    <div *ngIf="user.phone" class="email-container">
-                      <p>{{user?.phone}}</p>
-                    </div>
-                  </div>
+                <div *ngIf="user.name" class="name-container">
+                    <p>{{user?.name}}</p>
+                </div>
+                <div *ngIf="user.phone" class="email-container">
+                    <p>{{user?.phone}}</p>
+                </div>
+            </div>
         </diV>
+
+        <hr>
+        
         <ion-list class="menu-list">
             <button ion-item small icon-left menuClose (click)="toPage('1')" detail-none>
                 <ion-icon class="icons" name="custom-home-icon" color="primary"></ion-icon>

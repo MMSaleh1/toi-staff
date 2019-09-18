@@ -285,7 +285,7 @@ export class UserProvider extends RootProvider {
         } else {
           let orders = new Array<order>();
           for (let i = 1; i < data.length; i++) {
-            orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[0].wallet));
+            orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[0].wallet,  data[i].more_info));
           }
           console.log(orders);
           resolve(orders);
@@ -305,11 +305,11 @@ export class UserProvider extends RootProvider {
         } else {
           let orderCounter = 1;
           let orders = new Array<order>();
-          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id, data[0].user_img,data[0].wallet));
+          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id, data[0].user_img,data[0].wallet, data[0].more_info));
           for (let i = 1; i < data.length; i++) {
             if (data[i].order_id != data[i - 1].order_id) {
               orderCounter++
-              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[i].wallet));
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[i].wallet, data[i].more_info));
 
             }
           }
@@ -504,7 +504,7 @@ export class order {
   orderStatus: string;
   customerImage: string;
   wallet: number
-
+  order_info : string;
   constructor(id: string,
     customerName: string,
     customerPhone: string,
@@ -518,8 +518,8 @@ export class order {
     latt,
     user_id,
     customerImage,
-    wallet
-
+    wallet,
+    order_info
 
   ) {
     this.id = id;
@@ -536,7 +536,7 @@ export class order {
     this.user_id = user_id;
     this.customerImage = customerImage
     this.wallet = wallet;
-
+    this.order_info = order_info
   }
 }
 export class orderItem {

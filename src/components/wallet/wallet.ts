@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams, Events } from 'ionic-angular';
+import { ViewController, NavParams, Events, NavController, Platform } from 'ionic-angular';
 import { UserProvider, User } from '../../providers/user/user';
-
+import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
+import { HomePage } from '../../pages/home/home';
 /**
  * Generated class for the WalletComponent component.
  *
@@ -14,26 +15,31 @@ import { UserProvider, User } from '../../providers/user/user';
 })
 export class WalletComponent {
 
-  public order_price:number=0;
-  public user_wallet:number=0;
-  public collected:number=0;
-  public user_current_wallet:number=0;
-  public order_current_price:number=0;
-  public user : User
+  public order_price: number = 0;
+  public user_wallet: number = 0;
+  public collected: number = 0;
+  public user_current_wallet: number = 0;
+  public order_current_price: number = 0;
+  public user: User
+  public canSubmit: boolean = false;
   order_details = {} as any;
   estimated_duration;
 
   constructor(private viewCtrl: ViewController,
     public navParams: NavParams,
     public events: Events,
-    public userProv: UserProvider
-    ) {
-      this.order_price = navParams.get('totalPrice');
-      this.order_current_price = this.order_price;
-      this.user_wallet = navParams.get('wallet');
-      this.user_current_wallet = this.user_wallet;
-      this.order_details = navParams.get('order_details');
-      this.estimated_duration = navParams.get('duration');
+    private navCtrl: NavController,
+    public userProv: UserProvider,
+    private platform: Platform,
+    public helperTool: HelperToolsProvider
+  ) {
+    this.order_price = navParams.get('totalPrice');
+    this.order_current_price = this.order_price;
+    this.user_wallet = navParams.get('wallet');
+    //  this.user_wallet = -50;
+    this.user_current_wallet = this.user_wallet;
+    this.order_details = navParams.get('order_details');
+    this.estimated_duration = navParams.get('duration');
 
     console.log('Hello WalletComponent Component');
   }
@@ -42,34 +48,65 @@ export class WalletComponent {
     this.viewCtrl.dismiss();
   }
 
-  change(){
-    if(this.user_wallet > 0 || this.user_wallet == 0 ){
-      let temp =parseInt(this.collected.toString())+parseInt(this.user_wallet.toString())
-    
-      let temp2 = parseInt(temp.toString())-parseInt(this.order_price.toString());
-      if(temp2 >=0){
+  change() {
+    if (this.user_wallet > 0 || this.user_wallet == 0) {
+      let temp = parseInt(this.collected.toString()) + parseInt(this.user_wallet.toString())
+
+      let temp2 = parseInt(temp.toString()) - parseInt(this.order_price.toString());
+      if (temp2 >= 0) {
         this.user_current_wallet = temp2;
-      }else{
+        this.canSubmit = true;
+      } else {
         this.user_current_wallet = this.user_wallet;
-        }
-      
-    }else{
-      this.order_current_price = -this.user_wallet+this.order_price;
+        this.canSubmit = false;
+      }
+
+    } else {
+      this.order_current_price = -this.user_wallet + this.order_price;
       // let temp = (this.order_current_price +this.user_wallet);
-      let wallet = (this.collected-this.order_current_price);
-      this.user_current_wallet = wallet >= 0 ? wallet :this.user_current_wallet;
+      let wallet = (this.collected - this.order_current_price);
+      if (wallet >= 0) {
+        this.user_current_wallet = wallet;
+        this.canSubmit = true;
+      } else {
+        this.user_current_wallet = this.user_wallet;
+        this.canSubmit = false;
+      }
+      this.user_current_wallet = wallet >= 0 ? wallet : this.user_current_wallet;
       // console.log();
     }
-   
+
   }
 
-  async onPaymentDone(){
-    this.user = User.getInstance();
-    let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id,this.estimated_duration);
+  async onPaymentDone() {
+
+    if (this.canSubmit == true) {
+      //  console.log("Done");
+      this.user = User.getInstance();
+      let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id, this.estimated_duration);
       await this.changeUserStatus();
-      await this.userProv.changeUserWallet(this.order_details.id,this.user.id,this.user_current_wallet,"",this.order_details.user_id);
+      await this.userProv.changeUserWallet(this.order_details.id, this.user.id, this.user_current_wallet, "", this.order_details.user_id);
       this.viewCtrl.dismiss();
-    
+      this.navCtrl.setRoot(HomePage)
+    } else {
+      let requiredAmmount = 0;
+      if (this.user_wallet >= 0) {
+
+
+        requiredAmmount = parseInt(this.user_wallet.toString()) - parseInt(this.order_price.toString());
+        requiredAmmount = requiredAmmount > 0 ? requiredAmmount : (requiredAmmount - (requiredAmmount * 2));
+      } else {
+        requiredAmmount = -this.user_wallet + this.order_price;
+      }
+      if (this.platform.dir() === 'ltr') {
+        this.helperTool.ShowAlertWithTranslation("Alert", "The required ammount must be " + requiredAmmount + " L.E. or higher");
+      }
+      else {
+        this.helperTool.ShowAlertWithTranslation("تنبيه", "القيمه المتسحقه لا يجب ان تقل عن " + requiredAmmount + " جم او اكثر");
+      }
+    }
+
+
   }
 
 

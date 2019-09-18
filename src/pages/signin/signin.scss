@@ -69,7 +69,8 @@ page-signin {
         color: white;
         margin: 0;
         font-size: 3rem;
-
+        margin-top: 15vh;
+        
         img {
             width: 148px;
             height: 142px;
@@ -112,9 +113,14 @@ page-signin {
     
         ::placeholder {
             color: white;
-            text-align: left;
             // font-weight: bold;
             font-size: 16px;
+            @include ltr{
+                text-align: left;                
+            }
+            @include rtl{
+                text-align: right;                
+            }
         }
 
         .icon {
@@ -122,6 +128,7 @@ page-signin {
             font-size: 15px !important;
             margin-top: 18px;
             margin-bottom: -7px !important;
+            margin-right: 0px;
            
         }
     }

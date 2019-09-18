@@ -61,7 +61,7 @@ export class HistoryPage {
     }else if(id == '6'){
       return '#00ff00';
     }else{
-      return '0000ff';
+      return 'orange';
     }
   }
 

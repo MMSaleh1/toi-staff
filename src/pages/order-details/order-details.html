@@ -51,6 +51,8 @@
         </div>
         <div class="name"><p><span>{{'Customername' | translate}}: </span>{{order_details.customerName}}</p></div>
         <div class="address"><p><span>{{'Customeraddress' | translate}}: </span>{{order_details.address}}</p></div>
+        <div *ngIf="order_details.order_info"class="address"><p><span>{{'CustomerExInfo' | translate}} </span>{{order_details.order_info}}</p></div>
+        
         <div *ngIf="canCommunicate" class="button-container">
 
           <button ion-button icon-only class="location-button"

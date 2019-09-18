@@ -34,7 +34,7 @@
 
 
 
-  <div *ngIf="!order_data" class="no-order">
+  <div *ngIf="!order_data.length" class="no-order">
     <img src="./assets/imgs/empty_white.png">
     <h4>{{'NoHistory' | translate}}</h4>
   </div>

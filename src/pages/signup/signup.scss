@@ -110,9 +110,15 @@ page-signup {
     
         ::placeholder {
             color: white;
-            text-align: left;
+            // text-align: left;
             // font-weight: bold;
             font-size: 16px;
+            @include ltr{
+                text-align: left;                
+            }
+            @include rtl{
+                text-align: right;                
+            }
         }
 
         .icon {
@@ -121,6 +127,7 @@ page-signup {
             margin-top: 18px;
             margin-bottom: -7px !important;
             margin-right: -10px;
+            margin-right: 0px;
         }
     }
 

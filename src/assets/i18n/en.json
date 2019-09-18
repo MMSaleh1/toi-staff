@@ -68,10 +68,21 @@
     "OrderPrice" : "Order Price",
     "EnterHere" : "Enter Here",
     "UserWallet" : "User Wallet",
+    "Inprogress" : "In progress",
+    "pending" : "Pending",
     "CollectedAmount" : "Collected Amount",
     "Checkout" : "Receipt",
     "Customername" : "Customer name",
     "Customeraddress" : "Customer address",
-    "UsernameAlreadyExists" : "This username is already in use, Please try a new one or login."
+    "TheRequriedAmmountmustbe" : "The required ammount must be ",
+    "orhigher" : " or higher",
+    "AddProfilePicture" : "Add Profile Picture",
+    "CustomerExInfo" : "Order extra info: ",
+    "UsernameAlreadyExists" : "This username is already in use, Please try a new one or login.",
+    "login" : "Login",
+    "noAcc" :"Don't have an account? ",
+    "signHere" : "Sign up here",
+    "haveAcc" : "Already have an account? "
+
 
 }

@@ -2,13 +2,13 @@ page-history {
 
 
     .content {
-        background-image: url('../assets/imgs/bg.png') !important;
+        background-color: black;
     }
 
-    .content-ios, .content-md {
-        background-color: transparent;
-        background-image: url('../assets/imgs/bg.png') !important;
-    }
+    // .content-ios, .content-md {
+    //     background-color: transparent;
+    //     background-image: url('../assets/imgs/bg.png') !important;
+    // }
     .no-order {
         font-size: 7vw;
         // margin: 7vh 7vw 7vw 7vw;
@@ -100,7 +100,7 @@ page-history {
           margin: 10px 0px 5px 0px !important;
           width: 85px !important;
           border-radius: 10px !important;
-          height: 80px;
+          height: 90px;
         }
       }
 
@@ -138,6 +138,7 @@ page-history {
 
 .item-status{
     padding: 0 0 0 0px;
+    margin-top: 10px;
 }
 
 

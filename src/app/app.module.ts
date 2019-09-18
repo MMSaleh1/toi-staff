@@ -77,7 +77,9 @@ export function createTranslateLoader(http: HttpClient) {
     UpdateProfilePageModule,
     HistoryPageModule,
     CheckUserPageModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      backButtonText: '',      
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

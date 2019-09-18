@@ -19,8 +19,17 @@ page-check-user {
         background-color: color($colors, ternary);
     }
     .text-white {
-        margin-top: 20px;
+     
+        // direction: ltr !important;
+        width: 67vw;
+        margin: 20px auto;
     }
+
+    .bold {
+        font-weight: 800;
+    }
+    
+    
 
 }
 }
