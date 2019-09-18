@@ -1,4 +1,8 @@
 page-update-profile {
+    .scroll-content{
+        padding-right: 0 !important;
+    padding-left: 0 !important;
+    }
     .content{
         background: white;
     }
@@ -95,6 +99,16 @@ page-update-profile {
                 margin-top: 25px;
                 border-radius: 30px;
                 background-color: color($colors, ternary);
+            }
+        }
+
+
+        .segment-cont {
+            border-bottom: solid color($colors,ternary);
+            text-align: center;
+            padding-bottom: 16px;
+            .segment-text {
+                font-size: 15px;
             }
         }
 
