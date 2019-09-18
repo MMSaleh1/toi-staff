@@ -1,75 +1,105 @@
 page-update-profile {
+    .content{
+        background: white;
+    }
+    .profile-container {
+        width: 40vh;
+        margin: auto;
+        margin-top: 5vh;
+    }
+
     .image-container {
         margin: auto;
         width: fit-content;
-        margin-bottom: 8vh;
         position: relative;
 
-        .btn {
-            position: absolute;
+        .profile-image {
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            bottom: -5px;
-            right: 3px;
-            font-size: 10px;
+            height: 100px;
+            width: 100px;
+            border: 5px solid #F2E5D2;
+        }
+
+        .camerabtn {
+            position: absolute !important;
+            background-color: color($colors, ternary);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            opacity: 0.7;
+            top: 30px;
+            right: -17px;
 
             .icon {
-                margin-left: 2px;
+                color: white;
+            }
+        }
+    }
+
+        .data-container {
+            height: 26vw;
+            text-align: center;
+
+            p {
+                margin: 0px;
+            }
+
+            .name-container {
+                font-size: 20px;
+                font-weight: bold;
+                color: black;
+                margin-top: 10px;
+            }
+
+            .mail-container {
+                font-size: 18px;
+                color: #424242 !important;
+                opacity: 0.5 !important;
             }
         }
 
-        .profile-image {
-            border-radius: 30rem;
-            width: 10rem;
-            height: 10rem;
-            border: 1px solid color($colors, primary);
+        .edit {
+            margin-top: 35px !important;
+
+            .item-inner {
+                padding: 0px;
+                border-bottom: 0px;
+            }
+
+            .item {
+                background-color: #303030;
+                width: 80% !important;
+                display: block;
+                min-height: 42px;
+                height:42px;
+                margin: auto;
+                margin-top: 10px;
+                border-radius: 26px;
+                // opacity: 0.9;
+                color: #707070;
+            }
+
+            .list .item-input {
+                ::placeholder {
+                    color: #707070;
+                    opacity: 0.5 !important;
+                    text-align: left;
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+            }
+
+            .update-button {
+                width: 40%;
+                margin: auto;
+                margin-top: 25px;
+                border-radius: 30px;
+                background-color: color($colors, ternary);
+            }
         }
-    }
-    .item {
-        background-color: transparent;
-        border-top: transparent !important;
-        margin: 0 0vh 4vh 0;
-        margin-top: 30px !important;
 
-        .item-inner {
-            border-bottom: transparent !important;
-            box-shadow: none !important;
-        }
+     
 
-        .gender-select {
-            color: white;
-        }
-    }
 
-    ion-input {
-        background-color: color($colors, light);
-        border-radius: 20px;
-        color: #fff;
-        padding: 0 0 0 3vw;
-    }
-
-    .difault-form .item .text-input {
-        padding-left: 3rem;
-    }
-
-    .difault-form .list .item-block .item-inner {
-        background-color: transparent;
-    }
-
-    .update-button {
-        font-size: 15px;
-        display: block;
-        margin: auto !important;
-        height: 100px;
-        margin-top: 40px !important;
-        border: solid thick #f9a618;
-        background: transparent;
-        color: #f1e2c8;
-        border-radius: 50% !important;
-        width: 100px;
-
-        box-shadow: 0 0 8px 0px #f9a618;
-    }
 
 }

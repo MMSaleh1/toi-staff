@@ -1,7 +1,9 @@
 //auto complete style
 //menu
 .menu-container {
-    background-color: color($colors, dark);
+        background-color: #303030 !important;
+    
+    
 }
 
 ion-navbar {
@@ -83,11 +85,13 @@ ion-icon {
     border-top: 0px;
 }
 
+
 .menu-item {
     text-align: center;
     background-color: transparent;
     color: color($colors, primary);
 }
+
 
 
 .user-img {
