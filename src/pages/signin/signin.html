@@ -1,12 +1,12 @@
+
+<ion-header no-border text-center>
+    <ion-navbar>
+    </ion-navbar>
+  </ion-header>
+  
+
 <ion-content class="bg-color" padding>
-    <div class="langDiv">
-        <button *ngIf="lang == 'en'" ion-button class="lang" (click)="changeLang('ar')">
-            {{'Arabic' | translate}}
-        </button>
-        <button *ngIf="lang == 'ar'" ion-button class="lang" (click)="changeLang('en')">
-            {{'En' | translate}}
-        </button>
-    </div>
+   
     <div padding>
         <div class="appLogo bg-white fadeInUp animated delay-1" text-center>
             <figure class="Header-Name"> <img src="assets/imgs/logo.png"></figure>
@@ -42,9 +42,9 @@
                         <button ion-button full [disabled]="!loginForm.valid"
                         class="btn bg-theme fadeInUp animated delay-6 login-button">{{'Signin' | translate}}</button>
                     </ion-list>
-                    <p class="text-white fadeInUp animated delay-7" text-center>{{'Newuser' | translate}} <span
+                    <!-- <p class="text-white fadeInUp animated delay-7" text-center>{{'Newuser' | translate}} <span
                             (click)="signup()">
-                            {{'RegisterNow' | translate}}</span></p>
+                            {{'RegisterNow' | translate}}</span></p> -->
 
                 </div>
             </form>

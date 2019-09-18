@@ -44,6 +44,7 @@ export class MyApp {
     ) {
     
     platform.ready().then(() => {
+  
       this.rememberUser();
       this.initTranslate();
       this.helperTools.IntializeUSerCurrentPosition()
@@ -139,7 +140,7 @@ export class MyApp {
     this.helperTools.ShowAlertWithTranslation('Done', "LogOutDone")
     this.userProv.logout();
     this.menuCntrl.enable(false);
-    this.nav.setRoot(SigninPage);
+    this.nav.setRoot('CheckUserPage');
   }
 
  

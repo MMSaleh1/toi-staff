@@ -152,30 +152,6 @@ page-signin {
     }
 
 
-    .langDiv {
-        @include ltr {
-            text-align: right;
-
-            .lang {
-                border-radius: 30px;
-                background-color: color($colors, primary);
-                color: color($colors, secondary);
-                width: 70px;
-                height: 30px;
-            }
-        }
-
-        @include rtl {
-            text-align: left;
-
-            .lang {
-                border-radius: 30px;
-                background-color: color($colors, primary);
-                color: color($colors, secondary);
-                width: 70px;
-                height: 30px;
-            }
-        }
-    }
+ 
 
 }

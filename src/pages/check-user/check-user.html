@@ -1,11 +1,19 @@
 <ion-header no-border text-center>
   <ion-navbar color="darker">
-
+      <div class="langDiv">
+          <button *ngIf="lang == 'en'" ion-button class="lang" (click)="changeLang('ar')">
+              {{'Arabic' | translate}}
+          </button>
+          <button *ngIf="lang == 'ar'" ion-button class="lang" (click)="changeLang('en')">
+              {{'En' | translate}}
+          </button>
+      </div>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content class="bg-color" padding no-bounce>
+   
   <div padding class="Header-Name">
     <div class="logo bg-white fadeInUp animated delay-1" text-center>
       <figure class="Header-Name"> <img src="assets/imgs/logo.png"></figure>
