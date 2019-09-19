@@ -61,6 +61,7 @@
     "camera" : "Camera",
     "uploadImage": "Upload Image",
     "cancel" : "Cancel",
+    "Cancel" : "Cancel",
     "ThisCodeIsNotAValidCode" : "Code you entered is not a valid code.",
     "Gender" : "Select gender",
     "ItemQuan" : "Quantity",
@@ -81,8 +82,9 @@
     "UsernameAlreadyExists" : "This username is already in use, Please try a new one or login.",
     "login" : "Login",
     "noAcc" :"Don't have an account? ",
-    "signHere" : "Sign up here",
-    "haveAcc" : "Already have an account? "
+    "signHere" : " Sign up here ",
+    "haveAcc" : "Already have an account? ",
+    "UPDATE" : "Update"
 
 
 }

@@ -82,7 +82,7 @@ page-signup {
         width: 60%;
         margin: auto !important;
         border-radius: 30px !important;
-       
+        margin-top: 40px !important;
         background-color: color($colors, ternary);
     }
 
@@ -91,33 +91,52 @@ page-signup {
         color: #fff;
     }
 
+    .select {
+        color:white !important;
+        min-height: 5rem;
+        width: 90% !important;
+        margin: auto;
+        border-bottom: 1px solid #424242 !important;
+    }
+
+    ion-select {
+        max-width: 90%;
+        color:white !important;
+        border-bottom: 1px solid #424242 !important;
+        min-height: 5rem;
+    }
+
     .password-toggle {
         position: absolute;
         right: 4px;
         bottom: 17px;
         color: white;
         width: 50px;
-        font-size: 13px;    
+        font-size: 13px;
     }
-    .password-item-container{
+
+    .password-item-container {
         position: relative;
     }
+
     .difault-form .list .item-input {
         border-bottom: 1px solid #424242 !important;
         min-height: 5rem;
         width: 90% !important;
         margin: auto !important;
-    
+
         ::placeholder {
             color: white;
             // text-align: left;
             // font-weight: bold;
             font-size: 16px;
-            @include ltr{
-                text-align: left;                
+
+            @include ltr {
+                text-align: left;
             }
-            @include rtl{
-                text-align: right;                
+
+            @include rtl {
+                text-align: right;
             }
         }
 
@@ -133,7 +152,7 @@ page-signup {
 
     .difault-form .list .item-block .item-inner {
         background-color: transparent;
-
+        padding:0px;
     }
 
     .error-box {
@@ -165,6 +184,7 @@ page-signup {
         border-bottom: none !important;
         background-color: transparent;
         margin: -5px 10px 10px 0px;
+
         // display: flex;
         .item-inner {
             box-shadow: none !important;
@@ -172,25 +192,29 @@ page-signup {
             border-bottom: none !important;
             display: inline-block !important;
         }
-        ion-checkbox .item-cover{
-            display:none;
-          }
-Ï          
 
-        ion-checkbox {
+        ion-checkbox .item-cover {
+            display: none;
+        }
+
+        Ï ion-checkbox {
             margin: 0px 4px 0px 5px !important;
             vertical-align: top !important;
         }
-        .checkbox-ios, .checkbox-md{
-            margin: 0px 4px 0px 5px !important;            
+
+        .checkbox-ios,
+        .checkbox-md {
+            margin: 0px 4px 0px 5px !important;
         }
+
         .checkbox-icon {
             border-color: color($colors, ternary, base) !important;
             background-color: color($colors, darker, base) !important;
             margin-left: 5px;
             margin-right: 5px;
-            .checkbox-inner{
-                border-color:color($colors, ternary, base) !important;
+
+            .checkbox-inner {
+                border-color: color($colors, ternary, base) !important;
             }
         }
 
@@ -201,13 +225,14 @@ page-signup {
             color: white;
             font-weight: 300;
         }
-        span{
+
+        span {
             font-weight: bold;
         }
     }
 
-    .gender-select{
+    .gender-select {
         color: white;
-        }
+    }
 
 }

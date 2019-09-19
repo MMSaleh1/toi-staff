@@ -8,7 +8,7 @@ page-order-details {
         // background-color: transparent;
         // background-image: url('../assets/imgs/bg.png') !important;
         background-color: #FFFFFF;
-        
+
     }
 
     // .title {
@@ -114,10 +114,19 @@ page-order-details {
 
     .name {
         color: black;
-        p{
+
+        p {
             font-size: 16px;
-            text-align: left;
-            span{
+
+            @include ltr {
+                text-align: left;
+            }
+
+            @include rtl {
+                text-align: right;
+            }
+
+            span {
                 font-weight: bold;
             }
         }
@@ -127,10 +136,18 @@ page-order-details {
     .address {
         margin-top: 15px !important;
         color: black;
-        p{
-            font-size: 16px;            
-            text-align: left;
-            span{
+
+        p {
+            font-size: 16px;
+
+            @include ltr {
+                text-align: left;
+            }
+
+            @include rtl {
+                text-align: right;
+            }
+            span {
                 font-weight: bold;
             }
         }
@@ -146,7 +163,7 @@ page-order-details {
             font-size: 13px;
             width: 40px;
             height: 40px;
-            background-color:#E0C389;
+            background-color: #E0C389;
         }
 
         .call-button {
@@ -155,11 +172,12 @@ page-order-details {
             font-size: 13px;
             width: 40px;
             height: 40px;
-            background-color:#E0C389;
+            background-color: #E0C389;
         }
-.icon{
-    color:#424242;
-}
+
+        .icon {
+            color: #424242;
+        }
 
     }
 
@@ -243,6 +261,7 @@ page-order-details {
         color: black;
         font-size: 17px;
         margin-bottom: 20px;
+
         @include rtl {
             text-align: left;
             margin-left: 10px;
@@ -277,9 +296,11 @@ page-order-details {
             background: #E0C389;
             color: white;
             border-radius: 26px;
+            width:50%;
             font-weight: bold;
         }
     }
+
     .cardCont {
         display: flex;
         padding-top: 20px;
@@ -289,10 +310,13 @@ page-order-details {
         border: 0.25px solid #707070;
         width: 100%;
         margin: auto !important;
+
         .itemInfo {
             width: 90% !important;
-            #itemDesc{
-                color:black !important;
+            margin-left: 10px;
+            margin-right: 10px;
+            #itemDesc {
+                color: black !important;
             }
         }
 
@@ -332,6 +356,7 @@ page-order-details {
             background-color: #E0C389;
             margin-top: auto;
             margin-bottom: auto;
+
             .icon {
                 font-size: 20px;
                 font-weight: bold;

@@ -26,6 +26,7 @@ page-enter-code {
     .login-button {
         width: 40%;
         margin: auto;
+        // margin-top: 40px !important;
         border-radius: 30px;
         background-color: color($colors, primary);
     }
@@ -57,10 +58,13 @@ page-enter-code {
         text-align: center !important;
     }
 
-    .btn{
+    .btn {
         border-radius: 20px !important;
         display: block;
         margin: auto !important;
         margin-top: 60px !important;
+        background-color: color($colors,ternary);
+        color:white;
+        font-weight: bold;
     }
 }

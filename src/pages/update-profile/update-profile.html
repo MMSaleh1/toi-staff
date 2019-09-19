@@ -44,7 +44,7 @@
     </div>
 
     <div class="segment-cont">
-      <div class="segment-text">UPDATE</div>
+      <div class="segment-text">{{'UPDATE' | translate}}</div>
     </div>
   <form  *ngIf="ready" [formGroup]="updateForm" (ngSubmit)="update()">
     <ion-list  class="edit">
@@ -81,7 +81,7 @@
         </ion-select> -->
       <!-- </ion-item> -->
 
-      <button ion-button  full class="btn bg-theme update-button" (tap)="update()">{{'Update' | translate}}</button>
+      <button ion-button  full class="btn bg-theme update-button" (tap)="update()">{{'UPDATE' | translate}}</button>
     </ion-list>
   </form>
 
