@@ -47,7 +47,7 @@ export class MyApp {
   
       this.rememberUser();
       this.initTranslate();
-      this.helperTools.IntializeUSerCurrentPosition()
+      // this.helperTools.IntializeUSerCurrentPosition()
 
       
       this.event.subscribe('logedin', () => {

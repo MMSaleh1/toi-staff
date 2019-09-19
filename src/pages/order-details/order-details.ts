@@ -55,7 +55,6 @@ export class OrderDetailsPage {
         this.getTheUserPosition()
       }else{
         this.navToLocationService()
-        
       }
     })
     this.order_details = this.navParms.get('data');
