@@ -20,6 +20,7 @@ export class WalletComponent {
   public collected: number = 0;
   public user_current_wallet: number = 0;
   public order_current_price: number = 0;
+  public walletChangeAmmout: number = 0;
   public user: User
   public canSubmit: boolean = false;
   order_details = {} as any;
@@ -75,17 +76,19 @@ export class WalletComponent {
       this.user_current_wallet = wallet >= 0 ? wallet : this.user_current_wallet;
       // console.log();
     }
-
+    this.walletChangeAmmout =this.user_current_wallet -this.user_wallet;
+    console.log(this.walletChangeAmmout);
   }
 
   async onPaymentDone() {
-
+this.helperTool.ShowLoadingSpinnerOnly();
     if (this.canSubmit == true) {
       //  console.log("Done");
       this.user = User.getInstance();
       let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id, this.estimated_duration);
       await this.changeUserStatus();
-      await this.userProv.changeUserWallet(this.order_details.id, this.user.id, this.user_current_wallet, "", this.order_details.user_id);
+      await this.userProv.changeUserWallet(this.order_details.id, this.user.id, this.walletChangeAmmout, "", this.order_details.user_id);
+      this.helperTool.DismissLoading();
       this.viewCtrl.dismiss();
       this.navCtrl.setRoot(HomePage)
     } else {
@@ -99,9 +102,11 @@ export class WalletComponent {
         requiredAmmount = -this.user_wallet + this.order_price;
       }
       if (this.platform.dir() === 'ltr') {
+        this.helperTool.DismissLoading();
         this.helperTool.ShowAlertWithTranslation("Alert", "The required ammount must be " + requiredAmmount + " L.E. or higher");
       }
       else {
+        this.helperTool.DismissLoading();
         this.helperTool.ShowAlertWithTranslation("تنبيه", "القيمه المتسحقه لا يجب ان تقل عن " + requiredAmmount + " جم او اكثر");
       }
     }
