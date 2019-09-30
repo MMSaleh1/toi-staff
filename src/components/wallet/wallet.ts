@@ -81,7 +81,7 @@ export class WalletComponent {
   }
 
   async onPaymentDone() {
-    this.helperTool.ShowLoadingSpinnerOnly();
+     this.helperTool.ShowLoadingSpinnerOnly();
     if (this.canSubmit == true) {
       //  console.log("Done");
       this.user = User.getInstance();
@@ -90,8 +90,9 @@ export class WalletComponent {
       await this.userProv.changeUserWallet(this.order_details.id, this.user.id, this.walletChangeAmmout, "", this.order_details.user_id);
       this.helperTool.DismissLoading();
       this.viewCtrl.dismiss();
-      this.navCtrl.setRoot(HomePage)
+      // this.navCtrl.setRoot(HomePage)
     } else {
+      this.helperTool.DismissLoading();
       let requiredAmmount = 0;
       if (this.user_wallet >= 0) {
         requiredAmmount = parseInt(this.user_wallet.toString()) - parseInt(this.order_price.toString());
@@ -99,12 +100,13 @@ export class WalletComponent {
       } else {
         requiredAmmount = -this.user_wallet + this.order_price;
       }
+     
       if (this.platform.dir() === 'ltr') {
-        this.helperTool.DismissLoading();
+        
         this.helperTool.ShowAlertWithTranslation("Alert", "The required ammount must be " + requiredAmmount + " L.E. or higher");
       }
       else {
-        this.helperTool.DismissLoading();
+       
         this.helperTool.ShowAlertWithTranslation("تنبيه", "القيمه المتسحقه لا يجب ان تقل عن " + requiredAmmount + " جم او اكثر");
       }
     }

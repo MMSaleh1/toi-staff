@@ -228,7 +228,9 @@ export class UserProvider extends RootProvider {
       this.http.get(temp).subscribe(data => {
          console.log(data);
         if (data != undefined) {
+          this.event.publish("toHome");
           resolve(data);
+          
         } else {
           resolve(null);
         }
