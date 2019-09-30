@@ -49,7 +49,7 @@ export class OrderDetailsPage {
 
 
   ) {
-
+    this.helperTool.ShowLoadingSpinnerOnly()
     this.diagnostic.isLocationEnabled().then(enabled=>{
       if(enabled){
         this.getTheUserPosition()
@@ -67,6 +67,7 @@ export class OrderDetailsPage {
       for(let i = 0 ; i< this.orderItems.length;i++){
         this.totalPrice+= this.orderItems[i].cost;
       }
+      this.helperTool.DismissLoading();
       this.ready = true;
     });
     

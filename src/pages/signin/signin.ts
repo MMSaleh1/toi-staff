@@ -62,12 +62,12 @@ export class SigninPage {
 
 
     if (this.loginForm.valid) {
-      loading.present();
+      this.helperTools.ShowLoadingSpinnerOnly();
       let bool = false;
       bool = await this.userProvider.loginNop(this.loginForm.value.userName, this.loginForm.value.password);
       console.log(bool);
       if (bool == true) {
-        loading.dismiss();
+        this.helperTools.DismissLoading();
         this.user = User.getInstance();
         let token = await this.notifiCtrl.getDeviceId();
         console.log(token);
@@ -79,7 +79,7 @@ export class SigninPage {
 
 
       } else {
-        loading.dismiss();
+        this.helperTools.DismissLoading();
         this.helperTools.ShowAlertWithTranslation('Alert', 'Wrongpasswordpleasemakesureyourwritethecorrectpassword')
       }
     } else {

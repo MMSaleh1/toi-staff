@@ -1,4 +1,9 @@
 page-signin {
+     .item-inner {
+        margin-left: 0px !important;
+        padding:0px !important;
+    }
+
     h2.heading {
         position: relative;
         font-size: 1.6rem;
@@ -51,7 +56,7 @@ page-signin {
         bottom: 17px;
         color: white;
         width: 50px;
-        font-size: 13px !important;    
+        font-size: 13px !important;
     }
 
     .loginUsingFb {
@@ -70,7 +75,7 @@ page-signin {
         margin: 0;
         font-size: 3rem;
         margin-top: 15vh;
-        
+
         img {
             width: 148px;
             height: 142px;
@@ -101,25 +106,29 @@ page-signin {
         background-color: transparent;
         color: #fff;
     }
-.password-item-container{
-    position: relative;
-}
+
+    .password-item-container {
+        position: relative;
+    }
+
     .difault-form .list .item-input {
         border-bottom: 1px solid #424242 !important;
         min-height: 5rem;
         width: 90% !important;
         margin: auto !important;
-      
-    
+
+
         ::placeholder {
             color: white;
             // font-weight: bold;
             font-size: 16px;
-            @include ltr{
-                text-align: left;                
+
+            @include ltr {
+                text-align: left;
             }
-            @include rtl{
-                text-align: right;                
+
+            @include rtl {
+                text-align: right;
             }
         }
 
@@ -129,7 +138,7 @@ page-signin {
             margin-top: 18px;
             margin-bottom: -7px !important;
             margin-right: 0px;
-           
+
         }
     }
 
@@ -147,11 +156,12 @@ page-signin {
         text-align: center;
         margin-top: 2px;
     }
-    .text-white{
+
+    .text-white {
         margin-top: 10vh;
     }
 
 
- 
+
 
 }

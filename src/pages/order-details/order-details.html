@@ -26,10 +26,10 @@
             <div class="order-date-day">Order Day :  {{item.orderDate  | date :'shortDate' }}</div>
         </ion-item>
     </ion-list> -->
-  <div *ngIf="!ready" class="no-order">
+  <!-- <div *ngIf="!ready" class="no-order">
     <img src="./assets/imgs/empty_white.png">
     <h4>{{'NoOrdersAssignedToYou' | translate}}</h4>
-  </div>
+  </div> -->
 
   <div *ngIf="ready">
 
@@ -45,9 +45,8 @@
       <ion-card-header>{{'CustomerInfo' | translate}}: </ion-card-header>
       <ion-card-content>
         <div class="image-container">
-          <img  class="profile-image" src="assets/imgs/signup_female.png">
-          
-          <!-- <img *ngIf="order_details.customerImage != 'undefined'"  class="profile-image" [src]="order_details.customerImage"> -->
+          <img  *ngIf="order_details.customerImage == 'undefined'"class="profile-image" src="assets/imgs/signup_female.png">
+          <img *ngIf="order_details.customerImage != 'undefined'"  class="profile-image" [src]="order_details.customerImage">
         </div>
         <div class="name"><p><span>{{'Customername' | translate}}: </span>{{order_details.customerName}}</p></div>
         <div class="address"><p><span>{{'Customeraddress' | translate}}: </span>{{order_details.address}}</p></div>

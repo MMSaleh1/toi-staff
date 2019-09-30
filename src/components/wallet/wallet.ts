@@ -76,12 +76,12 @@ export class WalletComponent {
       this.user_current_wallet = wallet >= 0 ? wallet : this.user_current_wallet;
       // console.log();
     }
-    this.walletChangeAmmout =this.user_current_wallet -this.user_wallet;
+    this.walletChangeAmmout = this.user_current_wallet - this.user_wallet;
     console.log(this.walletChangeAmmout);
   }
 
   async onPaymentDone() {
-this.helperTool.ShowLoadingSpinnerOnly();
+    this.helperTool.ShowLoadingSpinnerOnly();
     if (this.canSubmit == true) {
       //  console.log("Done");
       this.user = User.getInstance();
@@ -94,8 +94,6 @@ this.helperTool.ShowLoadingSpinnerOnly();
     } else {
       let requiredAmmount = 0;
       if (this.user_wallet >= 0) {
-
-
         requiredAmmount = parseInt(this.user_wallet.toString()) - parseInt(this.order_price.toString());
         requiredAmmount = requiredAmmount > 0 ? requiredAmmount : (requiredAmmount - (requiredAmmount * 2));
       } else {

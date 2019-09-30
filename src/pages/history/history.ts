@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { order, User, UserProvider } from '../../providers/user/user';
 import { OrderDetailsPage } from '../order-details/order-details';
+import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 
 /**
  * Generated class for the HistoryPage page.
@@ -21,15 +22,17 @@ export class HistoryPage {
   public user : User;
   public ready :boolean;
   public allorderStatus : Array<orderStatus>;
-  constructor(public navCtrl: NavController, public navParams: NavParams , public userProv : UserProvider) {
+  constructor(public navCtrl: NavController, private helperTools: HelperToolsProvider, public navParams: NavParams , public userProv : UserProvider) {
     this.order_data = new Array();
     this.ready = false;
     this.getData();
   }
 
   async getData() {
+    this.helperTools.ShowLoadingSpinnerOnly()
     this.user = await this.userProv.getUser();
     await this.checkAcceptedOrder();
+    this.helperTools.DismissLoading()
     this.ready = true;
     console.log(this.user)
   
