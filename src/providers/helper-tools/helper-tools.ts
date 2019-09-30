@@ -90,7 +90,7 @@ export class HelperToolsProvider {
 
   DismissLoading() {
    
-      this.loading.dismissAll();
+      this.loading.dismiss();
     
   }
   /////////////////////////////////////////////////////SHOW ALERT WITH OKAY BTN////////////////////////////////////////////

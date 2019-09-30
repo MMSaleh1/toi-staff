@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, PopoverController, Events } from 'ionic-angular';
 import { UserProvider, order, User, orderItem } from '../../providers/user/user';
 import { CallNumber } from '@ionic-native/call-number';
 import { Database } from '../../providers/database/database';
@@ -45,6 +45,7 @@ export class OrderDetailsPage {
     public helperTool: HelperToolsProvider,
     private diagnostic : Diagnostic,
     private openNativeSettings : OpenNativeSettings,
+    private event : Events
 
 
 
@@ -70,6 +71,9 @@ export class OrderDetailsPage {
       this.helperTool.DismissLoading();
       this.ready = true;
     });
+    this.event.subscribe('toHome',()=>{
+      this.navCtrl.setRoot('HomePage');
+    })
     
     this.getData(undefined);
   }
@@ -210,3 +214,4 @@ export class OrderDetailsPage {
     Wpop.present();
   }
 }
+ 
