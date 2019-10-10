@@ -69,10 +69,8 @@ export class SigninPage {
       if (bool == true) {
         this.helperTools.DismissLoading();
         this.user = User.getInstance();
-        let token = await this.notifiCtrl.getDeviceId();
-        console.log(token);
-        this.userProvider.updateDeviceToken(this.user.id, token);
-        this.user.deviceId = token;
+        
+        
         this.storage.set('toi-staff-user', this.user);
         this.events.publish('logedin');
         this.navCtrl.setRoot(HomePage);

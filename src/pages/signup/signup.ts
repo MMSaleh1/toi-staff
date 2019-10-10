@@ -91,7 +91,6 @@ export class SignupPage {
     } else {
       if (this.regesterForm.valid) {
         this.helperTools.ShowLoadingSpinnerOnly();
-        let token = await this.notifiCtrl.getDeviceId();
         if(this.base64.length >  1){
 
         this.user_data.serverImage = await this.userProvider.sendImage(this.base64)
@@ -99,7 +98,7 @@ export class SignupPage {
         this.user_data.image = ImageProcess.getUserImageUrl(this.user_data.serverImage);
         }
         console.log(this.user_data.image);
-        let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.user_data.image, this.gender, this.regesterForm.value.userName, this.branch_id, token);
+        let add = await this.userProvider.registration(this.regesterForm.value.name, this.regesterForm.value.phone, this.regesterForm.value.password, this.user_data.image, this.gender, this.regesterForm.value.userName, this.branch_id, 0);
        
         if (add != undefined && add.id !="-1") 
         {

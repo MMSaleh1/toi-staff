@@ -135,6 +135,14 @@ export class MyApp {
     }
     this.menuCntrl.close()
   }
+  public async getUserToken(){
+    
+    this.user = await this.userProv.getUser();
+    let token = await this.notifyCtrl.getDeviceId();
+    this.userProv.updateDeviceToken(this.user.id, token);
+    this.user.deviceId = token;
+    this.userProv.saveUser(this.user);
+  }
 
   logOut() {
     this.helperTools.ShowAlertWithTranslation('Done', "LogOutDone")
