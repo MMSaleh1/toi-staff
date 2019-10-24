@@ -1,7 +1,7 @@
 import { Platform } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OneSignal } from '@ionic-native/onesignal';
+import { FCM } from '@ionic-native/fcm';
 
 /*
   Generated class for the NotificationsProvider provider.
@@ -12,36 +12,33 @@ import { OneSignal } from '@ionic-native/onesignal';
 @Injectable()
 export class NotificationsProvider {
 
-  constructor(public http: HttpClient, public oneSignal: OneSignal ,public platform :Platform) {
+  constructor(public http: HttpClient, private fcm: FCM,public platform :Platform) {
     console.log('Hello NotificationsProvider Provider');
   }
 
-  public init() {
-    this.oneSignal.startInit('75a74ea9-311c-4ec7-a0ee-2b7b04c14404', '440781592056');
-    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+  public async init() :Promise<any> {
 
-    this.oneSignal.handleNotificationReceived().subscribe(() => {
-      // do something when notification is received
+    this.fcm.subscribeToTopic('all_users');
+    this.fcm.onNotification().subscribe(data => {
+
+      console.log(data);
     });
 
-    this.oneSignal.handleNotificationOpened().subscribe(() => {
-      // do something when a notification is opened
-    });
+    // this.fcm.onTokenRefresh().subscribe(token => {
+    // });
 
-    this.oneSignal.endInit();
   }
 
 
   
-  public async getDeviceId(){
-    if(this.platform.is('cordova')){
-      let data = await this.oneSignal.getIds();
-    return data.userId;
-    }else{
-      return '0';
-    }
-
-    
+  public async getDeviceId():Promise<any> {
+    return new Promise((resolve)=>{
+      this.fcm.getToken().then(token => {
+        console.log(token)
+        resolve(token);
+      },);
+  
+    })
   }
 
 

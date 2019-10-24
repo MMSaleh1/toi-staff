@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>796638871635-c5p4j8lg34kecdrdt5rp04j9dfi056pk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.796638871635-c5p4j8lg34kecdrdt5rp04j9dfi056pk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD0G-nnqurU3wDwXE8rPPFg2O6ap518ZE4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>796638871635</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.edgeTechno.toistaff</string>
+	<key>PROJECT_ID</key>
+	<string>seismic-operand-158715</string>
+	<key>STORAGE_BUCKET</key>
+	<string>seismic-operand-158715.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:796638871635:ios:ebf982002d2f04505b06a6</string>
+	<key>DATABASE_URL</key>
+	<string>https://seismic-operand-158715.firebaseio.com</string>
+</dict>
+</plist>

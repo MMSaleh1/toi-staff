@@ -34,7 +34,6 @@ import { Database } from '../providers/database/database';
 import { CartProvider } from '../providers/cart/cart';
 import { DetailsPageModule } from '../pages/details/details.module';
 import { NotificationsProvider } from '../providers/notifications/notifications';
-import { OneSignal } from '@ionic-native/onesignal';
 import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 import { UpdateProfilePageModule } from '../pages/update-profile/update-profile.module';
 import { OrderDetailsPageModule } from '../pages/order-details/order-details.module';
@@ -45,6 +44,7 @@ import { WalletComponent } from '../components/wallet/wallet';
 import { CheckUserPage } from '../pages/check-user/check-user';
 import { CheckUserPageModule } from '../pages/check-user/check-user.module';
 
+import { FCM } from '@ionic-native/fcm';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -102,12 +102,12 @@ export function createTranslateLoader(http: HttpClient) {
     Diagnostic,
     OpenNativeSettings,
     NotificationsProvider,
-    OneSignal,
     Geolocation,
     BackgroundGeolocation,
     HelperToolsProvider,
     Camera, 
-    LocationProvider
+    LocationProvider,
+    FCM
 
   ]
 })

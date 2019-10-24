@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "440781592056",
+    "firebase_url": "https://nice-gate-240513.firebaseio.com",
+    "project_id": "nice-gate-240513",
+    "storage_bucket": "nice-gate-240513.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440781592056:android:1333e56c700d91915c320d",
+        "android_client_info": {
+          "package_name": "com.edgeTechno.toistaff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440781592056-1pir3ige3naefpghd0vu4jdprap4fvor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuk6tuBrRJIAZIwhani0_nIXtm8F8fliY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440781592056-1pir3ige3naefpghd0vu4jdprap4fvor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

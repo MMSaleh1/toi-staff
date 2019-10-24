@@ -286,7 +286,7 @@ export class UserProvider extends RootProvider {
           resolve([])
         } else {
           let orders = new Array<order>();
-          for (let i = 1; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[0].wallet,  data[i].more_info));
           }
           console.log(orders);

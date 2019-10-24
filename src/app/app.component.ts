@@ -53,6 +53,7 @@ export class MyApp {
       this.event.subscribe('logedin', () => {
         this.userProv.getUser().then(data => {
           this.user = data;
+          this.getUserToken();
           this.menuCntrl.enable(true);
           // this.isLogedin = true;
           this.userProv.getAcceptedOrder(this.user.id);
