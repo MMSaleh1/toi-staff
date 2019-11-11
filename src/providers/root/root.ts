@@ -11,10 +11,10 @@ import { Injectable } from '@angular/core';
 export class RootProvider {
   
   public static APIURL4 = "http://edge2018-001-site12.gtempurl.com/api/";
-  public static ImagesUrl = "http://edge2018-001-site16.gtempurl.com/"
-  public static UserImagesUrl = "http://edge2018-001-site15.gtempurl.com"
-
-  public static APIURL = "http://edge2018-001-site15.gtempurl.com/api/"
+  public static ImagesUrl = "http://198.38.94.254/dashboard-toi/";
+  public static UserImagesUrl = "http://198.38.94.254/api-toi/";
+  public static APIURL = "http://198.38.94.254/api-toi/api/";
+  // public static APIURL = "http://edge2018-001-site15.gtempurl.com/api/"
   constructor(public http: HttpClient) {
     console.log('Hello RootProvider Provider');
   }

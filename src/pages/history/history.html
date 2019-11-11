@@ -17,7 +17,7 @@
     <ion-card class="cardItem" *ngFor="let order of order_data; let i = index">
       <ion-item (tap)="goToOrderDet(order)" class="OneItem">
         <img *ngIf="order.customerImage == 'undefined'" src="assets/imgs/signup_female.png" item-left />
-        <img *ngIf="order.customerImage != 'undefined'" [src]="order.customerImage" item-left />
+        <img *ngIf="order.customerImage != 'undefined'" onError="src ='assets/imgs/signup_female.png'"  [src]="order.customerImage" item-left />
         <div class="MarketInfo">
           <p>{{'Name' | translate}}: {{ order.customerName }}</p>
           <p>

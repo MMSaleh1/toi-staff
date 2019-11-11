@@ -49,7 +49,7 @@
             <!-- <img class="logo" src="assets/imgs/logo.png"> -->
         </div>
         <diV class="userContainer" *ngIf="user">
-            <div *ngIf="user?.image" class="img-container"><img class="user-img" [src]="user?.image"></div>
+            <div *ngIf="user?.image" class="img-container"><img class="user-img"  onError="src ='assets/imgs/signup_male.png'"  [src]="user?.image"></div>
             <div *ngIf="!user?.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png">
             </div>
 
