@@ -44,20 +44,23 @@ export class MyApp {
     ) {
     
     platform.ready().then(() => {
-  
-      this.rememberUser();
-      this.initTranslate();
-      // this.helperTools.IntializeUSerCurrentPosition()
 
       
+      this.initTranslate();
+      // this.helperTools.IntializeUSerCurrentPosition()
       this.event.subscribe('logedin', () => {
         this.userProv.getUser().then(data => {
           this.user = data;
-          this.getUserToken();
-          this.menuCntrl.enable(true);
+          console.log(this.user);
+          if (platform.is('cordova')) {
+            console.log('this is cordova')
+            this.notifyCtrl.init().then(()=>{
+              this.getUserToken();
+            });
+          }
+         
+          this.user.type == 'manager' ?  this.menuCntrl.enable(false) :  this.menuCntrl.enable(true);
           // this.isLogedin = true;
-          this.userProv.getAcceptedOrder(this.user.id);
-
           console.log(this.user)
         });
 
@@ -77,11 +80,7 @@ export class MyApp {
 
       })
 
-      if (platform.is('cordova')) {
-        console.log('this is cordova')
-        this.notifyCtrl.init();
-
-      }
+     
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
@@ -137,14 +136,14 @@ export class MyApp {
     this.menuCntrl.close()
   }
   public async getUserToken(){
-    
     this.user = await this.userProv.getUser();
     let token = await this.notifyCtrl.getDeviceId();
-    this.userProv.updateDeviceToken(this.user.id, token);
-    this.user.deviceId = token;
+    let id = this.user.type == 'manager' ? this.user.Manager.id:this.user.stylist.id;
+    this.userProv.updateDeviceToken(id, token);
+    this.user.type == 'manager' ?  this.user.Manager.deviceId = token: this.user.stylist.deviceId = token;
     this.userProv.saveUser(this.user);
   }
-
+  
   logOut() {
     this.helperTools.ShowAlertWithTranslation('Done', "LogOutDone")
     this.userProv.logout();

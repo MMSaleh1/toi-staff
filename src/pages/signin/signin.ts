@@ -11,6 +11,7 @@ import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 import { EnterCodePage } from '../enter-code/enter-code';
 import { TranslateService } from '@ngx-translate/core';
 import { OrderDetailsPage } from '../order-details/order-details';
+import { ManagerHomePage } from '../manager-home/manager-home';
 
 
 @IonicPage()
@@ -38,11 +39,20 @@ export class SigninPage {
     this.initLang()
     this.buildForm();
     this.menuCntrl.swipeEnable(false)
+    this.checkUser();
   }
   async checkUser() {
     let user = await this.userProvider.getUser();
-    if (user.id != '-1') {
-      this.navCtrl.setRoot(HomePage);
+   
+    if (user != undefined ) {
+      console.log(user);
+      
+      if(user.type != 'manager'){
+        this.events.publish('logedin');
+        this.navCtrl.setRoot(HomePage);
+      }else{
+        this.navCtrl.setRoot(ManagerHomePage)
+      }
     }
   }
 
@@ -62,18 +72,23 @@ export class SigninPage {
 
 
     if (this.loginForm.valid) {
-      this.helperTools.ShowLoadingSpinnerOnly();
+      await this.helperTools.ShowLoadingSpinnerOnly();
       let bool = false;
       bool = await this.userProvider.loginNop(this.loginForm.value.userName, this.loginForm.value.password);
       console.log(bool);
       if (bool == true) {
         this.helperTools.DismissLoading();
-        this.user = User.getInstance();
+        this.user =await this.userProvider.getUser();
+        console.log(this.user);
         
         
-        this.storage.set('toi-staff-user', this.user);
         this.events.publish('logedin');
-        this.navCtrl.setRoot(HomePage);
+        if(this.user.type == 'manager'){
+          this.navCtrl.setRoot(ManagerHomePage);
+        }else{
+          this.navCtrl.setRoot(HomePage);
+        }
+      
 
 
       } else {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User, UserProvider, ImageProcess } from '../../providers/user/user';
+import { User, UserProvider, ImageProcess, Stylist } from '../../providers/user/user';
 import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 /**
  * Generated class for the UpdateProfilePage page.
@@ -36,6 +36,7 @@ export class UpdateProfilePage {
   }
   async buildForm() {
     this.user = await this.userProv.getUser();
+    console.log(this.user);
     this.updateForm = this.formBuilder.group({
       userName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
       name: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
@@ -53,11 +54,12 @@ export class UpdateProfilePage {
     //   console.log(this.updateForm.value.userName);
        if (this.updateForm.valid) {
          this.helperTools.ShowLoadingSpinnerOnly();
-         this.user.name = this.updateForm.value.name  ;
-         this.user.userName =  this.updateForm.value.userName  ;
-         this.user.password =  this.updateForm.value.password  ;
+         let stylist = <Stylist> this.user.stylist;
+         stylist.name = this.updateForm.value.name  ;
+         stylist.userName =  this.updateForm.value.userName  ;
+         stylist.password =  this.updateForm.value.password  ;
         //  this.user.gender =  this.updateForm.value.gender  ;
-         this.user.phone =  this.updateForm.value.phone  ;
+        stylist =  this.updateForm.value.phone  ;
         //  this.user.email =  this.updateForm.value.email  ;
          console.log(this.user);
          if(this.base64.length >  1){
@@ -65,12 +67,13 @@ export class UpdateProfilePage {
         // let name = this.user.id+ new Date().getTime();
         // console.log(name);
         // console.log(this.helperTools.uploadPic(this.base64,RootProvider.UserImageUrl,name));
-        this.user.serverImage = await this.userProv.sendImage(this.base64)
-       this.user.image = ImageProcess.getUserImageUrl(this.user.serverImage);
+        stylist.serverImage = await this.userProv.sendImage(this.base64)
+        stylist.image = ImageProcess.getUserImageUrl(stylist.serverImage);
         // alert(this.user.image);
         //  this.user.image = RootProvider.UserImageUrl+name;
       }
-         let bool = await this.userProv.updateUser(this.user);
+        this.user.stylist = stylist;
+         let bool = await this.userProv.updateStylist(this.user);
          console.log(bool);
          this.helperTools.DismissLoading();
          this.helperTools.ShowAlertWithTranslation('Done', "ProfilehasbeenupdatedsuccessfullyThankyou")

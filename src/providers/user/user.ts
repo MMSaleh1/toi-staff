@@ -39,6 +39,9 @@ export class UserProvider extends RootProvider {
   private walletApiController = "wallet/";
   private changeWalletActionString = "add_change_wallet?";
 
+  private managerApiController = "branch_manager/";
+  private managerLoginActionString = "branch_manager_login?";
+
 
   public user: User;
 
@@ -50,6 +53,13 @@ export class UserProvider extends RootProvider {
   }
 
   public async loginNop(username: string, password: string): Promise<any> {
+
+
+    return (await this.loginStaff(username,password)) == true ? true :(await this.loginManager(username,password)) == true ? true : false;
+  }
+
+
+  private loginStaff(username: string, password: string) : Promise<any>{
     return new Promise((resolve) => {
       let temp = `${RootProvider.APIURL}${this.userApiController}${this.logInActionString}user_name=${username}&password=${password}`;
 
@@ -58,11 +68,36 @@ export class UserProvider extends RootProvider {
         if (data != null && data != undefined && data.length > 0 && data[0].error_name != "wrong_password") {
 
           // let image = ImageProcess.getImageUrl(data[0].img);
-          this.user = User.getInstance(data[0].id, data[0].name, data[0].password, data[0].mail, data[0].gender, data[0].phone, data[0].area_id, data[0].device_id, data[0].user_name, data[0].available, data[0].queue, data[0].img);
-          this.event.publish('logedin');
-          this.saveUser(this.user);
-          console.log(this.user);
-          resolve(true);
+          let stylist = new Stylist(data[0].id, data[0].name, data[0].password,  data[0].gender,data[0].mail, data[0].phone, data[0].area_id, data[0].device_id, data[0].user_name, data[0].available, data[0].queue, data[0].img);
+          this.user = new User('stylist' , stylist);
+          
+          this.saveUser(this.user).then(()=>{
+            console.log(this.user);
+            resolve(true);
+          });
+        } else {
+          resolve(false)
+        }
+      })
+    })
+  }
+
+  private loginManager(username: string, password: string) : Promise<any>{
+    return new Promise((resolve) => {
+      let temp = `${RootProvider.APIURL}${this.managerApiController}${this.managerLoginActionString}user_name=${username}&password=${password}`;
+
+      this.http.get(temp).subscribe((data: any) => {
+        console.log(data[0]);
+        if (data != null && data != undefined && data.length > 0 && data[0].error_name != "wrong_password") {
+
+          // let image = ImageProcess.getImageUrl(data[0].img);
+          let manager = new Manager(data[0].id,data[0].user_name,data[0].password,data[0].vendor_id,data[0].branch_id,data[0].name,data[0].phone,data[0].device_id);
+          this.user = new User('manager' , manager);
+          this.saveUser(this.user).then(()=>{
+            console.log(this.user);
+            resolve(true);
+          });
+        
         } else {
           resolve(false)
         }
@@ -80,7 +115,8 @@ export class UserProvider extends RootProvider {
         if (data == undefined || data.length == 0) {
           resolve([]);
         } else {
-          this.user = User.getInstance(data[0].ID, name, password, "", gender, phone, branch_id, deviceId, user_name, '1', '0', img);
+          const stylist = new Stylist(data[0].ID, name, password, "", gender, phone, branch_id, deviceId, user_name, '1', '0', img)
+          this.user = new User('stylist' , stylist);
           console.log(this.user);
           this.saveUser(this.user).then(() => {
             console.log(this.user);
@@ -112,8 +148,9 @@ export class UserProvider extends RootProvider {
 
   }
 
-  public async updateUser(user: User): Promise<any> {
-    let temp = `${RootProvider.APIURL}${this.userApiController}${this.updateStaffActionString}${user.id}?name=${user.name}&phone=${user.phone}&password=${user.password}&img=${user.image}&gender=${user.gender}&user_name=${user.userName}&national_id=""&available=${user.available}&queue=${user.queue}&day_off=0`;
+  public async updateStylist(user: User): Promise<any> {
+    let stylistData = user.stylist;
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.updateStaffActionString}${stylistData.id}?name=${stylistData.name}&phone=${stylistData.phone}&password=${stylistData.password}&img=${stylistData.image}&gender=${stylistData.gender}&user_name=${stylistData.userName}&national_id=""&available=${stylistData.available}&queue=${stylistData.queue}&day_off=0`;
     console.log(temp);
     return new Promise((resolve) => {
       this.http.get(temp).subscribe(data => {
@@ -205,7 +242,7 @@ export class UserProvider extends RootProvider {
           console.log(data);
           let items = new Array<orderItem>();
           for (let i = 0; i < data.length; i++) {
-            if (data[i].stuff_id == this.user.id) {
+            if (data[i].stuff_id == this.user.stylist.id) {
               let name = data[i].is_product == '0' ? data[i].service_name : data[i].sale_prduct_name;
               let cost = data[i].is_product == '0' ? data[i].service_cost : data[i].sale_prduct_cost;
               items.push(new orderItem(name, cost, data[i].name, data[i].is_product, data[i].phone, data[i].stuff_img,data[i].stuff_id));
@@ -287,7 +324,7 @@ export class UserProvider extends RootProvider {
         } else {
           let orders = new Array<order>();
           for (let i = 0; i < data.length; i++) {
-            orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[0].wallet,  data[i].more_info));
+            orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[0].wallet,  data[i].more_info,data[i].wallet_used));
           }
           console.log(orders);
           resolve(orders);
@@ -307,11 +344,11 @@ export class UserProvider extends RootProvider {
         } else {
           let orderCounter = 1;
           let orders = new Array<order>();
-          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id, data[0].user_img,data[0].wallet, data[0].more_info));
+          orders.push(new order(data[0].order_id, data[0].user_name, data[0].phone, data[0].order_date, data[0].order_total, data[0].address, data[0].area_id, data[0].order_states_id, data[0].user_tokenid, data[0].long, data[0].latt, data[0].user_id, data[0].user_img,data[0].wallet, data[0].more_info,data[0].wallet_used));
           for (let i = 1; i < data.length; i++) {
             if (data[i].order_id != data[i - 1].order_id) {
               orderCounter++
-              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[i].wallet, data[i].more_info));
+              orders.push(new order(data[i].order_id, data[i].user_name, data[i].phone, data[i].order_date, data[i].order_total, data[i].address, data[i].area_id, data[i].order_states_id, data[i].user_tokenid, data[i].long, data[i].latt, data[i].user_id, data[i].user_img,data[i].wallet, data[i].more_info,data[i].wallet_used));
 
             }
           }
@@ -330,7 +367,7 @@ export class UserProvider extends RootProvider {
           }
           console.log(this.available)
           console.log(this.queue);
-          console.log(data);
+          console.log(orders);
           this.changeStaffStatus(stuff_id, this.available, this.queue);
           resolve(orders);
         }
@@ -397,15 +434,15 @@ export class UserProvider extends RootProvider {
 
 
   public async getUser(): Promise<any> {
-    return new Promise((resolve) => {
-      this.storage.get('toi-staff-user').then(data => {
-        if (data == undefined) {
-          resolve(User.getInstance());
-        } else {
-          let user = <User>data;
-          resolve(User.getInstance(user.id, user.name, user.password, user.email, user.gender, user.phone, user.areaId, user.deviceId, user.userName, user.available, user.queue, user.image));
-
+    return new Promise((resolve)=>{
+      this.storage.get('toi-staff-user').then((data : any) => {
+        if(data != undefined){
+          // let user = new User(data.type , data.Manager == undefined? data.stylist : data.Manager );
+          resolve(data);
+        }else{
+          resolve(null);
         }
+      
       });
     })
 
@@ -420,6 +457,55 @@ export class UserProvider extends RootProvider {
 }
 
 export class User {
+  type : string ;
+  public stylist : Stylist;
+  public Manager : Manager;
+  constructor(type : string , user : any){
+    this.type = type;
+    if(this.type == 'manager'){
+      this.Manager = <Manager> user;
+    }else{
+      this.stylist = <Stylist> user;
+    }
+  }
+
+  // public getUser(){
+  //   if(this.type =='manager'){
+  //     return this.Manager;
+  //   }else{
+  //     return this.stylist;
+  //   }
+  // }
+  // public setUser(userData){
+  //   if(this.type =='manager'){
+  //     this.Manager = userData;
+  //   }else{
+  //     this.stylist = userData;
+  //   }
+  // }
+
+}
+export class Manager {
+  id
+  userName
+  passWord
+  vendorId
+  branchId
+  name
+  phone
+  deviceId
+  constructor(id : string , userName : string , password  : string ,vendorId : string , branchId : string , name : string , phone :string , deviceId : string){
+    this.id = id ;
+    this.userName = userName ; 
+    this.passWord = password ; 
+    this.vendorId = vendorId;
+    this.branchId = branchId;
+    this.name = name;
+    this.phone = phone;
+    this.deviceId = deviceId;
+  }
+}
+export class Stylist{
   id: string;
   name: string;
   gender: string;
@@ -433,24 +519,7 @@ export class User {
   userName: string;
   available: any;
   queue: any;
-
-
-  private static instance: User = null;
-  static isCreating: boolean = false;
-
-
-  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", area_id = "", deviceId: string, user_name: string, available, queue, serverImage) {
-
-    if (User.isCreating) {
-      throw new Error("An Instance Of User Singleton Already Exists");
-    } else {
-      this.setData(id, name, password, email, gender, phone, area_id, deviceId, user_name, available, queue, serverImage);
-      User.isCreating = true;
-    }
-  }
-
-  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string, user_name: string, available, queue, serverImage) {
-
+  constructor(id: string , name: string , password: string ,  gender: string, email: string, phone: string, area_id, deviceId: string, user_name: string, available, queue, serverImage){
     this.id = id;
     this.name = name;
     this.gender = gender
@@ -463,30 +532,7 @@ export class User {
     this.userName = user_name;
     this.available = available;
     this.queue = queue;
-    //  this.serverImage = serverImage
   }
-
-  static getInstance(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", area_id = "", deviceId: string = '0', user_name: string = "", available = "1", queue = "0", serverImage = "") {
-
-
-
-    if (User.isCreating === false && id != "-1") {
-      //User.isCreating = false;
-      User.instance = new User(id, name, gender, password, email, phone, area_id, deviceId, user_name, available, queue, serverImage);
-      console.log(console.log(User.instance));
-    }
-    if (id != "-1") {
-      User.instance.setData(id, name, password, email, gender, phone, area_id, deviceId, user_name, available, queue, serverImage);
-    }
-    console.log(User.instance);
-    return User.instance;
-  }
-
-
-
-
-
-
 }
 
 
@@ -505,7 +551,8 @@ export class order {
   user_id: number;
   orderStatus: string;
   customerImage: string;
-  wallet: number
+  wallet: number;
+  walletUsed:string;
   order_info : string;
   constructor(id: string,
     customerName: string,
@@ -521,8 +568,8 @@ export class order {
     user_id,
     customerImage,
     wallet,
-    order_info
-
+    order_info,
+    walletUsed
   ) {
     this.id = id;
     this.customerName = customerName;
@@ -539,6 +586,7 @@ export class order {
     this.customerImage = customerImage
     this.wallet = wallet;
     this.order_info = order_info
+    this.walletUsed=walletUsed;
   }
 }
 export class orderItem {

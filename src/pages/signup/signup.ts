@@ -104,7 +104,7 @@ export class SignupPage {
         {
           // console.log(add);
           this.helperTools.DismissLoading();
-          this.user = User.getInstance();
+          this.user =await this.userProvider.getUser();
           // console.log(this.user);
           this.events.publish('logedin');
           this.navCtrl.setRoot(HomePage);

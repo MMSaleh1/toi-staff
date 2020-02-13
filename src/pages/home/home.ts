@@ -23,6 +23,7 @@ export class HomePage {
   public user: User;
   public db: Database;
   public orderItems: Array<orderItem>;
+  stopCond = false;
 
   constructor(public navCtrl: NavController,
     private platform: Platform,
@@ -33,24 +34,35 @@ export class HomePage {
     public helperTool: HelperToolsProvider,
     public popoverCtrl: PopoverController
   ) {
-    this.getData(undefined);
     this.order_data = new Array();
   }
 
 
+  ionViewDidEnter(){
+    console.log('viewEntered')
+    this.stopCond= false;
+    this.getData(undefined);
+   
+  }
   async getData(ev) {
     this.user = await this.userProv.getUser();
-
-    this.checkAcceptedOrder();
     console.log(this.user)
+    this.checkAcceptedOrder();
+    
     if (ev) {
       ev.complete()
     }
   }
 
+
   public async checkAcceptedOrder() {
+    if(this.stopCond == true){
+      return
+    }
     let tempData = new Array<order>();
-    tempData = await this.userProv.getAcceptedOrder(this.user.id);
+    let userData  = this.user.stylist;
+    console.log(userData);
+    // tempData = await this.userProv.getAcceptedOrder(this.user.getUser().id);
     // console.log(this.order_data)
     // console.log(order);
     if (tempData == undefined) {
@@ -84,7 +96,7 @@ export class HomePage {
     console.log(this.userProv.available);
     let available = (this.userProv.queue == '1') ? '0' : '1';
     console.log(this.userProv.available);
-    let status = await this.userProv.changeStaffStatus(this.user.id, available, '0');
+    let status = await this.userProv.changeStaffStatus(this.user.stylist.id, available, '0');
 
 
 
@@ -173,9 +185,14 @@ export class HomePage {
     // }
   }
   goToOrderDet(clicked_order) {
+    console.log(clicked_order);
     this.navCtrl.push(OrderDetailsPage, { data: clicked_order })
   }
   
+  ionViewWillLeave(){
+    console.log('view leave')
+   this.stopCond = true;
+  }
 
   // openWallet(){
   //   let Wpop = this.popoverCtrl.create(WalletComponent);

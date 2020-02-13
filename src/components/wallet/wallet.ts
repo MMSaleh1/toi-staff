@@ -23,6 +23,7 @@ export class WalletComponent {
   public walletChangeAmmout: number = 0;
   public user: User
   public canSubmit: boolean = false;
+  public walletUsed = "false";
   order_details = {} as any;
   estimated_duration;
 
@@ -37,7 +38,21 @@ export class WalletComponent {
     this.order_price = navParams.get('totalPrice');
     this.order_current_price = this.order_price;
     this.user_wallet = navParams.get('wallet');
+    this.walletUsed = navParams.get('walletUsed');
+    console.log(this.walletUsed);
+    console.log(this.user_wallet);
     //  this.user_wallet = -50;
+    
+    if(this.walletUsed == 'true'){
+      if(this.order_price > this.user_wallet){
+        this.order_current_price = this.order_price - this.user_wallet;
+        this.walletChangeAmmout = -this.user_wallet;
+      }else{
+        this.order_current_price = 0;
+        this.walletChangeAmmout =  this.order_price - this.user_wallet;
+        
+      }
+    }
     this.user_current_wallet = this.user_wallet;
     this.order_details = navParams.get('order_details');
     this.estimated_duration = navParams.get('duration');
@@ -49,70 +64,76 @@ export class WalletComponent {
     this.viewCtrl.dismiss();
   }
 
-  change() {
-    if (this.user_wallet > 0 || this.user_wallet == 0) {
-      let temp = parseInt(this.collected.toString()) + parseInt(this.user_wallet.toString())
+  // change() {
+  //   if (this.user_wallet > 0 || this.user_wallet == 0) {
+  //     let temp = parseInt(this.collected.toString()) + parseInt(this.user_wallet.toString())
 
-      let temp2 = parseInt(temp.toString()) - parseInt(this.order_price.toString());
-      if (temp2 >= 0) {
-        this.user_current_wallet = temp2;
-        this.canSubmit = true;
-      } else {
-        this.user_current_wallet = this.user_wallet;
-        this.canSubmit = false;
-      }
+  //     let temp2 = parseInt(temp.toString()) - parseInt(this.order_price.toString());
+  //     if (temp2 >= 0) {
+  //       this.user_current_wallet = temp2;
+  //       this.canSubmit = true;
+  //     } else {
+  //       this.user_current_wallet = this.user_wallet;
+  //       this.canSubmit = false;
+  //     }
 
-    } else {
-      this.order_current_price = -this.user_wallet + this.order_price;
-      // let temp = (this.order_current_price +this.user_wallet);
-      let wallet = (this.collected - this.order_current_price);
-      if (wallet >= 0) {
-        this.user_current_wallet = wallet;
-        this.canSubmit = true;
-      } else {
-        this.user_current_wallet = this.user_wallet;
-        this.canSubmit = false;
-      }
-      this.user_current_wallet = wallet >= 0 ? wallet : this.user_current_wallet;
-      // console.log();
-    }
-    this.walletChangeAmmout = this.user_current_wallet - this.user_wallet;
-    console.log(this.walletChangeAmmout);
-  }
+  //   } else {
+  //     this.order_current_price = -this.user_wallet + this.order_price;
+  //     // let temp = (this.order_current_price +this.user_wallet);
+  //     let wallet = (this.collected - this.order_current_price);
+  //     if (wallet >= 0) {
+  //       this.user_current_wallet = wallet;
+  //       this.canSubmit = true;
+  //     } else {
+  //       this.user_current_wallet = this.user_wallet;
+  //       this.canSubmit = false;
+  //     }
+  //     this.user_current_wallet = wallet >= 0 ? wallet : this.user_current_wallet;
+  //     // console.log();
+  //   }
+  //   this.walletChangeAmmout = this.user_current_wallet - this.user_wallet;
+  //   console.log(this.walletChangeAmmout);
+  // }
 
   async onPaymentDone() {
      this.helperTool.ShowLoadingSpinnerOnly();
-    if (this.canSubmit == true) {
+    // if (this.canSubmit == true) {
       //  console.log("Done");
-      this.user = User.getInstance();
-      let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id, this.estimated_duration);
+      this.user = await this.userProv.getUser();
+      console.log(this.walletChangeAmmout);
+      let bool = await this.userProv.changeStatus(this.user.stylist.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id, this.estimated_duration);
       await this.changeUserStatus();
-      await this.userProv.changeUserWallet(this.order_details.id, this.user.id, this.walletChangeAmmout, "", this.order_details.user_id);
+      if(this.walletUsed == 'true'){
+          await this.userProv.changeUserWallet(this.order_details.id, this.user.stylist.id, this.walletChangeAmmout, "", this.order_details.user_id);
+
+      }
       this.helperTool.DismissLoading();
       this.viewCtrl.dismiss();
       // this.navCtrl.setRoot(HomePage)
-    } else {
-      this.helperTool.DismissLoading();
-      let requiredAmmount = 0;
-      if (this.user_wallet >= 0) {
-        requiredAmmount = parseInt(this.user_wallet.toString()) - parseInt(this.order_price.toString());
-        requiredAmmount = requiredAmmount > 0 ? requiredAmmount : (requiredAmmount - (requiredAmmount * 2));
-      } else {
-        requiredAmmount = -this.user_wallet + this.order_price;
-      }
+    // } else {
+    //   this.helperTool.DismissLoading();
+    //   let requiredAmmount = 0;
+    //   if (this.user_wallet >= 0) {
+    //     requiredAmmount = parseInt(this.user_wallet.toString()) - parseInt(this.order_price.toString());
+    //     requiredAmmount = requiredAmmount > 0 ? requiredAmmount : (requiredAmmount - (requiredAmmount * 2));
+    //   } else {
+    //     requiredAmmount = -this.user_wallet + this.order_price;
+    //   }
      
-      if (this.platform.dir() === 'ltr') {
+    //   if (this.platform.dir() === 'ltr') {
         
-        this.helperTool.ShowAlertWithTranslation("Alert", "The required ammount must be " + requiredAmmount + " L.E. or higher");
-      }
-      else {
+    //     this.helperTool.ShowAlertWithTranslation("Alert", "The required ammount must be " + requiredAmmount + " L.E. or higher");
+    //   }
+    //   else {
        
-        this.helperTool.ShowAlertWithTranslation("تنبيه", "القيمه المتسحقه لا يجب ان تقل عن " + requiredAmmount + " جم او اكثر");
-      }
-    }
+    //     this.helperTool.ShowAlertWithTranslation("تنبيه", "القيمه المتسحقه لا يجب ان تقل عن " + requiredAmmount + " جم او اكثر");
+    //   }
+    // }
 
 
   }
+
+
 
 
   private async changeUserStatus() {
@@ -120,7 +141,7 @@ export class WalletComponent {
     console.log(this.userProv.available);
     let available = (this.userProv.queue == '1') ? '0' : '1';
     console.log(this.userProv.available);
-    let status = await this.userProv.changeStaffStatus(this.user.id, available, '0');
+    let status = await this.userProv.changeStaffStatus(this.user.stylist.id, available, '0');
 
 
 

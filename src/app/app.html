@@ -5,16 +5,16 @@
         <div class="logo-container">
             <!-- <img class="logo" src="assets/imgs/logo.png"> -->
         </div>
-        <div class="userContainer" *ngIf="user">
-            <div *ngIf="user?.image" class="img-container"><img class="user-img" [src]="user?.image"></div>
-            <div *ngIf="!user?.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png">
+        <div class="userContainer" *ngIf="user && user.stylist">
+            <div *ngIf="user.stylist.image" class="img-container"><img class="user-img" [src]="user.stylist.image"></div>
+            <div *ngIf="!user.stylist.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png">
             </div>
             <div class="info-container">
-                <div *ngIf="user.name" class="name-container">
-                    <p>{{user?.name}}</p>
+                <div *ngIf="user.stylist.name" class="name-container">
+                    <p>{{user?.stylist.name}}</p>
                 </div>
-                <div *ngIf="user.phone" class="email-container">
-                    <p>{{user?.phone}}</p>
+                <div *ngIf="user.stylist.phone" class="email-container">
+                    <p>{{user.stylist.phone}}</p>
                 </div>
             </div>
             
@@ -48,17 +48,17 @@
         <div class="logo-container">
             <!-- <img class="logo" src="assets/imgs/logo.png"> -->
         </div>
-        <diV class="userContainer" *ngIf="user">
-            <div *ngIf="user?.image" class="img-container"><img class="user-img"  onError="src ='assets/imgs/signup_male.png'"  [src]="user?.image"></div>
-            <div *ngIf="!user?.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png">
+        <diV class="userContainer" *ngIf="user && user.stylist">
+            <div *ngIf="user?.stylist.image" class="img-container"><img class="user-img"  onError="src ='assets/imgs/signup_male.png'"  [src]="user?.stylist.image"></div>
+            <div *ngIf="!user?.stylist.image" class="img-container"><img class="user-img" src="assets/imgs/signup_male.png">
             </div>
 
             <div class="info-container">
-                <div *ngIf="user.name" class="name-container">
-                    <p>{{user?.name}}</p>
+                <div *ngIf="user.stylist.name" class="name-container">
+                    <p>{{user?.stylist.name}}</p>
                 </div>
-                <div *ngIf="user.phone" class="email-container">
-                    <p>{{user?.phone}}</p>
+                <div *ngIf="user.stylist.phone" class="email-container">
+                    <p>{{user?.stylist.phone}}</p>
                 </div>
             </div>
         </diV>

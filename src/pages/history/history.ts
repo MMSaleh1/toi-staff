@@ -41,7 +41,7 @@ export class HistoryPage {
 
   
   public async checkAcceptedOrder() {
-    this.order_data = await this.userProv.getHistory(this.user.id);
+    this.order_data = await this.userProv.getHistory(this.user.stylist.id);
     this.allorderStatus = await this.userProv.getAllStatus();
     for(let i =0 ; i < this.allorderStatus.length; i ++){
       for(let j=0 ; j< this.order_data.length;j++){

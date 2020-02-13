@@ -98,7 +98,7 @@
       </ion-card-content>
     </ion-card>
 
-    <div class="total-price">{{'TotalPrice' | translate}} : {{totalPrice}} {{'LE' | translate}}</div>
+    <div class="total-price">{{'TotalPrice' | translate}} : {{finalPrice}} {{'LE' | translate}}</div>
 
     <div *ngIf="order_details.orderStatusId == '3' " class="change-status-container">
       <button class="status-button" ion-button (tap)="changeStatus()">{{'StartMoving' | translate}}</button>

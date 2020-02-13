@@ -130,6 +130,23 @@ export class ItemsApiProvider extends RootProvider {
   }
 
 
+  private managerApiControler = "branch_manager/";
+  private getManagerOrdersActionString = "get_orders_branch_mob?";
+  public async getManagerOrders(from,count,branchId ) : Promise<any>{
+   const url  = `${RootProvider.APIURL}${this.managerApiControler}${this.getManagerOrdersActionString}start_from=${from}&row_num=${count}&branch_id=${branchId}`;
+    return new Promise((resolve)=>{
+      this.http.get(url).subscribe(data=>{
+        console.log(data);
+        if(data != undefined){
+          resolve(data);
+        }else{
+          resolve({})
+        }
+      })
+    })
+  }
+
+
 
 }
 

@@ -17,13 +17,13 @@
     <div class="profile-container" *ngIf="ready">
         <div class="image-container">
             <!-- <img *ngIf="!hasimage()" class="profile-image" src="assets/imgs/signup_female.png"> -->
-            <!-- <img *ngIf="hasimage()" class="profile-image" [src]="user.image"> -->
-            <div *ngIf="!user.image">
+            <!-- <img *ngIf="hasimage()" class="profile-image" [src]="user.stylist.image"> -->
+            <div *ngIf="!user.stylist.image">
                 <img class="profile-image" *ngIf="!(displayImage.length > 1)" src="assets/imgs/signup_male.png">
                 <img class="profile-image" *ngIf="displayImage.length > 1"  onError="src ='assets/imgs/signup_male.png'" [src]="displayImage">
             </div>
-            <div *ngIf="user.image">
-                <img class="profile-image" *ngIf="!(displayImage.length > 1)"  onError="src ='assets/imgs/signup_male.png'"  [src]="user.image">
+            <div *ngIf="user.stylist.image">
+                <img class="profile-image" *ngIf="!(displayImage.length > 1)"  onError="src ='assets/imgs/signup_male.png'"  [src]="user.stylist.image">
                 <img class="profile-image" *ngIf="displayImage.length > 1"  onError="src ='assets/imgs/signup_male.png'"  [src]="displayImage">
             </div>
             <button ion-button clear icon-only class="camerabtn" (tap)="getPhoto()">
@@ -33,10 +33,10 @@
 
         <div class="data-container">
             <div class="name-container">
-                <p>{{user.name}}</p>
+                <p>{{user.stylist.name}}</p>
             </div>
             <div class="mail-container">
-                <p>{{user.phone}}</p>
+                <p>{{user.stylist.mail}}</p>
             </div>
 
         </div>
@@ -50,31 +50,31 @@
     <ion-list  class="edit">
 
       <ion-item class="item">
-        <ion-input type="text" placeholder="{{'name' | translate}}" formControlName="name" value="{{user.name}}">
+        <ion-input type="text" placeholder="{{'name' | translate}}" formControlName="name" value="{{user.stylist.name}}">
         </ion-input>
       </ion-item>
 
       <ion-item class="item">
         <ion-input type="password" placeholder="{{'Password' | translate}}" formControlName="password"
-          value="{{user.password}}"></ion-input>
+          value="{{user.stylist.password}}"></ion-input>
       </ion-item>
 
       <ion-item class="item">
-        <ion-input type="number" placeholder="{{'Phone' | translate}}" formControlName="phone" value="{{user.phone}}">
+        <ion-input type="number" placeholder="{{'Phone' | translate}}" formControlName="phone" value="{{user.stylist.phone}}">
         </ion-input>
       </ion-item>
 
       <ion-item class="item">
         <ion-input type="text" placeholder="{{'userName' | translate}}" formControlName="userName"
-          value="{{user.userName}}"></ion-input>
+          value="{{user.stylist.userName}}"></ion-input>
       </ion-item>
 
       <!-- <ion-item class="item">
-          <ion-input type="email" placeholder="{{'email' | translate}}" formControlName="email" value="{{user.email}}"></ion-input>
+          <ion-input type="email" placeholder="{{'email' | translate}}" formControlName="email" value="{{user.stylist.email}}"></ion-input>
         </ion-item> -->
 
       <!-- <ion-item class="item">
-          <ion-select class="gender-select"  formControlName="gender" [(ngModel)]="user.gender">
+          <ion-select class="gender-select"  formControlName="gender" [(ngModel)]="user.stylist.gender">
               <ion-option  value="Female">{{'Female' | translate}} </ion-option>
             <ion-option   value="Male">{{'Male' | translate}}</ion-option>
            

@@ -45,6 +45,7 @@ import { CheckUserPage } from '../pages/check-user/check-user';
 import { CheckUserPageModule } from '../pages/check-user/check-user.module';
 
 import { FCM } from '@ionic-native/fcm';
+import { ManagerHomePageModule } from '../pages/manager-home/manager-home.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -77,6 +78,7 @@ export function createTranslateLoader(http: HttpClient) {
     UpdateProfilePageModule,
     HistoryPageModule,
     CheckUserPageModule,
+    ManagerHomePageModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '',      
     })

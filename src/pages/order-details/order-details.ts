@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, PopoverController, Events } from 'ionic-angular';
-import { UserProvider, order, User, orderItem } from '../../providers/user/user';
+import { UserProvider, order, User, orderItem, Stylist } from '../../providers/user/user';
 import { CallNumber } from '@ionic-native/call-number';
 import { Database } from '../../providers/database/database';
 import { SigninPage } from '../signin/signin';
@@ -35,6 +35,7 @@ export class OrderDetailsPage {
   distance;
   estimated_duration;
   canCommunicate : boolean;
+  public finalPrice : number;
   constructor(public navCtrl: NavController,
     private platform: Platform,
     public userProv: UserProvider,
@@ -67,6 +68,17 @@ export class OrderDetailsPage {
       this.orderItems = data;
       for(let i = 0 ; i< this.orderItems.length;i++){
         this.totalPrice+= this.orderItems[i].cost;
+      }
+      if(this.order_details.walletUsed == 'true'){
+        if(this.totalPrice > this.order_details.wallet){
+          this.finalPrice = this.totalPrice - this.order_details.wallet;
+        }else{
+          this.finalPrice = this.order_details.wallet - this.totalPrice;
+          
+          
+        }
+      }else{
+        this.finalPrice = this.totalPrice;
       }
       this.helperTool.DismissLoading();
       this.ready = true;
@@ -160,7 +172,8 @@ export class OrderDetailsPage {
       newStatus = "4"
     }
     if(newStatus != "6"){
-    let bool = await this.userProv.changeStatus(this.user.id, this.order_details.id, newStatus, this.order_details.userToken, this.order_details.user_id,this.estimated_duration);
+      const stylistData = <Stylist> this.user.stylist;
+    let bool = await this.userProv.changeStatus(stylistData.id, this.order_details.id, newStatus, this.order_details.userToken, this.order_details.user_id,this.estimated_duration);
     this.order_details.orderStatusId = newStatus;
 
     this.helperTool.DismissLoading();
@@ -210,7 +223,7 @@ export class OrderDetailsPage {
 
   openWallet(){
     let walet : number = this.order_details.wallet;
-    let Wpop = this.popoverCtrl.create(WalletComponent,{'totalPrice' : this.totalPrice,'wallet' : walet,'order_details' : this.order_details ,'duration ' : this.estimated_duration});
+    let Wpop = this.popoverCtrl.create(WalletComponent,{'totalPrice' : this.totalPrice,'wallet' : walet,'order_details' : this.order_details ,'duration ' : this.estimated_duration , 'walletUsed' : this.order_details.walletUsed});
     Wpop.present();
   }
 }
