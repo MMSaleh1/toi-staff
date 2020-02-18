@@ -1,0 +1,63 @@
+page-manager-order-details {
+    ion-item{
+        border-radius: 15px !important;
+        padding: 6px 6px 6px 12px !important;
+        box-shadow: 0 0 1px 1px grey !important;
+        margin-bottom: 12px !important;
+
+
+    }
+    .orderItemList{
+        max-height: 46vh;
+        overflow-x: scroll;
+        padding: 6px;
+    }
+    .orderItemBodyCont{
+        display: flex;
+
+        .infoCont {
+            width: 66%;
+            display: inline-block;
+            .name {
+                white-space: normal;
+                overflow: auto;
+                width: 100%;
+            }
+            .cost {
+                width: 100%;
+            }
+        }
+        .stylistCont{
+            display: inline-block;
+             width: 33%;
+            .stylistname {
+                white-space: normal;
+                overflow: auto;
+                text-align: center;
+        
+            }
+            .stylistBtn {
+                display: inline-block;
+                
+        
+                button{
+                    font-size: 1.2rem !important;
+                    display: block;
+                }
+            }
+        }
+   
+
+
+    }
+
+    .confirmBtn{
+        display: block;
+        width: 30%;
+        margin: auto !important;
+        border-radius: 12px !important;
+    }
+   
+
+
+}

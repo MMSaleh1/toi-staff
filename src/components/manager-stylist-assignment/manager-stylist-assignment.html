@@ -1,0 +1,20 @@
+<!-- <ion-header no-border>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button class="closeButt" (click)="close()">
+        <ion-icon color="light" name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center> <span text-color="my-custom-color">Test</span></ion-title>
+
+  </ion-navbar>
+</ion-header> -->
+<ion-content>
+  <ion-searchbar mode="md" (ionInput)="searchStylist($event)"></ion-searchbar>
+  <ion-list class="stylistList" *ngIf="viewReady == true">
+    <ion-item *ngFor="let stylist of StylistViewArr" (tap)="selectStyilst(stylist)" class="stylistInfoCont">
+      <div class="stylistName"> {{stylist.name}}</div>
+    <div class="stylistOrderCount"> has : {{stylist.order_items_counter}} Orders today</div>
+    </ion-item>
+  </ion-list>
+</ion-content>

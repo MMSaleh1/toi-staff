@@ -1,0 +1,28 @@
+
+manager-stylist-assignment {
+    ion-content{
+        height: 70vh;
+
+    }
+    .toolbar-background {
+        background-color: white;
+    }
+    ion-navbar{
+        height:60px;
+    }
+    
+    [text-color="my-custom-color"] {
+        color: white;
+        font-weight: bold;
+    }
+
+
+}   
+
+
+    .stylistList{
+        overflow-x: scroll;
+        height: 65vh;
+    
+    }
+

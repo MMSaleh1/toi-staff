@@ -46,6 +46,8 @@ import { CheckUserPageModule } from '../pages/check-user/check-user.module';
 
 import { FCM } from '@ionic-native/fcm';
 import { ManagerHomePageModule } from '../pages/manager-home/manager-home.module';
+import { ManagerOrderDetailsPageModule } from '../pages/manager-order-details/manager-order-details.module';
+import { ManagerStylistAssignmentComponent } from '../components/manager-stylist-assignment/manager-stylist-assignment';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -55,7 +57,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
-    WalletComponent
+    WalletComponent,
+    ManagerStylistAssignmentComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ export function createTranslateLoader(http: HttpClient) {
     HistoryPageModule,
     CheckUserPageModule,
     ManagerHomePageModule,
+    ManagerOrderDetailsPageModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '',      
     })
@@ -86,9 +90,8 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    WalletComponent
-
-
+    WalletComponent,
+    ManagerStylistAssignmentComponent
   ],
   providers: [
     StatusBar,

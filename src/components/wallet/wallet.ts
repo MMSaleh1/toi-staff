@@ -49,7 +49,7 @@ export class WalletComponent {
         this.walletChangeAmmout = -this.user_wallet;
       }else{
         this.order_current_price = 0;
-        this.walletChangeAmmout =  this.order_price - this.user_wallet;
+        this.walletChangeAmmout= -this.order_price;
         
       }
     }
@@ -97,17 +97,23 @@ export class WalletComponent {
 
   async onPaymentDone() {
      this.helperTool.ShowLoadingSpinnerOnly();
+     console.log(this.walletChangeAmmout);
+     console.log(this.order_price);
+     console.log(this.order_details);
     // if (this.canSubmit == true) {
       //  console.log("Done");
       this.user = await this.userProv.getUser();
       console.log(this.walletChangeAmmout);
+      console.log(this.order_details);
       let bool = await this.userProv.changeStatus(this.user.stylist.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id, this.estimated_duration);
       await this.changeUserStatus();
       if(this.walletUsed == 'true'){
           await this.userProv.changeUserWallet(this.order_details.id, this.user.stylist.id, this.walletChangeAmmout, "", this.order_details.user_id);
 
       }
+
       this.helperTool.DismissLoading();
+      this.events.publish('orderDone');
       this.viewCtrl.dismiss();
       // this.navCtrl.setRoot(HomePage)
     // } else {

@@ -36,7 +36,8 @@ export class OrderDetailsPage {
   estimated_duration;
   canCommunicate : boolean;
   public finalPrice : number;
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     private platform: Platform,
     public userProv: UserProvider,
     private popoverCtrl: PopoverController,
@@ -47,9 +48,6 @@ export class OrderDetailsPage {
     private diagnostic : Diagnostic,
     private openNativeSettings : OpenNativeSettings,
     private event : Events
-
-
-
   ) {
     this.helperTool.ShowLoadingSpinnerOnly()
     this.diagnostic.isLocationEnabled().then(enabled=>{
@@ -59,6 +57,9 @@ export class OrderDetailsPage {
         this.navToLocationService()
       }
     })
+    this.event.subscribe('orderDone',()=>{
+      this.navCtrl.pop();
+    })
     this.order_details = this.navParms.get('data');
     this.canCommunicate = this.navParms.get('bool') != undefined ? this.navParms.get('bool') : true;
     this.customer_location.lat = parseFloat(this.order_details.lat);
@@ -66,17 +67,18 @@ export class OrderDetailsPage {
     console.log(this.order_details)
     this.userProv.getorderItems(this.order_details.id).then(data => {
       this.orderItems = data;
+      console.log(this.orderItems)
       for(let i = 0 ; i< this.orderItems.length;i++){
-        this.totalPrice+= this.orderItems[i].cost;
+        this.totalPrice+= this.orderItems[i].cost  * this.orderItems[i].quant;
       }
       if(this.order_details.walletUsed == 'true'){
-        if(this.totalPrice > this.order_details.wallet){
+       
           this.finalPrice = this.totalPrice - this.order_details.wallet;
-        }else{
-          this.finalPrice = this.order_details.wallet - this.totalPrice;
+       
+          console.log()
+          this.finalPrice =  this.totalPrice - this.order_details.wallet  > 0 ?  this.totalPrice - this.order_details.wallet : 0;
           
           
-        }
       }else{
         this.finalPrice = this.totalPrice;
       }

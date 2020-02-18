@@ -1,0 +1,48 @@
+<ion-header no-border text-center>
+  <ion-navbar>
+    <ion-title>
+      <img src="assets/imgs/logo.png">
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+ 
+
+
+<ion-content padding>
+  <div *ngIf="viewReady == true">
+    <ion-item >
+      <div class="idCont">ID : {{order.id}}</div>
+      <div class="orderDate">Order Date : {{order.order_date | date : 'dd/MM/yy  hh:mm'}}</div>
+      <div class="submittionDate">Submittion Date : {{order.submission_date | date : 'dd/MM/yy  hh:mm'}}</div>
+      <div class="gender">Required stylist gender :{{order.emp_gender}} </div>
+      <div class="userName">order name : {{order.user_name}}</div>
+      <div class="total">order price: {{order.total}} LE.</div>
+      <div class="status">status : {{order.states_name}}</div>
+    </ion-item>
+
+
+    <ion-list class="orderItemList">
+      <ion-item class="orderItem" *ngFor="let item of orderItems">
+        <div class="orderItemBodyCont">
+          
+    
+        <div class="infoCont">
+          <div class="name">{{item.productName}}</div>
+          <div class="cost">{{item.cost}} LE.</div>
+        </div>
+       <div class="stylistCont">
+        <div class="stylistname">{{item.stylistName}}</div>
+        <div  *ngIf="item.stylistName == '' " class="stylistBtn"><button (tap)="openStylistModal(item.id)" ion-button> Add stylist </button> </div>
+          <div  *ngIf="item.stylistName != '' " class="stylistBtn"><button (tap)="openStylistModal(item.id)" ion-button> change stylist </button> </div>
+       </div>
+      
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <button *ngIf="checkAllStylistAssigned() == true"class="confirmBtn" ion-button (tap)="confirmOrder()" >confirm</button>
+    <!-- <button *ngIf="!checkAllStylistAssigned()"class="confirmBtn" ion-button (tap)="confirmOrder()" >confirm</button> -->
+  </div>
+ 
+</ion-content>

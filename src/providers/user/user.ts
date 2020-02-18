@@ -41,6 +41,9 @@ export class UserProvider extends RootProvider {
 
   private managerApiController = "branch_manager/";
   private managerLoginActionString = "branch_manager_login?";
+  private managergetStaffActionString = "get_stuf_for_branch_managers";
+  private managerUpdateOrderItemActionString ="add_stuff_to_order_item?";
+  private managerChangeOrderStatusActionString ="change_order_state?";
 
 
   public user: User;
@@ -241,14 +244,23 @@ export class UserProvider extends RootProvider {
         } else {
           console.log(data);
           let items = new Array<orderItem>();
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].stuff_id == this.user.stylist.id) {
-              let name = data[i].is_product == '0' ? data[i].service_name : data[i].sale_prduct_name;
-              let cost = data[i].is_product == '0' ? data[i].service_cost : data[i].sale_prduct_cost;
-              items.push(new orderItem(name, cost, data[i].name, data[i].is_product, data[i].phone, data[i].stuff_img,data[i].stuff_id));
+          if(this.user.stylist != undefined){
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].stuff_id == this.user.stylist.id) {
+                let name = data[i].is_product == '0' ? data[i].service_name : data[i].sale_prduct_name;
+                let cost = data[i].is_product == '0' ? data[i].service_cost : data[i].sale_prduct_cost;
+                items.push(new orderItem(data[i].id,name, cost, data[i].name, data[i].is_product, data[i].phone, data[i].stuff_img,data[i].stuff_id, data[i].quntity) );
+              }
+  
             }
-
+          }else{
+            for (let i = 0; i < data.length; i++) {
+                let name = data[i].is_product == '0' ? data[i].service_name : data[i].sale_prduct_name;
+                let cost = data[i].is_product == '0' ? data[i].service_cost : data[i].sale_prduct_cost;
+                items.push(new orderItem(data[i].id,name, cost, data[i].name, data[i].is_product, data[i].phone, data[i].stuff_img,data[i].stuff_id , data[i].quntity));
+            }
           }
+          
           resolve(items);
 
         }
@@ -424,7 +436,41 @@ export class UserProvider extends RootProvider {
 
   }
 
+  public getAllStaff() :Promise<any>{
+    const url = `${RootProvider.APIURL}${this.managerApiController}${this.managergetStaffActionString}`;
+    return new Promise((resolve)=>{
+      this.http.get(url).subscribe((data :Array<any>)=>{
+        // console.log(data);
+        if(data == undefined){
+          resolve([])
+        }else{
+          for(let i =0 ; i<data.length; i++){
+            data[i].order_items_counter = data[i].order_items_counter == undefined ? 0 : data[i].order_items_counter;
+          }
+          data.sort((a,b)=> a.order_items_counter - b.order_items_counter);
+          resolve(data);
+        }
+      })
+    })
+  }
 
+  public updateOrderItem(orderItem):Promise<any>{
+    const url = `${RootProvider.APIURL}${this.managerApiController}${this.managerUpdateOrderItemActionString}stuff_id=${orderItem.stylistId}&order_item_id=${orderItem.id}`;
+    return new Promise((resolve)=>{
+      this.http.get(url).subscribe(data=>{
+        resolve(data);
+      })
+    })
+  }
+
+  public managerChangeOrderStatus(managerId,orderId,statusId):Promise<any>{
+    const url = `${RootProvider.APIURL}${this.managerApiController}${this.managerChangeOrderStatusActionString}order_id=${orderId}&branch_manager_id=${managerId}&status_id=${statusId}`;
+    return new Promise((resolve)=>{
+      this.http.get(url).subscribe(data=>{
+        resolve(data);
+      })
+    })
+  }
 
 
   public async saveUser(user: User) {
@@ -597,9 +643,12 @@ export class orderItem {
   stylistPhone: string;
   stylistImg: string;
   stylistId: string;
+  id:string;
+  quant:any
 
 
-  constructor(ProductName, cost, stylistName, is_product, stylistPhone, StylistImg,stuff_id) {
+  constructor(id,ProductName, cost, stylistName, is_product, stylistPhone, StylistImg,stuff_id , quant) {
+    this.id = id;
     this.productName = ProductName;
     this.cost = cost;
     this.stylistName = stylistName == undefined ? "" : stylistName;
@@ -607,6 +656,7 @@ export class orderItem {
     this.stylistImg = StylistImg == undefined ? "" : StylistImg;
     this.stylistPhone = stylistPhone == undefined ? "" : stylistPhone;
     this.stylistId = stuff_id == undefined ? "" : stuff_id;
+    this.quant = quant
   }
 }
 

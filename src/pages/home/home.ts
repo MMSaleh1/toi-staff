@@ -62,8 +62,8 @@ export class HomePage {
     let tempData = new Array<order>();
     let userData  = this.user.stylist;
     console.log(userData);
-    // tempData = await this.userProv.getAcceptedOrder(this.user.getUser().id);
-    // console.log(this.order_data)
+    tempData = await this.userProv.getAcceptedOrder(this.user.stylist.id);
+    console.log(this.order_data)
     // console.log(order);
     if (tempData == undefined) {
      this.order_data =[]
