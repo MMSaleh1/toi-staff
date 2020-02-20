@@ -48,6 +48,7 @@ import { FCM } from '@ionic-native/fcm';
 import { ManagerHomePageModule } from '../pages/manager-home/manager-home.module';
 import { ManagerOrderDetailsPageModule } from '../pages/manager-order-details/manager-order-details.module';
 import { ManagerStylistAssignmentComponent } from '../components/manager-stylist-assignment/manager-stylist-assignment';
+import { UserPointsPageModule } from '../pages/user-points/user-points.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -83,6 +84,7 @@ export function createTranslateLoader(http: HttpClient) {
     CheckUserPageModule,
     ManagerHomePageModule,
     ManagerOrderDetailsPageModule,
+    UserPointsPageModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: '',      
     })

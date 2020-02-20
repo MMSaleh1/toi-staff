@@ -84,7 +84,8 @@
     "noAcc" :"Don't have an account? ",
     "signHere" : " Sign up here ",
     "haveAcc" : "Already have an account? ",
-    "UPDATE" : "Update"
+    "UPDATE" : "Update",
+    "points" : "Points"
 
 
 }

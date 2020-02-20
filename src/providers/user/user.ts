@@ -23,6 +23,7 @@ export class UserProvider extends RootProvider {
 
   private getOrderItemActionString = "get_order_items_mob?";
   private changeStatusActionString = "stuff_response_order?";
+  private changeStatusAndAddPointsActionString = "stuff_response_order2?";
   private getStatusActionString = "get_all_order_states?";
 
   private getAcceptedOrdersActionString = "get_stuff_accepted_orders?"
@@ -71,7 +72,7 @@ export class UserProvider extends RootProvider {
         if (data != null && data != undefined && data.length > 0 && data[0].error_name != "wrong_password") {
 
           // let image = ImageProcess.getImageUrl(data[0].img);
-          let stylist = new Stylist(data[0].id, data[0].name, data[0].password,  data[0].gender,data[0].mail, data[0].phone, data[0].area_id, data[0].device_id, data[0].user_name, data[0].available, data[0].queue, data[0].img);
+          let stylist = new Stylist(data[0].id, data[0].name, data[0].password,  data[0].gender,data[0].mail, data[0].phone, data[0].area_id, data[0].device_id, data[0].user_name, data[0].available, data[0].queue, data[0].img,data[0].current_points);
           this.user = new User('stylist' , stylist);
           
           this.saveUser(this.user).then(()=>{
@@ -118,7 +119,7 @@ export class UserProvider extends RootProvider {
         if (data == undefined || data.length == 0) {
           resolve([]);
         } else {
-          const stylist = new Stylist(data[0].ID, name, password, "", gender, phone, branch_id, deviceId, user_name, '1', '0', img)
+          const stylist = new Stylist(data[0].ID, name, password, "", gender, phone, branch_id, deviceId, user_name, '1', '0', img ,data[0].current_points)
           this.user = new User('stylist' , stylist);
           console.log(this.user);
           this.saveUser(this.user).then(() => {
@@ -418,6 +419,24 @@ export class UserProvider extends RootProvider {
 
   }
 
+
+  public async changeStatusAndAddPoints(stuff_id, order_id, statusId, userToken, user_id,orderPrice, arrive_time): Promise<any> {
+    let temp = `${RootProvider.APIURL}${this.userApiController}${this.changeStatusAndAddPointsActionString}stuff_id=${stuff_id}&order_id=${order_id}&status_id=${statusId}&user_token=${userToken}&user_id=${user_id}&stuf_order_total=${orderPrice}&arrive_time=${arrive_time}`;
+    console.log(temp);
+    return new Promise((resolve) => {
+      this.http.get(temp).subscribe((data: any) => {
+        console.log(data);
+        if (data == undefined || data.length == 0) {
+          resolve(false)
+        } else {
+          resolve(data);
+        }
+      })
+    })
+
+
+  }
+
   public async getAllStatus(): Promise<any> {
     let temp = `${RootProvider.APIURL}${this.userApiController}${this.getStatusActionString}`;
     return new Promise((resolve) => {
@@ -565,7 +584,9 @@ export class Stylist{
   userName: string;
   available: any;
   queue: any;
-  constructor(id: string , name: string , password: string ,  gender: string, email: string, phone: string, area_id, deviceId: string, user_name: string, available, queue, serverImage){
+  points :any;
+  constructor(id: string , name: string , password: string ,  gender: string, email: string, phone: string, area_id, deviceId: string, user_name: string, available, queue, serverImage , points){
+    this.points = points;
     this.id = id;
     this.name = name;
     this.gender = gender

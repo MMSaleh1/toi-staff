@@ -35,6 +35,10 @@
                 <ion-icon class="icons" name="custom-profile-menu" color="primary"></ion-icon>
                 <span>{{'UpdateProfile' | translate}}</span>
             </button>
+            <button ion-item small icon-left menuClose no-lines (click)="toPage('4')" detail-none>
+                <ion-icon class="icons" name="ios-cash-outline" color="primary"></ion-icon>
+                <span>{{'points' | translate}}</span>
+            </button>
             <button ion-item small icon-left menuClose no-lines (click)="logOut()" detail-none>
                 <ion-icon class="icons" name="custom-logout" color="primary"></ion-icon>
                 <span>{{'Logout' | translate}}</span>
@@ -77,6 +81,10 @@
             <button ion-item small icon-left menuClose (click)="toPage('3')" detail-none>
                 <ion-icon class="icons" name="custom-profile-menu" color="primary"></ion-icon>
                 <span>{{'UpdateProfile' | translate}}</span>
+            </button>
+            <button ion-item small icon-left menuClose no-lines (click)="toPage('4')" detail-none>
+                <ion-icon class="icons" name="ios-cash-outline" color="primary"></ion-icon>
+                <span>{{'points' | translate}}</span>
             </button>
             <button ion-item small icon-left menuClose (click)="logOut()" detail-none>
                 <ion-icon class="icons" name="custom-logout" color="primary"></ion-icon>

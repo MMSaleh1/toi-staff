@@ -105,7 +105,7 @@ export class WalletComponent {
       this.user = await this.userProv.getUser();
       console.log(this.walletChangeAmmout);
       console.log(this.order_details);
-      let bool = await this.userProv.changeStatus(this.user.stylist.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id, this.estimated_duration);
+      let bool = await this.userProv.changeStatusAndAddPoints(this.user.stylist.id, this.order_details.id, "6", this.order_details.userToken, this.order_details.user_id,this.order_price, this.estimated_duration);
       await this.changeUserStatus();
       if(this.walletUsed == 'true'){
           await this.userProv.changeUserWallet(this.order_details.id, this.user.stylist.id, this.walletChangeAmmout, "", this.order_details.user_id);

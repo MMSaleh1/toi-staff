@@ -21,6 +21,7 @@ import { HelperToolsProvider } from '../providers/helper-tools/helper-tools';
 import { HistoryPage } from '../pages/history/history';
 import { CheckUserPage } from '../pages/check-user/check-user';
 import { CheckUserPageModule } from '../pages/check-user/check-user.module';
+import { UserPointsPage } from '../pages/user-points/user-points';
 
 @Component({
   templateUrl: 'app.html'
@@ -51,9 +52,9 @@ export class MyApp {
       this.event.subscribe('logedin', () => {
         this.userProv.getUser().then(data => {
           this.user = data;
-          console.log(this.user);
+          //console.log(this.user);
           if (platform.is('cordova')) {
-            console.log('this is cordova')
+            //console.log('this is cordova')
             this.notifyCtrl.init().then(()=>{
               this.getUserToken();
             });
@@ -61,7 +62,7 @@ export class MyApp {
          
           this.user.type == 'manager' ?  this.menuCntrl.enable(false) :  this.menuCntrl.enable(true);
           // this.isLogedin = true;
-          console.log(this.user)
+          //console.log(this.user)
         });
 
       
@@ -73,7 +74,7 @@ export class MyApp {
       this.event.subscribe('user-updates',()=>{
         this.userProv.getUser().then(data => {
           this.user = data;
-         console.log(this.user);
+         //console.log(this.user);
         
 
         });
@@ -91,7 +92,7 @@ export class MyApp {
   initTranslate() {
     // Set the default language for translation strings, and the current language.
     this.storage.get('language').then(data => {
-      console.log(data)
+      //console.log(data)
       if (data) {
         if (data == 'ar') {
           this.translate.use('ar');
@@ -109,22 +110,22 @@ export class MyApp {
 
   rememberUser() {
     this.storage.get('toi-staff-user').then(data => {
-      console.log(data);
+      //console.log(data);
       if (data) {
         this.user = data;
-        console.log('nav to home')
+        //console.log('nav to home')
         this.nav.setRoot(HomePage)
         // this.rootPage = HomePage
       }
       else {
-        console.log('nav again')
+        //console.log('nav again')
         this.nav.setRoot(CheckUserPage)
       }
     })
   }
 
   toPage(number) {
-    console.log(number);
+    //console.log(number);
     if (number == 1) {
       this.nav.setRoot(HomePage);
     } else if (number == 2) {
@@ -132,6 +133,8 @@ export class MyApp {
        this.nav.push(HistoryPage);
     } else if (number == '3') {
       this.nav.push(UpdateProfilePage);
+    }else if( number == '4'){
+      this.nav.push(UserPointsPage);
     }
     this.menuCntrl.close()
   }
