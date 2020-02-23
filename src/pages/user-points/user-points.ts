@@ -18,9 +18,15 @@ export class UserPointsPage {
 
   public user : User;
   constructor(public navCtrl: NavController, public navParams: NavParams , public userCtrl: UserProvider) {
+
      this.userCtrl.getUser().then(data=>{
        this.user=data;
-       console.log(this.user);
+        this.userCtrl.loginNop(this.user.stylist.userName,this.user.stylist.password);
+        this.userCtrl.getUser().then(data2=>{
+          this.user = data2;
+          console.log(this.user);
+        })
+       
      });
   }
 
