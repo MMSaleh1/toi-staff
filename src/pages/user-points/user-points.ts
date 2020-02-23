@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserProvider, User } from '../../providers/user/user';
+import { HelperToolsProvider } from '../../providers/helper-tools/helper-tools';
 
 /**
  * Generated class for the UserPointsPage page.
@@ -17,7 +18,7 @@ import { UserProvider, User } from '../../providers/user/user';
 export class UserPointsPage {
 
   public user : User;
-  constructor(public navCtrl: NavController, public navParams: NavParams , public userCtrl: UserProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams , public userCtrl: UserProvider,private helperTools : HelperToolsProvider) {
 
      this.userCtrl.getUser().then(data=>{
        this.user=data;
@@ -31,8 +32,13 @@ export class UserPointsPage {
   }
 
 
-  ionViewDidLoad() {
-    // console.log('ionViewDidLoad UserPointsPage');
+  async ionViewDidLoad() {
+    await this.helperTools.ShowLoadingSpinnerOnly();
+    const userData = await this.userCtrl.getUser();
+    await this.userCtrl.loginNop(userData.stylist.userName,userData.stylist.password);
+    this.user = await this.userCtrl.getUser();
+    console.log(this.user);
+    this.helperTools.DismissLoading();
   }
 
 }
