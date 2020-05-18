@@ -1,8 +1,10 @@
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, Events, AlertController } from 'ionic-angular';
 import { ItemsApiProvider } from '../../providers/items-api/items-api';
 import { UserProvider, User } from '../../providers/user/user';
 import { ManagerStylistAssignmentComponent } from '../../components/manager-stylist-assignment/manager-stylist-assignment';
+import { CallNumber } from '@ionic-native/call-number';
 
 /**
  * Generated class for the PagesManagerOrderDetailsPage page.
@@ -27,7 +29,9 @@ export class ManagerOrderDetailsPage {
      private userCtrl : UserProvider ,
      private popoverCtrl : PopoverController,
      private events : Events,
-     private alertCtrl : AlertController
+     private alertCtrl : AlertController,
+     private launchNavigator : LaunchNavigator,
+     private call : CallNumber
         ) {
     this.order = this.navParams.get('order');
     console.log(this.order);
@@ -44,6 +48,10 @@ export class ManagerOrderDetailsPage {
       console.log(this.orderItems)
     })
   }
+  async getOrderAdress(){
+    // this.userCtrl.getOrder
+
+  }
 
   async ionViewDidLoad() {
     this.user = await this.userCtrl.getUser();
@@ -59,6 +67,31 @@ export class ManagerOrderDetailsPage {
     const popover = this.popoverCtrl.create(ManagerStylistAssignmentComponent );
     popover.present();
     
+  }
+
+
+  async makeCall() {
+    this.call.callNumber(this.order.user_phone, true)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
+
+  navToCustomerPos(lat, long) {
+    // let destination = lat + "," + long;
+    // if (this.platform.is("ios")) {
+    //   window.open("maps://?q=" + destination, "_system");
+    // } else {
+    //   let label = encodeURI('Customer Location');
+    //   window.open("geo:0,0?q=" + destination + "(" + label + ")", "_system");
+    let dest = [lat, long]
+    this.launchNavigator.navigate(dest)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
+
+    // }
   }
 
 

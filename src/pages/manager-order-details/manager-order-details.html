@@ -16,9 +16,23 @@
       <div class="orderDate">Order Date : {{order.order_date | date : 'dd/MM/yy  hh:mm'}}</div>
       <div class="submittionDate">Submittion Date : {{order.submission_date | date : 'dd/MM/yy  hh:mm'}}</div>
       <div class="gender">Required stylist gender :{{order.emp_gender}} </div>
-      <div class="userName">order name : {{order.user_name}}</div>
-      <div class="total">order price: {{order.total}} LE.</div>
-      <div class="status">status : {{order.states_name}}</div>
+      <div class="userName">Order name : {{order.user_name}}</div>
+      <div class="total">Order price: {{order.total}} LE.</div>
+      <div class="status">Status : {{order.states_name}}</div>
+      <div class="status">Phone Number : {{order.user_phone}}</div>
+      <div class="address">Address : {{order.address}}</div>
+
+      <div class="button-container">
+
+        <button ion-button icon-only class="location-button"
+          (click)="navToCustomerPos(order.latt,order.long)">
+          <ion-icon name="ios-pin"></ion-icon>
+        </button>
+        <button ion-button icon-only (tap)="makeCall()" class="call-button">
+          <ion-icon class="call-icon" name="md-call"></ion-icon>
+        </button>
+      </div>
+      
     </ion-item>
 
 

@@ -7,6 +7,41 @@ page-manager-order-details {
 
 
     }
+    .address{
+        white-space: normal;
+    }
+
+
+    
+    .button-container {
+        text-align: center;
+        margin-top: 40px;
+
+        .location-button {
+            margin: 0 7vw 0 7vw;
+            border-radius: 50%;
+            font-size: 13px;
+            width: 40px;
+            height: 40px;
+            background-color: #E0C389;
+        }
+
+        .call-button {
+            margin: 0 7vw 0 7vw;
+            border-radius: 50%;
+            font-size: 13px;
+            width: 40px;
+            height: 40px;
+            background-color: #E0C389;
+        }
+
+        .icon {
+            color: #424242;
+        }
+
+    }
+
+    
     .orderItemList{
         max-height: 46vh;
         overflow-x: scroll;
